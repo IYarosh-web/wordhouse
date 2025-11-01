@@ -1,0 +1,59 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 450px 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "sidebar main";
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.sidebar {
+    animation: sidebar-slide-in;
+}
+
+.header {
+    /* animation: header-slide-in; */
+}
+
+.main {
+    /* animation: main-slide-in; */
+}
+
+.sidebar, .header, .main {
+    animation-fill-mode: forwards;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes sidebar-slide-in {
+    from {
+        opacity: .5;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes header-slide-in {
+    from {
+        opacity: .5;
+        transform: translateY(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes main-slide-in {
+    from {
+        opacity: .5;
+        transform: translateY(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

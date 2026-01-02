@@ -18,6 +18,9 @@ export const userInputSubmitted = createEvent<FormEvent<HTMLFormElement>>();
 
 $userGuesses.watch(console.log);
 userGuessAdded.watch(console.log);
+userInputChanged.watch(console.log);
+
+userInputSubmitted.watch(e => e.preventDefault());
 
 sample({
     clock: userGuessAdded,
@@ -77,12 +80,6 @@ sample({
     fn: (words) => words[Math.floor(Math.random() * words.length)].word.toUpperCase(),
     target: $answer,
 });
-
-sample({
-    clock: gameInitialized,
-    fn: () => 5,
-    target: $maxGuesses,
-})
 
 sample({
     clock: userInputSubmitted,

@@ -1,11 +1,5 @@
 {
   "compilerOptions": {
-    "module": "ES2022",
-    "moduleResolution": "bundler",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "jsx": "react-jsx",
-    "allowJs": true,
-    /* Path mapping for FSD architecture */
     "baseUrl": "./src",
     "paths": {
       "app/*": ["app/*"],
@@ -15,7 +9,11 @@
       "entities/*": ["entities/*"],
       "shared/*": ["shared/*"],
       "shared/ui": ["shared/ui/index"]
-    }
+    },
+    "jsx": "react-jsx",
+    "module": "ES2022",
+    "moduleResolution": "bundler"
   },
   "include": ["src/**/*"]
 }
+

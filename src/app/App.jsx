@@ -11,6 +11,7 @@ import "effector/enable_debug_traces";
 import { $activeWord } from 'widgets/view-word-modal/model';
 import Wordle from 'pages/wordle/ui';
 import HomePage from 'pages/home';
+import { WidgetPage } from 'pages/widget/ui';
 
 export const App = () => {
 
@@ -29,11 +30,11 @@ export const App = () => {
             <Route path="add-word" element={<AddWordModal />} />
             <Route path=":word" element={<ViewWordModal key={activeWord?.id} />} />
           </Route>
-          <Route path="widgets" element={<WidgetsPage />}>
-              <Route path="wordle" element={<Wordle />} />
-            </Route>
+          <Route path="widgets" element={<WidgetsPage />} />
+          <Route path="widget" element={<WidgetPage />}>
+            <Route path="wordle" element={<Wordle />} />
+          </Route>
         </Routes>
-
       </BrowserRouter>
     </FocusTrap>
   );

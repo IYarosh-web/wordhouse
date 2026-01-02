@@ -1,16 +1,21 @@
-export function checkLetters(guess: string, answer: string) {
+import { LetterStatus } from "./types";
+
+export function checkLetters(guess: string, answer: string): {
+  letter: string;
+  status: LetterStatus;
+}[] {
     // This constant is a placeholder that indicates we've successfully
     // dealt with this character (it's correct, or misplaced).
     const SOLVED_CHAR = '✓';
   
     if (!guess) {
-      return null;
+      return [];
     }
   
     const guessChars = guess.toUpperCase().split('');
     const answerChars = answer.split('');
   
-    const result: { letter: string; status: 'correct' | 'misplaced' | 'incorrect' }[] = [];
+    const result: { letter: string; status: LetterStatus }[] = [];
   
     // Step 1: Look for correct letters.
     for (let i = 0; i < guessChars.length; i++) {
@@ -31,7 +36,7 @@ export function checkLetters(guess: string, answer: string) {
         continue;
       }
   
-      let status = 'incorrect';
+      let status: LetterStatus = 'missing';
       const misplacedIndex = answerChars.findIndex(
         (char) => char === guessChars[i]
       );
@@ -48,3 +53,36 @@ export function checkLetters(guess: string, answer: string) {
   
     return result;
   }
+
+export function getPressedLetter(e: KeyboardEvent): string | null {
+  const MAP = {
+    'KeyA': "A",
+    'KeyB': "B",
+    'KeyC': "C",
+    'KeyD': "D",
+    'KeyE': "E",
+    'KeyF': "F",
+    'KeyG': "G",
+    'KeyH': "H",
+    'KeyI': "I",
+    'KeyJ': "J",
+    'KeyK': "K",
+    'KeyL': "L",
+    'KeyM': "M",
+    'KeyN': "N",
+    'KeyO': "O",
+    'KeyP': "P",
+    'KeyQ': "Q",
+    'KeyR': "R",
+    'KeyS': "S",
+    'KeyT': "T",
+    'KeyU': "U",
+    'KeyV': "V",
+    'KeyW': "W",
+    'KeyX': "X",
+    'KeyY': "Y",
+    'KeyZ': "Z",
+  };
+
+  return MAP[e.code] || null;
+}

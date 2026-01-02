@@ -1,0 +1,14 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    perspective: 5000px;
+    height: 540px;
+}
+
+.paperLeft {
+    border: 4px solid black;
+}
+
+.paperRight {
+    border: 4px solid black;
+}

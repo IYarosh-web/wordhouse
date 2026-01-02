@@ -2,11 +2,13 @@ import { useUnit } from "effector-react";
 import { Button, FocusOnCtrlKey, Input } from "shared/ui";
 import { addWordFormSubmittedFx } from "features/add-word";
 
+import styles from "./styles.module.css";
+
 function AddWordModal() {
     const [handleWordFormSubmitted] = useUnit([addWordFormSubmittedFx]);
     
     return (
-        <div className="flex flex-col gap-2 p-4">
+        <div className={`flex flex-col gap-2 p-4 ${styles.wrapper}`}>
             <h2 className="font-bold">Add new word</h2>
             <form action="#" onSubmit={handleWordFormSubmitted} className="space-y-2">
                 <FocusOnCtrlKey keyCode="ArrowRight">

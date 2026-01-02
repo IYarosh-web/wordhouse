@@ -17,11 +17,11 @@ export const Keyboard = () => {
     }
 
     return (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col items-center gap-2">
             {PATTERN.map((row, index) => (
                 <div key={index} className="flex gap-2">
                     {row.map((letter) => (
-                        <button key={letter} className={`w-10 h-10 bg-gray-200 rounded-md ${statuses[letter]}`} onKeyDown={(e) => e.preventDefault()} onClick={() => handleClick(letter)}>{letter}</button>
+                        <button key={letter} tabIndex={-1} className={`w-10 h-10 bg-gray-200 rounded-md ${statuses[letter]}`} onClick={() => handleClick(letter)}>{letter}</button>
                     ))}
                 </div>
             ))}

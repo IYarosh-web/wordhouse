@@ -8,11 +8,15 @@
 .content {
     display: grid;
     grid-template-columns: 300px 1fr;
-    grid-template-rows: 1fr;
-    grid-template-areas: "sidebar main";
-    gap: 1rem;
     width: 1200px;
-    margin: auto;
-    height: 600px;
+    min-height: 600px;
     border: 1px solid red;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: calc(var(--spacing) * 2);
 }

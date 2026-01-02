@@ -17,15 +17,17 @@ function DashboardPage() {
 
     return (
         <div className={styles.wrapper}>
-            <div className={styles.sidebar}>
-                <Sidebar />
-            </div>
-            <div>
-                <div className={styles.header}>
-                    <Navbar />
+            <div className={styles.content}>
+                <div className="overflow-y-auto h-full p-4">
+                    <Sidebar />
                 </div>
-                <div className={styles.main}>
-                    <Outlet />
+                <div className="p-4">
+                    <div>
+                        <Navbar />
+                    </div>
+                    <div>
+                        <Outlet />
+                    </div>
                 </div>
             </div>
         </div>

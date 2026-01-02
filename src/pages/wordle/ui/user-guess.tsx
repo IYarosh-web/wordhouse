@@ -1,6 +1,7 @@
 import { useUnit } from "effector-react";
 import { $answer } from "../model";
 import { checkLetters } from "../model/helpers";
+import { range } from "shared/lib";
 
 type Props = {
     guess: string;
@@ -8,14 +9,13 @@ type Props = {
 
 function UserGuess({ guess }: Props) {
     const [answer] = useUnit([$answer]);
-    console.log(answer);
     const letters = checkLetters(guess, answer);
 
     return (
-        <span>
-            {letters.map((item, index) => (
-                <span key={index} className={`${item.status === 'correct' ? 'text-green-500' : item.status === 'misplaced' ? 'text-yellow-500' : 'text-gray-500'}`}>
-                    {item.letter}
+        <span className="flex gap-2 h-10">
+            {range(answer.length).map((_, index) => (
+                <span key={index} className={`h-10 w-10 border border-gray-300 flex items-center justify-center text-gray-500 ${letters[index]?.status}`}>
+                    {guess[index]}
                 </span>
             ))}
         </span>

@@ -1,9 +1,13 @@
 import { createEffect, createEvent, sample } from "effector";
+import { createGate } from "effector-react";
 import { Word } from "entities/word";
-import { addWordFx } from "entities/word/model/store";
+import { $wordStore, addWordFx, updateWordFx } from "entities/word/model/store";
+import { history } from "app/router/history";
 
 export const addWordClicked = createEvent<React.MouseEvent>();
 export const addWordFormSubmitted = createEvent<React.FormEvent<HTMLFormElement>>();
+
+export const AddWordGate = createGate();
 
 export const addWordFormSubmittedFx = createEffect(async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -25,7 +29,53 @@ export const addWordFormSubmittedFx = createEffect(async (event: React.FormEvent
     return word;
 });
 
+export const redirectToWordPageFx = createEffect(async (word: Word) => {
+    history.push(`/dashboard/${word.word}`);
+});
+
 sample({
     clock: addWordFormSubmittedFx.doneData,
+    source: $wordStore,
+    fn: (words, word) => {
+        const sameWord = words.find(w => w.word === word.word);
+        if (sameWord) {
+            sameWord.definitions.push(word.definitions[0]);
+            return sameWord;
+        }
+        return word;
+    },
+    filter: (words, word) => words.some(w => w.word === word.word),
+    target: updateWordFx,
+});
+
+
+sample({
+    clock: addWordFormSubmittedFx.doneData,
+    source: $wordStore,
+    fn: (words, word) => {
+        const sameWord = words.find(w => w.word === word.word);
+        if (sameWord) {
+            sameWord.definitions.push(word.definitions[0]);
+            return sameWord;
+        }
+        return word;
+    },
+    filter: (words, word) => !words.some(w => w.word === word.word),
     target: addWordFx,
-})
+});
+
+sample({
+    clock: addWordFx.doneData,
+    source: AddWordGate.state,
+    filter: (gateOpen: boolean) => gateOpen,
+    fn: (gateOpen: boolean, word: Word) => word,
+    target: redirectToWordPageFx,
+});
+
+sample({
+    clock: updateWordFx.doneData,
+    source: AddWordGate.state,
+    filter: (gateOpen: boolean) => gateOpen,
+    fn: (gateOpen: boolean, word: Word) => word,
+    target: redirectToWordPageFx,
+});

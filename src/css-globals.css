@@ -1,0 +1,15 @@
+.sidebar {
+    grid-area: sidebar;
+}
+
+.navbar {
+    grid-area: navbar;
+}
+
+.left {
+    grid-area: left;
+}
+
+.right {
+    grid-area: right;
+}

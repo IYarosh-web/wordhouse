@@ -16,6 +16,8 @@
 }
 
 .list {
+    grid-column: 2 / 4;
+
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: calc(var(--spacing) * 2);

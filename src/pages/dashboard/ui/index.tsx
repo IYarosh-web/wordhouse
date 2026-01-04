@@ -1,5 +1,4 @@
 import { Sidebar } from "widgets";
-import styles from "./styles.module.css";
 import { Outlet, useLocation } from "react-router";
 import { locationChanged } from "app/model";
 import { useEffect } from "react";
@@ -16,21 +15,15 @@ function DashboardPage() {
     }, [location, changeLocation]);
 
     return (
-        <div className={styles.wrapper}>
-            <div className={styles.content}>
-                <div className="overflow-y-auto h-full p-4">
-                    <Sidebar />
-                </div>
-                <div className="p-4">
-                    <div>
-                        <Navbar />
-                    </div>
-                    <div>
-                        <Outlet />
-                    </div>
-                </div>
+        <>
+            <div className="sidebar overflow-y-auto h-full p-4">
+                <Sidebar />
             </div>
-        </div>
+            <div className="navbar">
+                <Navbar />
+            </div>
+            <Outlet />
+        </>
     );
 }
 

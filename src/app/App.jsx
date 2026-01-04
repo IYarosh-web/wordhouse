@@ -12,6 +12,8 @@ import { $activeWord } from 'widgets/view-word-modal/model';
 import Wordle from 'pages/wordle/ui';
 import HomePage from 'pages/home';
 import { WidgetPage } from 'pages/widget/ui';
+import { MainLayout } from './ui';
+import { SettingsPage } from 'pages/settings';
 
 export const App = () => {
 
@@ -25,14 +27,17 @@ export const App = () => {
     <FocusTrap>
       <BrowserRouter history={history}>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="dashboard" element={<DashboardPage />}>
-            <Route path="add-word" element={<AddWordModal />} />
-            <Route path=":word" element={<ViewWordModal key={activeWord?.id} />} />
-          </Route>
-          <Route path="widgets" element={<WidgetsPage />} />
-          <Route path="widget" element={<WidgetPage />}>
-            <Route path="wordle" element={<Wordle />} />
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="dashboard" element={<DashboardPage />}>
+              <Route path="add-word" element={<AddWordModal />} />
+              <Route path=":word" element={<ViewWordModal key={activeWord?.id} />} />
+            </Route>
+            <Route path="widgets" element={<WidgetsPage />} />
+            <Route path="widget" element={<WidgetPage />}>
+              <Route path="wordle" element={<Wordle />} />
+            </Route>
+            <Route path="settings" element={<SettingsPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

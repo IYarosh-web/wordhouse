@@ -20,8 +20,8 @@ function ViewWordModal() {
     }
 
     return (
-        <div className={styles.wrapper}>
-            <div className={`flex flex-col h-full gap-2 p-4 ${styles.paperLeft}`}>
+        <>
+            <div className={`left flex flex-col h-full gap-2 p-4 border-2 border-gray-300`}>
                 <h2 className="font-bold heading-2 text-lg text-center">{activeWord.word}</h2>
                 <span className="text-sm text-gray-500">What does it mean?</span>
                 <form className="flex gap-2 justify-between" onSubmit={addDefinition}>
@@ -42,7 +42,7 @@ function ViewWordModal() {
                     </div>
                 ))}
             </div>
-            <div className={`flex flex-col gap-2 p-4 ${styles.paperRight}`}>
+            <div className={`right flex flex-col gap-2 p-4 border-2 border-gray-300`}>
                 <span className="text-sm text-gray-500">Usage in sentences</span>
                 <form className="flex gap-2 items-start justify-between" onSubmit={addSentence}>
                     <Input type="hidden" name="wordId" value={activeWord.id} />
@@ -62,7 +62,7 @@ function ViewWordModal() {
                     <Button className="px-2 py-1 border border-gray-300" type="submit">Delete word</Button>
                 </form>
             </div>
-        </div>
+        </>
     );
 }
 

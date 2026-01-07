@@ -6,25 +6,25 @@ import { useUnit } from "effector-react";
 import Navbar from "widgets/navbar/ui";
 
 function DashboardPage() {
-    const location = useLocation();
+  const location = useLocation();
 
-    const [changeLocation] = useUnit([locationChanged]);
+  const [changeLocation] = useUnit([locationChanged]);
 
-    useEffect(() => {
-        changeLocation(location.pathname);
-    }, [location, changeLocation]);
+  useEffect(() => {
+    changeLocation(location.pathname);
+  }, [location, changeLocation]);
 
-    return (
-        <>
-            <div className="sidebar overflow-y-auto h-full p-4">
-                <Sidebar />
-            </div>
-            <div className="navbar">
-                <Navbar />
-            </div>
-            <Outlet />
-        </>
-    );
+  return (
+    <>
+      <div className="sidebar h-full p-4">
+        <Sidebar />
+      </div>
+      <div className="navbar">
+        <Navbar />
+      </div>
+      <Outlet />
+    </>
+  );
 }
 
 export { DashboardPage };

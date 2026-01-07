@@ -5,6 +5,6 @@ export const appInitialized = createEvent();
 export const locationChanged = createEvent<string>();
 
 sample({
-    clock: appInitialized,
-    target: loadWordsFx,
+  clock: appInitialized,
+  target: loadWordsFx,
 });

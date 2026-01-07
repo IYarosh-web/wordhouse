@@ -1,14 +1,14 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 
-import { App } from './app';
+import { App } from "./app";
 
-import './css-tailwind.css';
-import './css-reset.css';
-import './css-globals.css';
+import "./css-tailwind.css";
+import "./css-reset.css";
+import "./css-globals.css";
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <App />
   </StrictMode>,
-)
+);

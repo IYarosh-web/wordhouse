@@ -1,15 +1,15 @@
 .correct {
-    background-color: green;
+  background-color: green;
 }
 
 .incorrect {
-    background-color: red;
+  background-color: red;
 }
 
 .misplaced {
-    background-color: yellow;
+  background-color: yellow;
 }
 
 .missing {
-    background-color: gray;
+  background-color: gray;
 }

@@ -1,15 +1,19 @@
 .sidebar {
-    grid-area: sidebar;
+  grid-area: sidebar;
 }
 
 .navbar {
-    grid-area: navbar;
+  grid-area: navbar;
 }
 
 .left {
-    grid-area: left;
+  grid-area: left;
 }
 
 .right {
-    grid-area: right;
+  grid-area: right;
+}
+
+.font-sour-gummy {
+  font-family: "Sour Gummy", cursive;
 }

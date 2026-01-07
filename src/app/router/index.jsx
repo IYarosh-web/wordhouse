@@ -1,2 +1,2 @@
-import { App } from '../App';
-import { DashboardPage } from 'pages';
+import { App } from "../App";
+import { DashboardPage } from "pages";

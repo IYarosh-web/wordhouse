@@ -5,21 +5,34 @@ import { useUnit } from "effector-react";
 import { $wordStore } from "entities/word";
 import { gameInitialized } from "../model";
 import { UserGuesses } from "./user-guesses";
+import { NotebookLayout } from "widgets/notebook-layout/ui";
 
 function Wordle() {
-    const [words, initGame] = useUnit([$wordStore, gameInitialized]);
+  const [words, initGame] = useUnit([$wordStore, gameInitialized]);
 
-    useEffect(() => {
-        initGame();       
-    }, [words]);
+  useEffect(() => {
+    initGame();
+  }, [words]);
 
-    return (
-        <div className="flex flex-col items-center justify-center h-screen gap-4">
+  return (
+    <>
+      <div className="sidebar"></div>
+      <div className="navbar"></div>
+      <NotebookLayout
+        left={
+          <div>
             <UserInput />
-            <UserGuesses />
             <Keyboard />
-        </div>
-    );
+          </div>
+        }
+        right={
+          <div>
+            <UserGuesses />
+          </div>
+        }
+      />
+    </>
+  );
 }
 
 export default Wordle;

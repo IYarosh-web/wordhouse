@@ -1,0 +1,43 @@
+.right::after {
+  --circle-size: 8px;
+  --circle-color: var(--color-zinc-800);
+
+  content: "";
+  position: absolute;
+  top: 20px;
+  bottom: 30px;
+  width: 60px;
+  left: -30px;
+  background-image:
+    radial-gradient(
+      circle at var(--circle-size) center,
+      var(--circle-color) var(--circle-size),
+      transparent var(--circle-size)
+    ),
+    radial-gradient(
+      circle at calc(100% - var(--circle-size)) center,
+      var(--circle-color) var(--circle-size),
+      transparent var(--circle-size)
+    ),
+    linear-gradient(
+      to bottom,
+      transparent calc(1rem - 2px),
+      gray calc(1rem - 2px),
+      gray calc(1rem + 2px),
+      transparent calc(1rem + 2px)
+    );
+  z-index: 1;
+  background-size: 100% 2rem;
+}
+
+.left {
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.right {
+  border-left: none;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}

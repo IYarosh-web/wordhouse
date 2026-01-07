@@ -1,26 +1,23 @@
-import { Link, Outlet } from "react-router";
+import { Link } from "react-router";
 
-import styles from './styles.module.css';
+import { NotebookLayout } from "widgets/notebook-layout/ui";
+import { Button } from "shared/ui";
 
 function WidgetsPage() {
-    return (
-        <>
-            <div className="sidebar">
-                <h1>Widgets</h1>
-            </div>
-            <div className="navbar">
-                <Link to="/dashboard/add-word">Back to dashboard</Link>
-            </div>
-            <div className={styles.list}>
-                <div className="h-40 border-2 flex items-center justify-center">
-                    <Link to="/widget/wordle">Wordle</Link>
-                </div>
-                <div className="h-40 border-2 flex items-center justify-center">
-                    <Link to="/widget/wordle">Wordle</Link>
-                </div>
-            </div>
-        </>
-    )
+  return (
+    <NotebookLayout
+      left={
+        <div className="flex flex-col gap-2 p-4">
+          <Link to="/widget/wordle">
+            <Button className="w-full"> Wordle</Button>
+          </Link>
+          <Link to="/widget/wordle">
+            <Button className="w-full"> Wordle</Button>
+          </Link>
+        </div>
+      }
+    />
+  );
 }
 
 export { WidgetsPage };

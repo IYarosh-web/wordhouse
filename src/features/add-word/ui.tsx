@@ -3,13 +3,11 @@ import { addWordClicked, AddWordGate } from "./model";
 import { useGate, useUnit } from "effector-react";
 
 function AddWordButton() {
-    const [handleAddWordClicked] = useUnit([addWordClicked]);
+  const [handleAddWordClicked] = useUnit([addWordClicked]);
 
-    useGate(AddWordGate);
+  useGate(AddWordGate);
 
-    return (
-        <Button onClick={handleAddWordClicked}>Add Word</Button>
-    );
+  return <Button onClick={handleAddWordClicked}>Add Word</Button>;
 }
 
 export { AddWordButton };

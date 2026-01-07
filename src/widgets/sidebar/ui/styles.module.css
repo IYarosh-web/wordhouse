@@ -1,13 +1,17 @@
 .wrapper {
-    animation: fallIn 0.3s ease-in-out;
-    border: 1px solid red;
+  animation: fallIn 0.3s ease-in-out;
+}
+
+.header {
+  border-left: none;
+  border-right: none;
 }
 
 @keyframes fallIn {
-    from {
-        transform: translateY(-100%);
-    }
-    to {
-        transform: translateY(0);
-    }
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }

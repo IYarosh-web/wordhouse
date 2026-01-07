@@ -5,31 +5,37 @@ This project follows the Feature Sliced Design (FSD) methodology for organizing 
 ## Architecture Layers
 
 ### 🏗️ **App Layer** (`src/app/`)
+
 - **Purpose**: Application initialization, providers, routing
 - **Contains**: App component, providers, router configuration
 - **Dependencies**: Can import from all other layers
 
 ### 📄 **Pages Layer** (`src/pages/`)
+
 - **Purpose**: Route components that represent full pages
 - **Contains**: Page components (HomePage, AboutPage, etc.)
 - **Dependencies**: Can import from widgets, features, entities, shared
 
 ### 🧩 **Widgets Layer** (`src/widgets/`)
+
 - **Purpose**: Complex UI blocks that combine multiple features
 - **Contains**: Header, Footer, Sidebar, etc.
 - **Dependencies**: Can import from features, entities, shared
 
 ### ⚡ **Features Layer** (`src/features/`)
+
 - **Purpose**: Business logic and user interactions
 - **Contains**: AuthForm, ProductCard, SearchBar, etc.
 - **Dependencies**: Can import from entities, shared
 
 ### 🏢 **Entities Layer** (`src/entities/`)
+
 - **Purpose**: Business entities and their logic
 - **Contains**: User, Product, Order, etc.
 - **Dependencies**: Can import from shared
 
 ### 🔧 **Shared Layer** (`src/shared/`)
+
 - **Purpose**: Reusable code across the application
 - **Contains**: UI components, utilities, API, config
 - **Dependencies**: Cannot import from other layers
@@ -71,12 +77,12 @@ src/
 
 ```jsx
 // ✅ Correct - importing from lower layer
-import { Button } from 'shared/ui';
-import { User } from 'entities/user';
-import { AuthForm } from 'features/auth';
+import { Button } from "shared/ui";
+import { User } from "entities/user";
+import { AuthForm } from "features/auth";
 
 // ❌ Incorrect - importing from higher layer
-import { HomePage } from 'pages'; // from entities layer
+import { HomePage } from "pages"; // from entities layer
 ```
 
 ## Getting Started

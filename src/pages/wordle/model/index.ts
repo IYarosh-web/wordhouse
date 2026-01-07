@@ -4,10 +4,10 @@ import { $wordStore } from "entities/word";
 import { FormEvent } from "react";
 import { checkLetters } from "./helpers";
 
-export const $answer = createStore<Answer>('');
+export const $answer = createStore<Answer>("");
 export const $userGuesses = createStore<UserGuess[]>([]);
-export const $userInput = createStore<string>('');
-export const $gameState = createStore<GameState>('initial');
+export const $userInput = createStore<string>("");
+export const $gameState = createStore<GameState>("initial");
 export const $maxGuesses = createStore<number>(6);
 export const $letterStatuses = createStore<Record<string, LetterStatus>>({});
 
@@ -20,86 +20,85 @@ $userGuesses.watch(console.log);
 userGuessAdded.watch(console.log);
 userInputChanged.watch(console.log);
 
-userInputSubmitted.watch(e => e.preventDefault());
+userInputSubmitted.watch((e) => e.preventDefault());
 
 sample({
-    clock: userGuessAdded,
-    source: $userGuesses,
-    fn: (guesses, guess) => [...guesses, guess],
-    target: $userGuesses,
+  clock: userGuessAdded,
+  source: $userGuesses,
+  fn: (guesses, guess) => [...guesses, guess],
+  target: $userGuesses,
 });
 
 sample({
-    clock: userGuessAdded,
-    source: {answer: $answer, statuses: $letterStatuses},
-    fn: ({answer, statuses}, guess) => {
-        const patch = checkLetters(guess, answer);
-        patch.forEach((item) => {
-            switch(statuses[item.letter]) {
-                case 'misplaced':
-                case undefined:
-                    statuses[item.letter] = item.status as LetterStatus;
-                    break;
-                default:
-                    return statuses;
-            }
-        });
-        return statuses;
-    },
-    target: $letterStatuses,
+  clock: userGuessAdded,
+  source: { answer: $answer, statuses: $letterStatuses },
+  fn: ({ answer, statuses }, guess) => {
+    const patch = checkLetters(guess, answer);
+    patch.forEach((item) => {
+      switch (statuses[item.letter]) {
+        case "misplaced":
+        case undefined:
+          statuses[item.letter] = item.status as LetterStatus;
+          break;
+        default:
+          return statuses;
+      }
+    });
+    return statuses;
+  },
+  target: $letterStatuses,
 });
 
 sample({
-    clock: userInputChanged,
-    source: $answer,
-    fn: (answer, input) => input.slice(0, answer.length),
-    target: $userInput,
+  clock: userInputChanged,
+  source: $answer,
+  fn: (answer, input) => input.slice(0, answer.length),
+  target: $userInput,
 });
 
 sample({
-    clock: userGuessAdded,
-    source: {guesses: $userGuesses, maxGuesses: $maxGuesses, answer: $answer},
-    fn: ({guesses, maxGuesses, answer}, newGuess) => {        
-        if (newGuess === answer) {
-            return 'won';
-        }
+  clock: userGuessAdded,
+  source: { guesses: $userGuesses, maxGuesses: $maxGuesses, answer: $answer },
+  fn: ({ guesses, maxGuesses, answer }, newGuess) => {
+    if (newGuess === answer) {
+      return "won";
+    }
 
-        if (guesses.length >= maxGuesses) {
-            return 'lost';
-        }
+    if (guesses.length >= maxGuesses) {
+      return "lost";
+    }
 
-        return 'playing';
-
-    },
-    target: $gameState,
+    return "playing";
+  },
+  target: $gameState,
 });
 
 sample({
-    clock: gameInitialized,
-    source: $wordStore,
-    fn: (words) => words[Math.floor(Math.random() * words.length)].word.toUpperCase(),
-    target: $answer,
+  clock: gameInitialized,
+  source: $wordStore,
+  fn: (words) =>
+    words[Math.floor(Math.random() * words.length)].word.toUpperCase(),
+  target: $answer,
 });
 
 sample({
-    clock: userInputSubmitted,
-    fn: (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target as HTMLFormElement);
-        const userInput = formData.get('userInput');
+  clock: userInputSubmitted,
+  fn: (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const userInput = formData.get("userInput");
 
-        if (typeof userInput !== 'string') {
-            return '';
-        }
+    if (typeof userInput !== "string") {
+      return "";
+    }
 
-        return userInput;
-    },
-    target: userGuessAdded,
+    return userInput;
+  },
+  target: userGuessAdded,
 });
 
 sample({
-    clock: userInputSubmitted,
-    fn: () => '',
-    target: $userInput,
+  clock: userInputSubmitted,
+  fn: () => "",
+  target: $userInput,
 });
-

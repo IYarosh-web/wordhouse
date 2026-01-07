@@ -1,6 +1,9 @@
-
 // Public Events
-export { addWordClicked, addWordFormSubmitted, addWordFormSubmittedFx } from "./model";
+export {
+  addWordClicked,
+  addWordFormSubmitted,
+  addWordFormSubmittedFx,
+} from "./model";
 
 // Public UI
 export { AddWordButton } from "./ui";

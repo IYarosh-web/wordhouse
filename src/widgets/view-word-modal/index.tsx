@@ -1,1 +1,1 @@
-export { ViewWordModal } from './ui';
+export { ViewWordModal } from "./ui";

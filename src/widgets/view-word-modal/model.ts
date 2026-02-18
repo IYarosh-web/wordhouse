@@ -1,8 +1,10 @@
 import { locationChanged } from "app/model";
-import { combine, createEvent, createStore, sample } from "effector";
+import { combine, createEffect, createEvent, createStore, sample } from "effector";
 import { $wordStore, Word } from "entities/word";
+import { history } from "app/router/history";
 
 export const activeWordChanged = createEvent<Word["word"]>();
+export const closeWord = createEvent();
 
 export const $paramsWord = createStore<Word["word"]>(null);
 export const $activeWord = combine(
@@ -10,6 +12,10 @@ export const $activeWord = combine(
   $wordStore,
   (paramsWord, words) => words.find((word) => word.word === paramsWord) || null,
 );
+
+const closeWordFx = createEffect(() => {
+  history.push(`/dashboard`);
+});
 
 sample({
   clock: locationChanged,
@@ -20,3 +26,9 @@ sample({
   fn: (location) => location.split("/")[2],
   target: $paramsWord,
 });
+
+sample({
+  clock: closeWord,
+  target: closeWordFx,
+});
+

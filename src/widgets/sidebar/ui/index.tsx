@@ -44,11 +44,7 @@ export function Sidebar() {
           Add Word
         </Button>
         {words.map((word) => (
-          <Button
-            key={word.id}
-            data-word={word.word}
-            onFocus={onItemFocus}
-          >
+          <Button key={word.id} data-word={word.word} onFocus={onItemFocus}>
             <span>{word.word}</span>
           </Button>
         ))}

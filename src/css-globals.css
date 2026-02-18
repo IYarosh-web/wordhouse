@@ -14,6 +14,32 @@
   grid-area: right;
 }
 
-.font-sour-gummy {
+html {
   font-family: "Sour Gummy", cursive;
+}
+
+:root {
+  /* Palette from https://flatuicolors.com/palette/ru */
+  --biscay: #303952;
+  --pencil-lead: #596275;
+  --deep-rose: #c44569;
+  --geranium: #cf6a87;
+  --mustard: #e77f67;
+  --tigerlily: #e15f41;
+  --apple-valley: #ea8685;
+  --porcelian-rose: #e66767;
+  --curacao: #3dc1d3;
+  --squeaky: #63cdda;
+  --cornflower: #546de5;
+  --soft-blue: #778beb;
+  --rosy-highlight: #f7d794;
+  --summertime: #f5cd79;
+  --rogue-pink: #f8a5c2;
+  --flamingo-pink: #f78fb3;
+  --creamy-peach: #f3a683;
+  --sawtooth-aak: #f19066;
+  --purple-mountain-majesty: #786fa6;
+  --purple-corallite: #574b90;
+
+  
 }

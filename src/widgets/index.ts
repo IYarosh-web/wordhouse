@@ -3,5 +3,4 @@
 // Example: export { Header } from './Header';
 
 export { AddWordModal } from "./add-word-modal/ui";
-export { Sidebar } from "./sidebar/ui";
 export { ViewWordModal } from "./view-word-modal/ui";

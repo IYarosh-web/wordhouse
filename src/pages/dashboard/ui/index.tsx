@@ -18,9 +18,6 @@ function DashboardPage() {
 
   return (
     <>
-      <div className="navbar">
-        <Navbar />
-      </div>
       <Desk words={words} />
       <Outlet />
     </>

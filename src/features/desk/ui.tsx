@@ -23,11 +23,12 @@ export function Desk({words}: DeskProps) {
 
     return map;
   });
+  const [hoveredWord, setHoveredWord] = useState<string>();
 
   useEffect(() => {
-    setWordsPositions(() => {
-      const map = new Map();
-      words.map(w => map.set(w.id, getRandomPosition()))
+    setWordsPositions((curr) => {
+      const map = new Map(curr);
+      words.map(w => !map.has(w.id) && map.set(w.id, getRandomPosition()))
       return map;
     })
   }, [words])
@@ -41,8 +42,13 @@ export function Desk({words}: DeskProps) {
           layout={true}
           layoutCrossfade
           initial={false}
-          style={{left: wordsPositions.get(w.id)?.x, top: wordsPositions.get(w.id)?.y}}
+          style={{
+            left: wordsPositions.get(w.id)?.x,
+            top: wordsPositions.get(w.id)?.y,
+            zIndex: w.id === hoveredWord ? 2 : 'auto'
+          }}
           onClick={() => openWordModal(w)}
+          onHoverStart={() => setHoveredWord(w.id)}
         >
           {w.word}
         </motion.button>

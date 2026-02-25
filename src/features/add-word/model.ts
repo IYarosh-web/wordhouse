@@ -69,7 +69,7 @@ sample({
 });
 
 sample({
-  clock: addWordFx.doneData,
+  clock: addWordFormSubmittedFx.doneData,
   source: AddWordGate.state,
   filter: (gateOpen: boolean) => gateOpen,
   fn: (gateOpen: boolean, word: Word) => word,

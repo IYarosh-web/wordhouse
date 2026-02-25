@@ -6,7 +6,6 @@ import { Routes, Route } from "react-router";
 import { history, BrowserRouter } from "./router/history";
 import { ViewWordModal } from "widgets/view-word-modal/ui";
 import { AddWordModal } from "widgets/add-word-modal/ui";
-import { FocusTrap } from "@headlessui/react";
 import "effector/enable_debug_traces";
 import { $activeWord } from "widgets/view-word-modal/model";
 import HomePage from "pages/home";
@@ -21,22 +20,20 @@ export const App = () => {
   }, [initApp]);
 
   return (
-    <FocusTrap>
-      <BrowserRouter history={history}>
-        <Routes>
-          <Route element={<MainLayout />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="dashboard" element={<DashboardPage />}>
-              <Route path="add-word" element={<AddWordModal />} />
-              <Route
-                path=":word"
-                element={<ViewWordModal key={activeWord?.id} />}
-              />
-            </Route>
-            <Route path="settings" element={<SettingsPage />} />
+    <BrowserRouter history={history}>
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="dashboard" element={<DashboardPage />}>
+            <Route path="add-word" element={<AddWordModal />} />
+            <Route
+              path=":word"
+              element={<ViewWordModal key={activeWord?.id} />}
+            />
           </Route>
-        </Routes>
-      </BrowserRouter>
-    </FocusTrap>
+          <Route path="settings" element={<SettingsPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 };

@@ -34,8 +34,8 @@ export const addWordFormSubmittedFx = createEffect(
   },
 );
 
-export const redirectToWordPageFx = createEffect(async (word: Word) => {
-  history.push(`/dashboard/${word.word}`);
+export const redirectToDashboard = createEffect(async (word: Word) => {
+  history.push(`/dashboard`);
 });
 
 sample({
@@ -73,7 +73,7 @@ sample({
   source: AddWordGate.state,
   filter: (gateOpen: boolean) => gateOpen,
   fn: (gateOpen: boolean, word: Word) => word,
-  target: redirectToWordPageFx,
+  target: redirectToDashboard,
 });
 
 sample({
@@ -81,5 +81,5 @@ sample({
   source: AddWordGate.state,
   filter: (gateOpen: boolean) => gateOpen,
   fn: (gateOpen: boolean, word: Word) => word,
-  target: redirectToWordPageFx,
+  target: redirectToDashboard,
 });

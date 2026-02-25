@@ -20,7 +20,6 @@ import {
 } from "features/edit-word/model";
 import { deleteWordFormSubmitted } from "features/delete-word/model";
 import { Sentence } from "./sentence";
-import { NotebookLayout } from "widgets/notebook-layout/ui";
 import { EraseIcon } from "shared/ui";
 
 import styles from './styles.module.css';

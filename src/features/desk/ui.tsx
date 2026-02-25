@@ -41,7 +41,7 @@ export function Desk({words}: DeskProps) {
           layout={true}
           layoutCrossfade
           initial={{
-            boxShadow: "0 2px 0px 2px #303952"
+            boxShadow: "4px 4px 0px 2px #303952"
           }}
           style={{left: wordsPositions.get(w.id)?.x, top: wordsPositions.get(w.id)?.y}}
           onClick={() => openWordModal(w)}

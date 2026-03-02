@@ -1,7 +1,7 @@
 import { useUnit } from "effector-react";
 import {motion} from "motion/react";
 
-import { $activeWord, closeWord } from "./model";
+import { $activeWord, closeWord } from "../model";
 import {
   Button,
   Input,

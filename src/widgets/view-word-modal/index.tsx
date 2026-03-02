@@ -1,1 +1,0 @@
-export { ViewWordModal } from "./ui";

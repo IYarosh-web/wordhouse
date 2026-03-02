@@ -1,5 +1,5 @@
 import { Button } from "shared/ui";
-import { addWordClicked, AddWordGate } from "./model";
+import { addWordClicked, AddWordGate } from "../model";
 import { useGate, useUnit } from "effector-react";
 
 function AddWordButton() {

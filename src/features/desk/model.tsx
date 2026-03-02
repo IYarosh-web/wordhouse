@@ -1,10 +1,9 @@
 import { createEffect, createEvent, sample } from "effector";
-import { Word } from "entities/word";
+import { Word, wordClicked } from "entities/word";
 import { history } from "app/router/history";
 
 export const addWordClicked = createEvent();
 export const closeAddWordModal = createEvent();
-export const wordClicked = createEvent<Word>();
 export const closeWord = createEvent();
 
 export const navigateToWordFx = createEffect((word: Word) => {

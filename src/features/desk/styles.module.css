@@ -5,6 +5,8 @@
 
 .word {
   position: absolute;
+  left: 50%;
+  top: 30px;
   border: 2px solid #303952;
   border-radius: 12px;
   min-width: 150px;

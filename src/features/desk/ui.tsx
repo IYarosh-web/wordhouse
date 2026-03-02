@@ -5,7 +5,7 @@ import {motion} from "motion/react";
 import styles from './styles.module.css';
 import { getRandomPosition } from "./lib";
 import { useUnit } from "effector-react";
-import { wordClicked } from "./model";
+import { wordClicked } from "entities/word";
 
 type DeskProps = {
   words: Word[];

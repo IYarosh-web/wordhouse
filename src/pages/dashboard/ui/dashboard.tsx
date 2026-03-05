@@ -18,13 +18,13 @@ function DashboardPage() {
   }, [location, changeLocation]);
 
   return (
-    <>
-      <Desk words={words} />
-      <div className={styles.toolbarWrapper}>
+    <div className={styles.wrapper}>
+      <div className={styles.toolbarWrapper + " border-b-2 border-black"}>
         <Toolbar />
       </div>
+      <Desk words={words} />
       <Outlet />
-    </>
+    </div>
   );
 }
 

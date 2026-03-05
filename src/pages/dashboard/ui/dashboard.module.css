@@ -1,6 +1,11 @@
 .toolbarWrapper {
-  position: absolute;
-  top: 1rem;
   display: flex;
   justify-content: center;
+  height: 80px;
+  width: 100%;
+}
+
+.wrapper {
+  height: 100%;
+  width: 100%;
 }

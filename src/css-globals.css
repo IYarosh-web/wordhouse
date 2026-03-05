@@ -41,5 +41,46 @@ html {
   --purple-mountain-majesty: #786fa6;
   --purple-corallite: #574b90;
 
-  
+  --border-radius-large: 16px;
+  --border-radius-medium: 8px;
+  --border-radius-small: 4px;
+
+  --padding-large: 32px;
+  --padding-medium: 16px;
+  --padding-small: 8px;
+
+  --shadow-offset: 0 2px;
+  --shadow-blur-radius: 0;
+  --shadow-spread-radius: 2px;
+  --shadow-color: var(--biscay);
+
+  --box-shadow: var(--shadow-offset) var(--shadow-blur-radius) var(--shadow-spread-radius) var(--shadow-color);
+}
+
+.br-l {
+  border-radius: var(--border-radius-large);
+}
+
+.br-m {
+  border-radius: var(--border-radius-medium);
+}
+
+.br-s {
+  border-radius: var(--border-radius-small);
+}
+
+.p-l {
+  padding: var(--padding-large);
+}
+
+.p-m {
+  padding: var(--padding-medium);
+}
+
+.p-s {
+  padding: var(--padding-small);
+}
+
+.shadow {
+  box-shadow: var(--box-shadow);
 }

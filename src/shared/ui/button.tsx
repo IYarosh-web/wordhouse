@@ -15,11 +15,11 @@ const Button = forwardRef<
   const sizeClasses = (() => {
     switch (size) {
       case 'small':
-        return "px-1";
+        return "px-1 br-s";
       case "large":
-        return "px-4 py-2";
+        return "px-4 py-2 br-l";
       default:
-        return "px-2 py-1";
+        return "px-2 py-1 br-m";
       
     }
   })();
@@ -37,7 +37,7 @@ const Button = forwardRef<
     <HeadlessButton
       ref={ref}
       className={
-        `cursor-pointer focus:outline-2 outline-offset-2 ${sizeClasses} border-2 ${variantClasses} rounded-sm border-gray-800 flex items-center justify-center ` +
+        `cursor-pointer focus:outline-2 outline-offset-2 ${sizeClasses} border-2 ${variantClasses} border-gray-800 flex items-center justify-center ` +
         styles.wrapper +
         " " +
         className

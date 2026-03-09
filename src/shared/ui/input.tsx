@@ -2,10 +2,25 @@ import { Input as HeadlessInput, InputProps } from "@headlessui/react";
 
 import styles from "./input.module.css";
 
-function Input({ className, ...props }: InputProps) {
+type CustomInputProps = {
+  size?: "small" | "medium" | "large";
+}
+
+function Input({ className, size = "medium", ...props }: Omit<InputProps, "size"> & CustomInputProps) {
+  const sizeClasses = (() => {
+    switch (size) {
+      case 'small':
+        return "px-1 br-s";
+      case 'large':
+        return "p-4 py-1 br-l"
+      default:
+        return "px-2 py-1 br-m";
+    }
+  })();
+  
   return (
     <HeadlessInput
-      className={`border-2 px-2 py-1 bg-white border-gray-800 rounded-sm ${styles.wrapper} ${className}`}
+      className={`border-2 ${sizeClasses} bg-white border-gray-800 ${styles.wrapper} ${className}`}
       {...props}
     />
   );

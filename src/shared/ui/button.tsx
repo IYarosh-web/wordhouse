@@ -1,8 +1,6 @@
 import { forwardRef } from "react";
 import { Button as HeadlessButton, ButtonProps } from "@headlessui/react";
 
-import styles from "./button.module.css";
-
 type CustomButtonProps = {
   size?: "small" | "medium" | "large";
   variant?: "default" | "blank";
@@ -37,8 +35,7 @@ const Button = forwardRef<
     <HeadlessButton
       ref={ref}
       className={
-        `cursor-pointer focus:outline-2 outline-offset-2 ${sizeClasses} border-2 ${variantClasses} border-gray-800 flex items-center justify-center ` +
-        styles.wrapper +
+        `cursor-pointer outline-offset-8 ${sizeClasses} border-2 ${variantClasses} border-gray-800 flex items-center shadow justify-center ` +
         " " +
         className
       }

@@ -51,10 +51,13 @@ html {
 
   --shadow-offset: 0 2px;
   --shadow-blur-radius: 0;
-  --shadow-spread-radius: 2px;
+  --shadow-spread-radius: 1px;
   --shadow-color: var(--biscay);
+  --shadow-color-hover: var(--pencil-lead);
 
-  --box-shadow: var(--shadow-offset) var(--shadow-blur-radius) var(--shadow-spread-radius) var(--shadow-color);
+  --box-shadow: var(--shadow-offset) var(--shadow-blur-radius) var(--shadow-spread-radius);
+
+  --focus-color: var(--cornflower);
 }
 
 .br-l {
@@ -82,5 +85,11 @@ html {
 }
 
 .shadow {
-  box-shadow: var(--box-shadow);
+  border-color: var(--shadow-color);
+  box-shadow: var(--box-shadow) var(--shadow-color);
+}
+.shadow:hover,
+.shadow:focus {
+  box-shadow: var(--box-shadow) var(--shadow-color-hover);
+  border-color: var(--shadow-color-hover);
 }

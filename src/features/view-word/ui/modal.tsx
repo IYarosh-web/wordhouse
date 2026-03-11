@@ -56,9 +56,14 @@ function ViewWordModal() {
         <DialogPanel>
           <motion.div layout layoutId={activeWord.id} className={`border-4 w-[600px] p-8 rounded-4xl bg-white ${styles.modal}`}>
               <div className="grid gap-2 items-center">
-                <DialogTitle as="h2" className="font-bold pt-2 heading-2 text-2xl text-center">
-                  {activeWord.word}
-                </DialogTitle>
+                <div className="flex">
+                  <DialogTitle as="h2" className="font-bold w-full pt-2 heading-2 text-2xl text-center">
+                    {activeWord.word}
+                  </DialogTitle>
+                  <Button onClick={closeWordModal} variant="blank" autoFocus>
+                    <Icon name="close" />
+                  </Button>
+                </div>
                 <span className="text-gray-500">What does it mean?</span>
                 <form
                   className="flex gap-2 items-center justify-between"

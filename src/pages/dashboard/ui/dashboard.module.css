@@ -3,6 +3,9 @@
   justify-content: center;
   height: 80px;
   width: 100%;
+  background-color: var(--creamy-peach);
+  z-index: 2;
+  position: relative;
 }
 
 .wrapper {

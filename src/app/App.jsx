@@ -24,7 +24,6 @@ export const App = () => {
         <Route element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="dashboard" element={<DashboardPage />}>
-            <Route path="add-word" element={<AddWordModal />} />
             <Route
               path=":word"
               element={<ViewWordModal key={activeWord?.id} />}

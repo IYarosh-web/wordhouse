@@ -1,9 +1,7 @@
 import { Word } from "entities/word"
-import { useEffect, useState } from "react";
 import {motion} from "motion/react";
 
 import styles from './styles.module.css';
-import { getRandomPosition } from "./lib";
 import { useUnit } from "effector-react";
 import { wordClicked } from "entities/word";
 
@@ -18,7 +16,7 @@ export function Desk({words}: DeskProps) {
     <div className="p-4 flex gap-2 flex-wrap">
       {words.map((w, i) => (
         <motion.button
-          className={styles.word + " shadow"}
+          className={styles.word + " outline-offset-8 shadow"}
           layoutId={w.id}
           layout={true}
           layoutCrossfade

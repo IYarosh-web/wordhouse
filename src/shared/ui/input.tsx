@@ -1,7 +1,5 @@
 import { Input as HeadlessInput, InputProps } from "@headlessui/react";
 
-import styles from "./input.module.css";
-
 type CustomInputProps = {
   size?: "small" | "medium" | "large";
 }
@@ -20,7 +18,7 @@ function Input({ className, size = "medium", ...props }: Omit<InputProps, "size"
   
   return (
     <HeadlessInput
-      className={`border-2 ${sizeClasses} bg-white border-gray-800 ${styles.wrapper} ${className}`}
+      className={`border-2 ${sizeClasses} bg-white shadow outline-offset-8 border-gray-800 ${className}`}
       {...props}
     />
   );

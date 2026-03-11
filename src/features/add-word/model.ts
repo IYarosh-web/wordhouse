@@ -1,12 +1,15 @@
-import { createEffect, createEvent, sample } from "effector";
+import { createEffect, createEvent, createStore, sample } from "effector";
 import { createGate } from "effector-react";
 import { Word } from "entities/word";
 import { $wordStore, addWordFx, updateWordFx } from "entities/word/model/store";
 import { history } from "app/router/history";
 
+export const $isOpen = createStore(false);
+
 export const addWordClicked = createEvent<React.MouseEvent>();
 export const addWordFormSubmitted =
   createEvent<React.FormEvent<HTMLFormElement>>();
+export const closeModal = createEvent();
 
 export const AddWordGate = createGate();
 
@@ -33,10 +36,6 @@ export const addWordFormSubmittedFx = createEffect(
     return word;
   },
 );
-
-export const redirectToDashboard = createEffect(async (word: Word) => {
-  history.push(`/dashboard`);
-});
 
 sample({
   clock: addWordFormSubmittedFx.doneData,
@@ -69,17 +68,13 @@ sample({
 });
 
 sample({
-  clock: addWordFormSubmittedFx.doneData,
-  source: AddWordGate.state,
-  filter: (gateOpen: boolean) => gateOpen,
-  fn: (gateOpen: boolean, word: Word) => word,
-  target: redirectToDashboard,
+  clock: addWordClicked,
+  fn: () => true,
+  target: $isOpen,
 });
 
 sample({
-  clock: updateWordFx.doneData,
-  source: AddWordGate.state,
-  filter: (gateOpen: boolean) => gateOpen,
-  fn: (gateOpen: boolean, word: Word) => word,
-  target: redirectToDashboard,
+  clock: [closeModal, addWordFormSubmittedFx.doneData],
+  fn: () => false,
+  target: $isOpen,
 });

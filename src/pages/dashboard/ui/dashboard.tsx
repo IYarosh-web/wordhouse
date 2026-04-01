@@ -4,11 +4,9 @@ import { useEffect } from "react";
 import { useUnit } from "effector-react";
 import { Desk } from "features/desk";
 import { $wordStore } from "entities/word";
-import { Toolbar } from "./toolbar";
 import {motion} from "motion/react";
 
 import styles from './dashboard.module.css';
-import { AddWordModal } from "features/add-word";
 
 function DashboardPage() {
   const location = useLocation();
@@ -21,20 +19,6 @@ function DashboardPage() {
 
   return (
     <div className="h-full w-full">
-      <motion.div
-        initial={{
-          y: -100,
-        }}
-        animate={{
-          y: 0,
-        }}
-        transition={{
-          type: "keyframes"
-        }}
-        className={styles.toolbarWrapper + " border-b-2 border-black"}
-      >
-        <Toolbar />
-      </motion.div>
       <motion.div
         initial={{
           top: "calc(-100% - 80px)"
@@ -53,7 +37,6 @@ function DashboardPage() {
         <Desk words={words} />
       </motion.div>
       <Outlet />
-      <AddWordModal />
     </div>
   );
 }

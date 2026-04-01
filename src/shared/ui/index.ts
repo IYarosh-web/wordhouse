@@ -9,3 +9,4 @@ export { InlineButton } from "./inline-button";
 export { Textarea } from "./textarea";
 export { Icon } from "./icon";
 export { EraseIcon } from "./icons/erase";
+export { Tabs } from "./tabs";

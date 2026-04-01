@@ -2,7 +2,6 @@ import { createEffect, createEvent, createStore, sample } from "effector";
 import { createGate } from "effector-react";
 import { Word } from "entities/word";
 import { $wordStore, addWordFx, updateWordFx } from "entities/word/model/store";
-import { history } from "app/router/history";
 
 export const $isOpen = createStore(false);
 

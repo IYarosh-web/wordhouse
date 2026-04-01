@@ -1,0 +1,1 @@
+export { WidgetWordlePage } from './ui/ui';

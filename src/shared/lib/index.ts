@@ -24,3 +24,12 @@ export const range = (
 
   return output;
 };
+
+export const randomFrom = <T = unknown>(arr: T[]): T => {
+  const index = Math.round(Math.random() * arr.length);
+  return arr[index];
+};
+
+export const uuid = () => (
+  crypto.randomUUID()
+);

@@ -1,0 +1,14 @@
+.misplaced {
+  background-color: yellow;
+  color: white;
+}
+
+.correct {
+  background-color: green;
+  color: white;
+}
+
+.missing {
+  background-color: black;
+  color: white;
+}

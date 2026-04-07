@@ -16,7 +16,7 @@ export function Results({
   const [count] = useUnit([$guessCount]);
 
   return (
-    <div className="flex flex-col gap-2 m-auto">
+    <div className="flex flex-col gap-2">
       {range(count).map(i => (
         <div key={i}>
           <Guess value={guesses[i]?.value} answer={answer} />

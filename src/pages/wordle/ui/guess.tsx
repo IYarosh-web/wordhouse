@@ -8,7 +8,7 @@ type Props = {
   value?: string;
 }
 
-export function Guess({value, answer}: Props) {
+export function Guess({value = "", answer}: Props) {
   const result = checkGuess(value, answer);
 
   return (

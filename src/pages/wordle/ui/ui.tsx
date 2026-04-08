@@ -1,6 +1,6 @@
 import { useGate, useUnit } from "effector-react"
 import { useRef } from "react";
-import { $answer, $guesses, $userInput, guessSubmittedFx, wordleGate } from "../model"
+import { $answer, $error, $gameStatus, $guesses, $userInput, guessSubmitted, wordleGate } from "../model"
 import { Results } from "./results";
 import { Keyboard } from "./keyboard";
 import { Button } from "shared/ui";
@@ -13,11 +13,15 @@ export function WidgetWordlePage() {
     input,
     guesses,
     handleSubmit,
+    error,
+    gameStatus,
   ] = useUnit([
     $answer,
     $userInput,
     $guesses,
-    guessSubmittedFx,
+    guessSubmitted,
+    $error,
+    $gameStatus,
   ]);
 
   useGate(wordleGate);
@@ -47,6 +51,11 @@ export function WidgetWordlePage() {
           </div>
           <Button type="submit" ref={submitButtonRef}>Submit</Button>
         </form>
+        <p className="min-h-10">
+          {error && <span className="text-red-500">{error}</span>}
+          {gameStatus === 'won' && <span className="text-green-500">You won!</span>}
+          {gameStatus === 'lost' && <span className="text-red-500">You lost!</span>}
+        </p>
         <Results guesses={guesses} answer={answer} />
       </div>
       <Keyboard />  

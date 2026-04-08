@@ -4,11 +4,12 @@ import { $wordStore } from "entities/word";
 import { randomFrom, uuid } from "shared/lib";
 import React, { ChangeEvent } from "react";
 import { createGate } from "effector-react";
-import { checkGuess } from "./lib";
+import { checkGuess, checkWordExists } from "./lib";
 
 export const gameStarted = createEvent();
 export const keyPressed = createEvent<KeyboardEvent>();
 export const letterClicked = createEvent<React.MouseEvent<HTMLButtonElement, MouseEvent>>();
+export const guessSubmitted = createEvent<React.FormEvent<HTMLFormElement>>();
 
 export const $answer = createStore<string>('');
 export const $guessCount = createStore<number>(5);
@@ -16,17 +17,22 @@ export const $guesses = createStore<Guess[]>([]);
 export const $userInput = createStore<string>('');
 export const $gameStatus = createStore<GameStatus>("running");
 export const $letterStatuses = createStore<Record<string, Status>>({});
+export const $error = createStore<string>('');
 
-export const guessSubmittedFx = createEffect(
-  (event: React.FormEvent<HTMLFormElement>) => {
+const guessSubmittedFx = createEffect(
+  async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     
     const formData = new FormData(event.currentTarget);
     const guess = formData.get("guess") || "";
     
-    console.log('guessSubmittedFx', guess);
     if (typeof guess !== 'string') {
       return "";
+    }
+
+    const exists = await checkWordExists(guess);
+    if (!exists) {
+      throw new Error("Word not found");
     }
 
     return guess.toUpperCase();
@@ -35,6 +41,24 @@ export const guessSubmittedFx = createEffect(
 
 
 export const wordleGate = createGate();
+
+sample({
+  clock: guessSubmitted,
+  source: {
+    status: $gameStatus,
+    answer: $answer
+  },
+  filter: ({status, answer}, event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const guess = formData.get("guess") || "";
+
+    return status === 'running' && typeof guess === 'string' && answer.length > 0 && guess.length === answer.length;
+  },
+  fn: (_, event) => event,
+  target: guessSubmittedFx,
+});
 
 sample({
   clock: wordleGate.open,
@@ -156,4 +180,10 @@ sample({
     return statuses;
   },
   target: $letterStatuses,
+});
+
+sample({
+  clock: guessSubmittedFx.failData,
+  fn: () => "Sorry lad, that word doesn't exist",
+  target: $error,
 });

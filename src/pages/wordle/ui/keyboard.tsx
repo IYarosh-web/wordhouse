@@ -12,7 +12,7 @@ const pattern = [
 
 export function Keyboard() {
   const [handleLetterClick, handleLetterPress, letterStatuses] = useUnit([letterClicked, keyPressed, $letterStatuses]);
-  console.log(letterStatuses);
+
   useEffect(() => {
     const keyboardHandler = (e: KeyboardEvent) => {
         handleLetterPress(e);

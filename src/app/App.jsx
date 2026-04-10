@@ -12,7 +12,6 @@ import { WidgetsPage } from "pages/widgets";
 import { MainLayout } from "./ui";
 import { SettingsPage } from "pages/settings";
 import { WidgetWordlePage } from "pages/wordle";
-import { WidgetsList } from "features/widgets-list";
 import { loadWordsFx } from "entities/word/model/store";
 
 export const App = () => {
@@ -38,7 +37,7 @@ export const App = () => {
             />
           </Route>
           <Route path="widgets">
-            <Route index element={<WidgetsList />} />
+            <Route index element={<WidgetsPage />} />
             <Route path="wordle" element={<WidgetWordlePage />} />
           </Route>
           <Route path="settings" element={<SettingsPage />} />

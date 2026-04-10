@@ -10,6 +10,7 @@ export const gameStarted = createEvent();
 export const keyPressed = createEvent<KeyboardEvent>();
 export const letterClicked = createEvent<React.MouseEvent<HTMLButtonElement, MouseEvent>>();
 export const guessSubmitted = createEvent<React.FormEvent<HTMLFormElement>>();
+export const guessAnimationEnded = createEvent();
 
 export const $answer = createStore<string>('');
 export const $guessCount = createStore<number>(5);
@@ -156,9 +157,9 @@ sample({
 });
 
 sample({
-  clock: $guesses,
-  source: $answer,
-  fn: (answer, guesses) => {
+  clock: guessAnimationEnded,
+  source: {guesses: $guesses, answer: $answer},
+  fn: ({answer, guesses}) => {
     const statuses: Record<string, Status> = {};
     guesses.forEach((guess) => {
       const statusPriotities = {

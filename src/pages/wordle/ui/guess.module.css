@@ -11,3 +11,76 @@
   background-color: black;
   color: white;
 }
+
+.guess {
+  perspective: 1000px;
+}
+
+.letter {
+  transform-style: preserve-3d;
+  animation: flip 400ms ease-in-out forwards;
+
+  --letter-animation-duration: 450ms;
+}
+
+.char {
+  transform: rotateY(180deg);
+}
+
+.back {
+  background-color: white;
+  transform: translateZ(1px);
+}
+
+.wrap:nth-child(0) .letter {
+  animation-delay: calc(var(--letter-animation-duration) * 0);
+}
+
+.wrap:nth-child(1) .letter {
+  animation-delay: calc(var(--letter-animation-duration) * 1);
+}
+
+.wrap:nth-child(2) .letter {
+  animation-delay: calc(var(--letter-animation-duration) * 2);
+}
+
+.wrap:nth-child(3) .letter {
+  animation-delay: calc(var(--letter-animation-duration) * 3);
+}
+
+.wrap:nth-child(4) .letter {
+  animation-delay: calc(var(--letter-animation-duration) * 4);
+}
+
+.wrap:nth-child(5) .letter {
+  animation-delay: calc(var(--letter-animation-duration) * 5);
+}
+
+.wrap:nth-child(6) .letter {
+  animation-delay: calc(var(--letter-animation-duration) * 6);
+}
+
+.wrap:nth-child(7) .letter {
+  animation-delay: calc(var(--letter-animation-duration) * 7);
+}
+
+.wrap:nth-child(8) .letter {
+  animation-delay: calc(var(--letter-animation-duration) * 8);
+}
+
+.wrap:nth-child(9) .letter {
+  animation-delay: calc(var(--letter-animation-duration) * 9);
+}
+
+.wrap:nth-child(10) .letter {
+  animation-delay: calc(var(--letter-animation-duration) * 10);
+}
+
+@keyframes flip {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(180deg);
+  }
+}

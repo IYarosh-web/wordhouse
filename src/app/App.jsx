@@ -26,7 +26,7 @@ export const App = () => {
   }
 
   return (
-    <BrowserRouter history={history}>
+    <BrowserRouter basename="/wordhouse" history={history}>
       <Routes>
         <Route element={<MainLayout />}>
           <Route index path="/" element={<HomePage />} />

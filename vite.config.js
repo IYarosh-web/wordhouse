@@ -7,6 +7,7 @@ import { fileURLToPath, URL } from "node:url";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  base: "/wordhouse/",
   resolve: {
     alias: {
       app: path.resolve(
@@ -35,7 +36,4 @@ export default defineConfig({
       ),
     },
   },
-  build: {
-    assetsDir: "wordhouse",
-  }
 });

@@ -177,9 +177,9 @@ sample({
 
 sample({
   clock: guessAnimationEnded,
-  source: {guesses: $guesses, answer: $answer},
-  fn: ({answer, guesses}) => {
-    const statuses: Record<string, Status> = {};
+  source: {guesses: $guesses, answer: $answer, statuses: $letterStatuses},
+  fn: ({answer, guesses, statuses}) => {
+    const newStatuses: Record<string, Status> = {...statuses};
     guesses.forEach((guess) => {
       const statusPriotities = {
         correct: 0,
@@ -190,14 +190,12 @@ sample({
       const check = checkGuess(guess.value, answer);
 
       check.forEach((letterStatus) => {
-        if (statusPriotities[letterStatus.status] > statusPriotities[statuses[letterStatus.char]]) {
-          statuses[letterStatus.char] = letterStatus.status;
-        } else {
-          statuses[letterStatus.char] = letterStatus.status;
+        if (!statuses[letterStatus.char] || statusPriotities[letterStatus.status] > statusPriotities[statuses[letterStatus.char]]) {
+          newStatuses[letterStatus.char] = letterStatus.status;
         }
       });
     });
-    return statuses;
+    return newStatuses;
   },
   target: $letterStatuses,
 });

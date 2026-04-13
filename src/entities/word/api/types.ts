@@ -6,4 +6,5 @@ export interface WordApi {
   createWord: (word: Word) => Promise<Word>;
   updateWord: (word: Word) => Promise<Word>;
   deleteWord: (id: string) => Promise<void>;
+  uploadWords: (words: Word[]) => Promise<void>;
 }

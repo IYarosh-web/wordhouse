@@ -27,4 +27,7 @@ export const localStorageWordsApi: WordApi = {
     const words = await localStorageWordsApi.getWords();
     return words.find((w) => w.id === id);
   },
+  uploadWords: async (words) => {
+    localStorage.setItem("words", JSON.stringify(words));
+  }
 };

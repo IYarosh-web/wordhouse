@@ -11,3 +11,4 @@ export { Word, Sentence, Definition, $wordStore, $uniqueWordsStore };
 
 export { wordsApi };
 
+export { isWordValid } from './model/lib';

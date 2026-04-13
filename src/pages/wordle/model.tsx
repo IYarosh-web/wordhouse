@@ -13,7 +13,7 @@ export const guessSubmitted = createEvent<React.FormEvent<HTMLFormElement>>();
 export const guessAnimationEnded = createEvent();
 
 export const $answer = createStore<string>('');
-export const $guessCount = createStore<number>(5);
+export const $guessCount = createStore<number>(6);
 export const $guesses = createStore<Guess[]>([]);
 export const $userInput = createStore<string>('');
 export const $gameStatus = createStore<GameStatus>("running");
@@ -40,6 +40,10 @@ const guessSubmittedFx = createEffect(
   },
 );
 
+const errorTimeoutFx = createEffect(async () => {
+  await new Promise((resolve) => setTimeout(resolve, 4000));
+  return '';
+});
 
 export const wordleGate = createGate();
 
@@ -61,10 +65,11 @@ sample({
   target: guessSubmittedFx,
 });
 
+// START: Handle game start
 sample({
   clock: wordleGate.open,
   target: gameStarted,
-})
+});
 
 sample({
   clock: gameStarted,
@@ -88,6 +93,9 @@ sample({
   target: $userInput,
 });
 
+// END: Handle game start
+
+// START: Handle user input
 sample({
   clock: keyPressed,
   source: {
@@ -123,6 +131,9 @@ sample({
   target: $userInput,
 });
 
+// END: Handle user input
+
+// START: Handle guess submission
 sample({
   clock: guessSubmittedFx.doneData,
   source: {
@@ -146,12 +157,20 @@ sample({
   filter: (answer, guess) => guess.length === answer.length,
   fn: () => '',
   target: $userInput,
-})
+});
 
 sample({
   clock: guessSubmittedFx.doneData,
-  source: $answer,
-  filter: (answer, guess) => guess === answer,
+  fn: () => '',
+  target: $error,
+});
+
+// END: Handle guess submission
+
+sample({
+  clock: guessAnimationEnded,
+  source: { guesses: $guesses, answer: $answer },
+  filter: ({answer, guesses}) => guesses.some((guess) => guess.value === answer),
   fn: (): GameStatus => 'won',
   target: $gameStatus,
 });
@@ -183,8 +202,23 @@ sample({
   target: $letterStatuses,
 });
 
+// START: Handle guess submission failure
+
 sample({
   clock: guessSubmittedFx.failData,
   fn: () => "Sorry lad, that word doesn't exist",
   target: $error,
 });
+
+sample({
+  clock: guessSubmittedFx.failData,
+  target: errorTimeoutFx,
+});
+
+sample({
+  clock: errorTimeoutFx.done,
+  fn: () => '',
+  target: $error,
+});
+
+// END: Handle guess submission failure

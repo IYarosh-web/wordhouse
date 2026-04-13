@@ -54,7 +54,7 @@ export function WidgetWordlePage() {
         <p className="min-h-10">
           {error && <span className="text-red-500">{error}</span>}
           {gameStatus === 'won' && <span className="text-green-500">You won!</span>}
-          {gameStatus === 'lost' && <span className="text-red-500">You lost!</span>}
+          {gameStatus === 'lost' && <span className="text-red-500">Unfrotunately, you've lost! The word was {answer}.</span>}
         </p>
         <Results guesses={guesses} answer={answer} />
       </div>

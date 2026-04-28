@@ -1,0 +1,11 @@
+.scroll {
+    transition: height 0.3s ease-in-out;
+}
+
+.close {
+    height: 30px;
+}
+
+.open {
+    height: 466px;
+}

@@ -1,0 +1,9 @@
+.wrapper {
+    border: 1px solid black;
+}
+
+.scrollContainer {
+    overflow-x: hidden;
+    height: 400px;
+    column-fill: auto;
+}

@@ -9,10 +9,12 @@ function FocusOnCtrlKey({ children, keyCode }: React.PropsWithChildren<Props>) {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      console.log("focusing");
+      console.log(event.ctrlKey, event.key, keyCode);
       if (event.ctrlKey && event.key === keyCode) {
         event.preventDefault();
-        console.log("focusing");
         childRef.current?.focus();
+        console.log("focused", childRef.current);
       }
     };
 
@@ -21,7 +23,9 @@ function FocusOnCtrlKey({ children, keyCode }: React.PropsWithChildren<Props>) {
   }, []);
 
   if (isValidElement(children)) {
-    return cloneElement(children, { ref: childRef } as any);
+    console.log("cloning", children);
+    const el = cloneElement(children, {ref: childRef});
+    return el;
   }
 
   return children;

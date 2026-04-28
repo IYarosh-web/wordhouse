@@ -13,6 +13,7 @@ import { MainLayout } from "./ui";
 import { SettingsPage } from "pages/settings";
 import { WidgetWordlePage } from "pages/wordle";
 import { loadWordsFx } from "entities/word/model/store";
+import { AddWordModal } from "features/add-word";
 
 export const App = () => {
   const [initApp, activeWord, loading] = useUnit([appInitialized, $activeWord, loadWordsFx.pending]);
@@ -34,6 +35,10 @@ export const App = () => {
             <Route
               path=":word"
               element={<ViewWordModal key={activeWord?.id} />}
+            />
+            <Route
+              path="add-word"
+              element={<AddWordModal />}
             />
           </Route>
           <Route path="widgets">

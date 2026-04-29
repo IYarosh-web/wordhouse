@@ -6,12 +6,10 @@ export function SettingsPage() {
   const [exportWordsClicked, importWordsClicked] = useUnit([wordsImportExportModel.exportWordsClicked, wordsImportExportModel.importWordsClicked]);
   
   return (
-    <div className="flex flex-col gap-2 items-center">
-      <div className="flex flex-col gap-2 p-6 items-center w-[500px]">
-        <h3 className="text-2xl font-bold">Settings</h3>
-        <Button onClick={exportWordsClicked}>Export words</Button>
-        <Button onClick={importWordsClicked}>Import words</Button>
-      </div>
+    <div className="flex flex-col gap-2">
+      <h3 className="text-2xl font-bold">Settings</h3>
+      <button className="text-left" onClick={exportWordsClicked}>Export words</button>
+      <button className="text-left" onClick={importWordsClicked}>Import words</button>
     </div>
   );
 }

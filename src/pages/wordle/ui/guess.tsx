@@ -24,7 +24,7 @@ export function Guess({value = "", answer}: Props) {
   return (
     <div className="flex gap-2">
       {range(answer.length).map((_, i) => (
-        <div key={i} className={`w-10 h-10 border-2 relative ${styles.wrap}`}>
+        <div key={i} className={`w-6 h-6 border-1 relative ${styles.wrap}`}>
           {result[i]?.char && (
             <div
               className={`absolute inset-0 flex items-center justify-center ${styles[result[i]?.status]} ${styles.letter}`}

@@ -3,6 +3,7 @@ import { $wordStore } from "entities/word";
 import { updateWord } from "entities/word/model/store";
 import { Sentence, Definition } from "entities/word";
 import { deepClone } from "shared/lib";
+import { Translation } from "entities/word/model/types";
 
 export const deleteDefinitionFormSubmittedFx = createEffect(
   (event: React.FormEvent<HTMLFormElement>) => {
@@ -33,7 +34,7 @@ export const addDefinitionFormSubmittedFx = createEffect(
     const formData = new FormData(event.currentTarget);
     const definition: Definition = {
       id: crypto.randomUUID(),
-      definition: formData.get("definition") as string,
+      translation: formData.get("definition") as string,
       wordId: formData.get("wordId") as string,
     };
 
@@ -53,6 +54,33 @@ export const addSentenceFormSubmittedFx = createEffect(
     };
 
     return sentence;
+  },
+);
+
+export const addTranslationFormSubmittedFx = createEffect(
+  (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const translation: Translation = {
+      id: crypto.randomUUID(),
+      translation: formData.get("translation") as string,
+      wordId: formData.get("wordId") as string,
+    };
+
+    return translation;
+  },
+);
+
+export const deleteTranslationFormSubmittedFx = createEffect(
+  (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const translationId = formData.get("translationId") as string;
+    const wordId = formData.get("wordId") as string;
+    
+    return { translationId, wordId };
   },
 );
 
@@ -76,7 +104,27 @@ sample({
     words.some((word) => word.id === definition.wordId),
   fn: (words, definition) => {
     const word = deepClone(words.find((word) => word.id === definition.wordId));
-    word.definitions.push(definition);
+    word.translations.push(definition);
+    return word;
+  },
+  target: updateWord,
+});
+
+sample({
+  clock: addTranslationFormSubmittedFx.doneData,
+  source: $wordStore
+});
+
+sample({
+  clock: deleteTranslationFormSubmittedFx.doneData,
+  source: $wordStore,
+  filter: (words, data) =>
+    words.some((word) => word.id === data.wordId),
+  fn: (words, data) => {
+    const word = deepClone(words.find((word) => word.id === data.wordId));
+    word.translations = word.translations.filter(
+      (translation) => translation.id !== data.translationId,
+    );
     return word;
   },
   target: updateWord,
@@ -89,7 +137,7 @@ sample({
     words.some((word) => word.id === definition.wordId),
   fn: (words, data) => {
     const word = deepClone(words.find((word) => word.id === data.wordId));
-    word.definitions = word.definitions.filter(
+    word.translations = word.translations.filter(
       (definition) => definition.id !== data.definitionId,
     );
     return word;

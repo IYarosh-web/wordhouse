@@ -1,1 +1,0 @@
-export { EraseIcon } from "./erase";

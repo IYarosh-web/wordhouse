@@ -23,11 +23,11 @@ export function Keyboard() {
   });
 
   return (
-    <div className="flex flex-col gap-2 items-center">
+    <div className="flex flex-col gap-1 items-center">
       {pattern.map((row, index) => (
-        <div key={index} className="flex gap-2">
+        <div key={index} className="flex gap-1">
           {row.map((letter) => (
-            <button key={letter} data-letter={letter} className={`w-10 h-10 border-2 ${styles[letterStatuses[letter]]}`} onClick={handleLetterClick}>{letter}</button>
+            <button key={letter} data-letter={letter} className={`w-6 h-6 border-1 ${styles[letterStatuses[letter]]}`} onClick={handleLetterClick}>{letter}</button>
           ))}
         </div>
       ))}

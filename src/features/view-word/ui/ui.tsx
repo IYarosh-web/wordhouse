@@ -1,11 +1,13 @@
 import { useUnit } from "effector-react";
 
-import { $activeWord, closeWord } from "../model";
+import { $activeWord } from "../model";
 import {
   addSentenceFormSubmittedFx,
   addDefinitionFormSubmittedFx,
   deleteSentenceFormSubmittedFx,
   deleteDefinitionFormSubmittedFx,
+  addTranslationFormSubmittedFx,
+  deleteTranslationFormSubmittedFx,
 } from "features/edit-word/model";
 import { deleteWordFormSubmitted } from "features/delete-word/model";
 
@@ -14,18 +16,20 @@ function ViewWordModal() {
     activeWord,
     addSentence,
     addDefinition,
+    addTranslation,
     deleteDefinition,
     deleteSentence,
     deleteWord,
-    closeWordModal,
+    deleteTranslation,
   ] = useUnit([
     $activeWord,
     addSentenceFormSubmittedFx,
     addDefinitionFormSubmittedFx,
+    addTranslationFormSubmittedFx,
     deleteDefinitionFormSubmittedFx,
     deleteSentenceFormSubmittedFx,
     deleteWordFormSubmitted,
-    closeWord,
+    deleteTranslationFormSubmittedFx,
   ]);
 
   if (!activeWord) {
@@ -57,6 +61,21 @@ function ViewWordModal() {
             <input type="hidden" name="wordId" value={activeWord.id} />
             <button className="border-1">X</button>
             {definition.definition}
+          </form>
+        ))}
+        <div className="flex gap-2">
+          <form onSubmit={addTranslation} className="flex gap-2">
+            <input type="text" placeholder="Translation" name="translation" className="w-full border-1" />
+            <input type="hidden" name="wordId" value={activeWord.id} />
+            <button type="submit" className="border-1">+</button>
+          </form>
+        </div>
+        {activeWord.translations?.map((translation) => (
+          <form key={translation.id} onSubmit={deleteTranslation}>
+            <input type="hidden" name="translationId" value={translation.id} />
+            <input type="hidden" name="wordId" value={activeWord.id} />
+            <button className="border-1">X</button>
+            {translation.translation}
           </form>
         ))}
       </div>

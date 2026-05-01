@@ -22,6 +22,13 @@ export const addWordFormSubmittedFx = createEffect(
     const word: Word = {
       id,
       word: formData.get("word") as string,
+      translations: [
+        {
+          id: crypto.randomUUID(),
+          translation: formData.get("translation") as string,
+          wordId: id,
+        },
+      ],
       definitions: [
         {
           id: crypto.randomUUID(),
@@ -42,7 +49,7 @@ sample({
   fn: (words, word) => {
     const sameWord = words.find((w) => w.word === word.word);
     if (sameWord) {
-      sameWord.definitions.push(word.definitions[0]);
+      sameWord.translations.push(word.translations[0]);
       return sameWord;
     }
     return word;
@@ -57,7 +64,7 @@ sample({
   fn: (words, word) => {
     const sameWord = words.find((w) => w.word === word.word);
     if (sameWord) {
-      sameWord.definitions.push(word.definitions[0]);
+      sameWord.translations.push(word.translations[0]);
       return sameWord;
     }
     return word;

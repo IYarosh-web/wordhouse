@@ -3,8 +3,6 @@ import { combine, createEffect, createEvent, createStore, sample } from "effecto
 import { $wordStore, Word, wordClicked } from "entities/word";
 import { history } from "app/router/history";
 
-export const closeWord = createEvent();
-
 export const $paramsWord = createStore<Word["word"]>(null);
 export const $activeWord = combine(
   $paramsWord,
@@ -16,10 +14,6 @@ const openWordFx = createEffect((word: Word) => {
   history.push('/dashboard/' + word.word);
 });
 
-const closeWordFx = createEffect(() => {
-  history.push(`/dashboard`);
-});
-
 sample({
   clock: locationChanged,
   filter: (location) => {
@@ -28,11 +22,6 @@ sample({
   },
   fn: (location) => location.split("/")[2],
   target: $paramsWord,
-});
-
-sample({
-  clock: closeWord,
-  target: closeWordFx,
 });
 
 sample({

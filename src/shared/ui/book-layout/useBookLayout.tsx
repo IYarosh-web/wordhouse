@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 
 export function useBookLayout(containerRef: React.RefObject<HTMLDivElement>) {
-    const COLUMN_WIDTH = 300;
+    const COLUMN_WIDTH = 340;
     const COLUMN_GAP = 16;
     const COLUMN_RULE_WIDTH = 2;    
     const PADDING = 16;

@@ -1,11 +1,11 @@
 import { useCallback, useEffect } from "react";
 
 export function useBookLayout(containerRef: React.RefObject<HTMLDivElement>) {
-    const COLUMN_WIDTH = 340;
-    const COLUMN_GAP = 16;
+    const COLUMN_WIDTH = 330;
+    const COLUMN_GAP = 24;
     const COLUMN_RULE_WIDTH = 2;    
-    const PADDING = 16;
-    const WIDTH = COLUMN_WIDTH * 2 + COLUMN_GAP + 34; // Magic numbers, don't understand why but needed
+    const PADDING = 24;
+    const WIDTH = COLUMN_WIDTH * 2 + COLUMN_GAP + PADDING * 2 + COLUMN_RULE_WIDTH; // Magic numbers, don't understand why but needed
     const SCROLL_AMOUNT = WIDTH - 17; // Magic numbers, don't understand why but needed
 
     const next = useCallback(() => {

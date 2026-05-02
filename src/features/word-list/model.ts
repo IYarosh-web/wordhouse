@@ -1,8 +1,8 @@
-import { createStore, sample } from "effector";
+import { sample } from "effector";
 import { createGate } from "effector-react";
-import { $wordStore, Word } from "entities/word";
+import { $wordStore } from "entities/word";
 
-export const $wordList = createStore<Word[]>([]);
+export const $wordList = $wordStore;
 
 export const wordListGate = createGate();
 

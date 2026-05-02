@@ -1,7 +1,6 @@
 import { $wordList, wordListGate } from "./model";
 import { useGate, useUnit } from "effector-react";
 import { Link, useLocation } from "react-router";
-import { FocusOnCtrlKey } from "shared/ui/focus-on-key";
 
 export function WordList() {
     const location = useLocation();
@@ -16,9 +15,7 @@ export function WordList() {
         <div className="flex flex-col gap-2">
             <h1>
                 Word List
-                {/* <FocusOnCtrlKey keyCode="ArrowLeft"> */}
                 <Link to="/dashboard/add-word">+</Link>
-                {/* </FocusOnCtrlKey> */}
             </h1>
             {words.map(word => (
                 <Link to={`/dashboard/${word.word}`} className="text-left" key={word.id}>

@@ -2,6 +2,8 @@ import { forwardRef, useRef } from "react";
 
 import { useBookLayout } from "./useBookLayout";
 
+import bookImage from './book.png'
+
 import styles from './book-layout.module.css';
 
 export function _BookLayout({children}: {children: React.ReactNode}, ref: React.RefObject<HTMLDivElement>) {
@@ -14,7 +16,7 @@ export function _BookLayout({children}: {children: React.ReactNode}, ref: React.
             ref={ref}
             tabIndex={0}
             className={styles.wrapper + " relative"}
-            style={{width: WIDTH, padding: PADDING}}
+            style={{width: WIDTH, padding: PADDING, backgroundImage: `url(${bookImage})`}}
         >
             <div
                 ref={containerRef}

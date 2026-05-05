@@ -10,7 +10,7 @@
 }
 
 .scroll {
-  padding-top: 32px;
+  padding-top: 44px;
   transition: width 0.3s ease-in-out;
   overflow: visible;
 }
@@ -20,5 +20,6 @@
 }
 
 .close {
-  width: 0;
+  width: 10px;
+  transition-delay: 0.5s;
 }

@@ -13,8 +13,15 @@ export function MainLayout() {
 
   return (
     <div className={`${styles.wrapper} flex font-sour-gummy`}>
-      <div className="flex flex-row-reverse gap-2 m-auto w-min">
-        <div className="flex flex-col gap-2 bg-white">
+      <div className="flex gap-2 m-auto w-min">
+        <div className={`${styles.scroll} ${isScrollLayout ? styles.open : styles.close}`}>
+          <FocusOnCtrlKey keyCode="ArrowLeft">
+            <ScrollLayout open={isScrollLayout}>
+                <WordList />
+            </ScrollLayout>
+          </FocusOnCtrlKey>
+        </div>
+        <div className="flex flex-col bg-white">
           <FocusOnCtrlKey keyCode="ArrowUp">
             <Navbar />
           </FocusOnCtrlKey>
@@ -22,13 +29,6 @@ export function MainLayout() {
             <BookLayout>
               <Outlet />
             </BookLayout>
-          </FocusOnCtrlKey>
-        </div>
-        <div className={`${styles.scroll} ${isScrollLayout ? styles.open : styles.close}`}>
-          <FocusOnCtrlKey keyCode="ArrowLeft">
-            <ScrollLayout open={isScrollLayout}>
-                <WordList />
-            </ScrollLayout>
           </FocusOnCtrlKey>
         </div>
       </div>

@@ -1,0 +1,24 @@
+.dashboard {
+    background-image: url('./dashboard.png');
+}
+
+.widgets {
+    background-image: url('./game.png');
+}
+
+.settings {
+    background-image: url('./settings.png');
+}
+
+.item {
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 40px;
+    display: flex;
+    top: 6px;
+    position: relative;
+}
+
+.active {
+    top: 0;
+}

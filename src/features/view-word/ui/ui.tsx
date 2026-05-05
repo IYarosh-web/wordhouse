@@ -10,6 +10,7 @@ import {
   deleteTranslationFormSubmittedFx,
 } from "features/edit-word/model";
 import { deleteWordFormSubmitted } from "features/delete-word/model";
+import { Button, Input } from "shared/ui";
 
 function ViewWordModal() {
   const [
@@ -38,43 +39,43 @@ function ViewWordModal() {
 
   return (
     <>
-      <div className="h-full">
+      <div className="h-full flex flex-col gap-1">
         <div className="flex gap-2 items-center justify-center">
           <h3 className="text-2xl font-bold text-center">
             {activeWord.word}
           </h3>
           <form onSubmit={deleteWord}>
-            <input type="hidden" name="wordId" value={activeWord.id} />
-            <button className="border-1">X</button>
+            <Input type="hidden" name="wordId" value={activeWord.id} />
+            <Button>X</Button>
           </form>
         </div>
-        <div className="flex gap-2">
-          <form onSubmit={addDefinition} className="flex gap-2">
-            <input type="text" placeholder="Definition" name="definition" className="w-full border-1" />
-            <input type="hidden" name="wordId" value={activeWord.id} />
-            <button type="submit" className="border-1">+</button>
+        <div className="flex">
+          <form onSubmit={addDefinition} className="flex gap-1">
+            <Input type="text" placeholder="Definition" name="definition" className="w-full" />
+            <Input type="hidden" name="wordId" value={activeWord.id} />
+            <Button type="submit">+</Button>
           </form>
         </div>
         {activeWord.definitions.map((definition) => (
           <form key={definition.id} onSubmit={deleteDefinition}>
-            <input type="hidden" name="definitionId" value={definition.id} />
-            <input type="hidden" name="wordId" value={activeWord.id} />
-            <button className="border-1">X</button>
+            <Input type="hidden" name="definitionId" value={definition.id} />
+            <Input type="hidden" name="wordId" value={activeWord.id} />
+            <Button>X</Button>
             {definition.definition}
           </form>
         ))}
-        <div className="flex gap-2">
-          <form onSubmit={addTranslation} className="flex gap-2">
-            <input type="text" placeholder="Translation" name="translation" className="w-full border-1" />
-            <input type="hidden" name="wordId" value={activeWord.id} />
-            <button type="submit" className="border-1">+</button>
+        <div className="flex">
+          <form onSubmit={addTranslation} className="flex gap-1">
+            <Input type="text" placeholder="Translation" name="translation" className="w-full" />
+            <Input type="hidden" name="wordId" value={activeWord.id} />
+            <Button type="submit">+</Button>
           </form>
         </div>
         {activeWord.translations?.map((translation) => (
           <form key={translation.id} onSubmit={deleteTranslation}>
-            <input type="hidden" name="translationId" value={translation.id} />
-            <input type="hidden" name="wordId" value={activeWord.id} />
-            <button className="border-1">X</button>
+            <Input type="hidden" name="translationId" value={translation.id} />
+            <Input type="hidden" name="wordId" value={activeWord.id} />
+            <Button>X</Button>
             {translation.translation}
           </form>
         ))}
@@ -82,18 +83,18 @@ function ViewWordModal() {
       <div>
         <h3 className="text-2xl font-bold text-center">&nbsp;</h3>
       </div>
-      <div className="flex gap-2">
-        <form onSubmit={addSentence} className="flex gap-2">
-          <input type="text" placeholder="Sentence" name="sentence" className="w-full border-1" />
-          <input type="hidden" name="wordId" value={activeWord.id} />
-          <button type="submit" className="border-1">+</button>
+      <div className="flex">
+        <form onSubmit={addSentence} className="flex gap-1">
+          <Input type="text" placeholder="Sentence" name="sentence" className="w-full" />
+          <Input type="hidden" name="wordId" value={activeWord.id} />
+          <Button type="submit">+</Button>
         </form>
       </div>
       {activeWord.sentences.map((sentence) => (
         <form key={sentence.id} onSubmit={deleteSentence}>
-          <input type="hidden" name="sentenceId" value={sentence.id} />
-          <input type="hidden" name="wordId" value={activeWord.id} />
-          <button className="border-1">X</button>
+          <Input type="hidden" name="sentenceId" value={sentence.id} />
+          <Input type="hidden" name="wordId" value={activeWord.id} />
+          <Button>X</Button>
           {sentence.sentence}
         </form>
       ))}

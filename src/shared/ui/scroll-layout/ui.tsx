@@ -9,8 +9,10 @@ function _ScrollLayout({
     open?: boolean
 }, ref: React.RefObject<HTMLDivElement>) {
     return (
-        <div ref={ref} tabIndex={0} className={`w-[300px] p-4 border-1 overflow-y-auto border-black ${open ? styles.open : styles.close} ${styles.scroll}`}>
-            {open && children}
+        <div ref={ref} tabIndex={0} className={`relative w-[300px] overflow-y-auto ${open ? styles.open : styles.close} ${styles.scroll}`}>
+            <div className={styles.content}>
+                {open && children}
+            </div>
         </div>
     )
 }

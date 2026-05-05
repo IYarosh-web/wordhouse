@@ -1,6 +1,7 @@
 import { $wordList, wordListGate } from "./model";
 import { useGate, useUnit } from "effector-react";
 import { Link, useLocation } from "react-router";
+import { Button } from "shared/ui";
 
 export function WordList() {
     const location = useLocation();
@@ -15,7 +16,9 @@ export function WordList() {
         <div className="flex flex-col gap-2">
             <h1>
                 Word List
-                <Link to="/dashboard/add-word">+</Link>
+                <Link to="/dashboard/add-word">
+                        <Button>+</Button>
+                </Link>
             </h1>
             {words.map(word => (
                 <Link to={`/dashboard/${word.word}`} className="text-left" key={word.id}>

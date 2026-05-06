@@ -57,7 +57,7 @@ function ViewWordModal() {
           </form>
         </div>
         {activeWord.definitions.map((definition) => (
-          <form key={definition.id} onSubmit={deleteDefinition}>
+          <form className="flex gap-1 items-center" key={definition.id} onSubmit={deleteDefinition}>
             <Input type="hidden" name="definitionId" value={definition.id} />
             <Input type="hidden" name="wordId" value={activeWord.id} />
             <Button>X</Button>
@@ -72,7 +72,7 @@ function ViewWordModal() {
           </form>
         </div>
         {activeWord.translations?.map((translation) => (
-          <form key={translation.id} onSubmit={deleteTranslation}>
+          <form className="flex gap-1 items-center" key={translation.id} onSubmit={deleteTranslation}>
             <Input type="hidden" name="translationId" value={translation.id} />
             <Input type="hidden" name="wordId" value={activeWord.id} />
             <Button>X</Button>

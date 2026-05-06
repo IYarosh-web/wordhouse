@@ -15,7 +15,7 @@ export function WordList() {
     return (
         <div className="flex flex-col gap-2">
             <h1>
-                Word List
+                <span className="pr-1">Word List</span>
                 <Link to="/dashboard/add-word">
                         <Button>+</Button>
                 </Link>

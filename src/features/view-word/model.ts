@@ -27,4 +27,4 @@ sample({
 sample({
   clock: wordClicked,
   target: openWordFx,
-})
+});

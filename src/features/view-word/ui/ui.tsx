@@ -44,9 +44,9 @@ function ViewWordModal() {
           <h3 className="text-2xl font-bold text-center">
             {activeWord.word}
           </h3>
-          <form onSubmit={deleteWord}>
+          <form onSubmit={deleteWord}>  
             <Input type="hidden" name="wordId" value={activeWord.id} />
-            <Button>X</Button>
+            <Button type="submit">X</Button>
           </form>
         </div>
         <div className="flex">
@@ -60,7 +60,7 @@ function ViewWordModal() {
           <form className="flex gap-1 items-center" key={definition.id} onSubmit={deleteDefinition}>
             <Input type="hidden" name="definitionId" value={definition.id} />
             <Input type="hidden" name="wordId" value={activeWord.id} />
-            <Button>X</Button>
+            <Button type="submit">X</Button>
             {definition.definition}
           </form>
         ))}
@@ -75,7 +75,7 @@ function ViewWordModal() {
           <form className="flex gap-1 items-center" key={translation.id} onSubmit={deleteTranslation}>
             <Input type="hidden" name="translationId" value={translation.id} />
             <Input type="hidden" name="wordId" value={activeWord.id} />
-            <Button>X</Button>
+            <Button type="submit">X</Button>
             {translation.translation}
           </form>
         ))}
@@ -83,7 +83,7 @@ function ViewWordModal() {
       <div>
         <h3 className="text-2xl font-bold text-center">&nbsp;</h3>
       </div>
-      <div className="flex">
+      <div className="flex pb-1">
         <form onSubmit={addSentence} className="flex gap-1">
           <Input type="text" placeholder="Sentence" name="sentence" className="w-full" />
           <Input type="hidden" name="wordId" value={activeWord.id} />
@@ -91,10 +91,10 @@ function ViewWordModal() {
         </form>
       </div>
       {activeWord.sentences.map((sentence) => (
-        <form key={sentence.id} onSubmit={deleteSentence}>
+        <form className="flex gap-1 items-baseline pb-1" key={sentence.id} onSubmit={deleteSentence}>
           <Input type="hidden" name="sentenceId" value={sentence.id} />
           <Input type="hidden" name="wordId" value={activeWord.id} />
-          <Button>X</Button>
+          <Button type="submit">X</Button>
           {sentence.sentence}
         </form>
       ))}

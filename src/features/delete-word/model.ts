@@ -8,6 +8,7 @@ sample({
   clock: deleteWordFormSubmitted,
   fn: (event) => {
     event.preventDefault();
+    console.log({event});
 
     const formData = new FormData(event.currentTarget);
     return formData.get("wordId") as string;

@@ -1,9 +1,8 @@
 import { createEffect, createEvent, sample } from "effector";
 import { $wordStore } from "entities/word";
 import { updateWord } from "entities/word/model/store";
-import { Sentence, Definition } from "entities/word";
+import { Sentence, Definition, Translation } from "entities/word";
 import { deepClone } from "shared/lib";
-import { Translation } from "entities/word/model/types";
 
 export const deleteDefinitionFormSubmittedFx = createEffect(
   (event: React.FormEvent<HTMLFormElement>) => {
@@ -12,6 +11,7 @@ export const deleteDefinitionFormSubmittedFx = createEffect(
     const formData = new FormData(event.currentTarget);
     const definitionId = formData.get("definitionId") as string;
     const wordId = formData.get("wordId") as string;
+    console.log('delete definition', definitionId, wordId);
     return { definitionId, wordId };
   },
 );
@@ -34,7 +34,7 @@ export const addDefinitionFormSubmittedFx = createEffect(
     const formData = new FormData(event.currentTarget);
     const definition: Definition = {
       id: crypto.randomUUID(),
-      translation: formData.get("definition") as string,
+      definition: formData.get("definition") as string,
       wordId: formData.get("wordId") as string,
     };
 
@@ -60,6 +60,7 @@ export const addSentenceFormSubmittedFx = createEffect(
 export const addTranslationFormSubmittedFx = createEffect(
   (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log('add');
 
     const formData = new FormData(event.currentTarget);
     const translation: Translation = {
@@ -104,7 +105,7 @@ sample({
     words.some((word) => word.id === definition.wordId),
   fn: (words, definition) => {
     const word = deepClone(words.find((word) => word.id === definition.wordId));
-    word.translations.push(definition);
+    word.definitions.push(definition);
     return word;
   },
   target: updateWord,
@@ -112,7 +113,15 @@ sample({
 
 sample({
   clock: addTranslationFormSubmittedFx.doneData,
-  source: $wordStore
+  source: $wordStore,
+  filter: (words, translation) =>
+    words.some((word) => word.id === translation.wordId),
+  fn: (words, translation) => {
+    const word = deepClone(words.find((word) => word.id === translation.wordId));
+    word.translations.push(translation);
+    return word;
+  },
+  target: updateWord,
 });
 
 sample({
@@ -137,7 +146,7 @@ sample({
     words.some((word) => word.id === definition.wordId),
   fn: (words, data) => {
     const word = deepClone(words.find((word) => word.id === data.wordId));
-    word.translations = word.translations.filter(
+    word.definitions = word.definitions.filter(
       (definition) => definition.id !== data.definitionId,
     );
     return word;

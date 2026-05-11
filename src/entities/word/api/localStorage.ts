@@ -11,6 +11,7 @@ export const localStorageWordsApi: WordApi = {
     return word;
   },
   updateWord: async (word) => {
+    console.log({word})
     const words = await localStorageWordsApi.getWords();
     const index = words.findIndex((w) => w.id === word.id);
     words[index] = word;
@@ -18,6 +19,7 @@ export const localStorageWordsApi: WordApi = {
     return word;
   },
   deleteWord: async (id) => {
+    console.log({id});
     const words = await localStorageWordsApi.getWords();
     const index = words.findIndex((w) => w.id === id);
     words.splice(index, 1);

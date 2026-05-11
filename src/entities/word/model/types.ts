@@ -24,4 +24,4 @@ type Sentence = {
   wordId: string;
 };
 
-export type { Word, Sentence, Translation };
+export type { Word, Sentence, Definition, Translation };

@@ -36,7 +36,13 @@ export const addWordFormSubmittedFx = createEffect(
           wordId: id,
         },
       ],
-      sentences: [],
+      sentences: [
+        {
+          id: crypto.randomUUID(),
+          sentence: formData.get("sentence") as string,
+          wordId: id,
+        }
+      ],
     };
 
     return word;

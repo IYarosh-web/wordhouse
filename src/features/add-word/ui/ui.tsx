@@ -11,6 +11,7 @@ function AddWordModal() {
       <Input type="text" placeholder="Word" name="word" className="w-full" />
       <Input type="text" placeholder="Definition" name="definition" className="w-full" />
       <Input type="text" placeholder="Translation" name="translation" className="w-full" />
+      <Input type="text" placeholder="Sentence" name="sentence" className="w-full" />
       <Button type="submit">Add</Button>
     </form>
   );

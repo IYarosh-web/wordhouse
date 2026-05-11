@@ -17,7 +17,7 @@ export function WordList() {
             <h1>
                 <span className="pr-1">Word List</span>
                 <Link to="/dashboard/add-word">
-                        <Button>+</Button>
+                    <Button tabIndex={-1}>+</Button>
                 </Link>
             </h1>
             {words.map(word => (

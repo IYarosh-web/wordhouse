@@ -1,13 +1,13 @@
 import { createBrowserRouter, Navigate } from "react-router";
 
 import { MainLayout } from "app/ui";
-import HomePage from "pages/home";
-import { DashboardPage } from "pages/index";
-import { ViewWordModal } from "features/view-word";
-import { AddWordModal } from "features/add-word";
-import { WidgetsPage } from "pages/widgets";
-import { WidgetWordlePage } from "pages/wordle";
-import { SettingsPage } from "pages/settings";
+import Home from "pages/home";
+import { Dashboard } from "pages/index";
+import { EditWord } from "features/edit-word";
+import { AddWord } from "features/add-word";
+import { Widgets } from "pages/widgets";
+import { WidgetWordle } from "pages/wordle";
+import { Settings } from "pages/settings";
 
 export const router = createBrowserRouter([
     {
@@ -17,19 +17,19 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 path: "/",
-                element: <HomePage />
+                element: <Home />
             },
             {
                 path: "dashboard",
-                element: <DashboardPage />,
+                element: <Dashboard />,
                 children: [
                     {
                         path: ":word",
-                        element: <ViewWordModal />
+                        element: <EditWord />
                     },
                     {
                         path: "add-word",
-                        element: <AddWordModal />
+                        element: <AddWord />
                     }
                 ]
             },
@@ -38,17 +38,17 @@ export const router = createBrowserRouter([
                 children: [
                     {
                         index: true,
-                        element: <WidgetsPage />
+                        element: <Widgets />
                     },
                     {
                         path: "wordle",
-                        element: <WidgetWordlePage />
+                        element: <WidgetWordle />
                     }
                 ],
             },
             {
                 path: "settings",
-                element: <SettingsPage />
+                element: <Settings />
             },
             {
                 path: "*",

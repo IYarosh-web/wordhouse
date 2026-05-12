@@ -3,7 +3,7 @@ import { locationChanged } from "app/model";
 import { useEffect } from "react";
 import { useUnit } from "effector-react";
 
-function DashboardPage() {
+export function Dashboard() {
   const location = useLocation();
 
   const [changeLocation] = useUnit([locationChanged]);
@@ -18,5 +18,3 @@ function DashboardPage() {
     </div>
   );
 }
-
-export { DashboardPage };

@@ -1,2 +1,2 @@
-export { AddWordModal } from './ui';
+export { AddWord } from './ui';
 export { AddWordButton } from './button';

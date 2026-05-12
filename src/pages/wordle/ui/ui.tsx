@@ -6,7 +6,7 @@ import { Keyboard } from "./keyboard";
 import { Button } from "shared/ui";
 import { useEffect } from "react";
 
-export function WidgetWordlePage() {
+export function WidgetWordle() {
   const submitButtonRef = useRef<HTMLButtonElement>(null);
   const [
     answer,

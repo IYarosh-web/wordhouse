@@ -1,8 +1,7 @@
 import { useUnit } from "effector-react";
 import { wordsImportExportModel } from "features/words-import-export";
-import { Button } from "shared/ui";
 
-export function SettingsPage() {
+export function Settings() {
   const [exportWordsClicked, importWordsClicked] = useUnit([wordsImportExportModel.exportWordsClicked, wordsImportExportModel.importWordsClicked]);
   
   return (

@@ -1,2 +1,2 @@
 export {$activeWord} from './model';
-export {ViewWordModal} from './ui';
+export {EditWord} from './ui/ui';

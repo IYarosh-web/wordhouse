@@ -1,18 +1,18 @@
 import { useUnit } from "effector-react";
 
-import { $activeWord } from "../model";
 import {
+  $activeWord,
   addSentenceFormSubmittedFx,
   addDefinitionFormSubmittedFx,
   deleteSentenceFormSubmittedFx,
   deleteDefinitionFormSubmittedFx,
   addTranslationFormSubmittedFx,
   deleteTranslationFormSubmittedFx,
-} from "features/edit-word/model";
+} from "../model";
 import { deleteWordFormSubmitted } from "features/delete-word/model";
 import { Button, Input } from "shared/ui";
 
-function ViewWordModal() {
+export function EditWord() {
   const [
     activeWord,
     addSentence,
@@ -90,7 +90,7 @@ function ViewWordModal() {
           <Button type="submit">+</Button>
         </form>
       </div>
-      {activeWord.sentences.map((sentence) => (
+      {activeWord.sentences?.map((sentence) => (
         <form className="flex gap-1 items-baseline pb-1" key={sentence.id} onSubmit={deleteSentence}>
           <Input type="hidden" name="sentenceId" value={sentence.id} />
           <Input type="hidden" name="wordId" value={activeWord.id} />
@@ -101,5 +101,3 @@ function ViewWordModal() {
     </>
   );
 }
-
-export { ViewWordModal };

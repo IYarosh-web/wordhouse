@@ -1,3 +1,3 @@
-import { SettingsPage } from "./ui";
+import { Settings } from "./ui";
 
-export { SettingsPage };
+export { Settings };

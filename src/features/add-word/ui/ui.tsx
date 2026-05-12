@@ -3,7 +3,7 @@ import { addWordFormSubmittedFx } from "features/add-word";
 import { Input, Button } from "shared/ui";
 import { addWordGate } from "../model";
 
-export function AddWordModal() {
+export function AddWord() {
   const [handleWordFormSubmitted] = useUnit([addWordFormSubmittedFx]);
 
   useGate(addWordGate);

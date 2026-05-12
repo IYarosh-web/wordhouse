@@ -1,1 +1,1 @@
-export {WidgetsPage} from './ui';
+export {Widgets} from './ui';

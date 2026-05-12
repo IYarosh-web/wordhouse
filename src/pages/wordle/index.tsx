@@ -1,1 +1,1 @@
-export { WidgetWordlePage } from './ui/ui';
+export { WidgetWordle } from './ui/ui';

@@ -1,8 +1,19 @@
-import { createEffect, createEvent, sample } from "effector";
-import { $wordStore } from "entities/word";
+import { locationChanged } from "app/model";
+import { combine, createStore, createEffect, sample } from "effector";
+import { $wordStore, Word } from "entities/word";
+import { createGate } from "effector-react";
 import { updateWord } from "entities/word/model/store";
 import { Sentence, Definition, Translation } from "entities/word";
 import { deepClone } from "shared/lib";
+
+export const $paramsWord = createStore<Word["word"]>(null);
+export const $activeWord = combine(
+  $paramsWord,
+  $wordStore,
+  (paramsWord, words) => words.find((word) => word.word === paramsWord) || null,
+);
+
+export const viewWordGate = createGate();
 
 export const deleteDefinitionFormSubmittedFx = createEffect(
   (event: React.FormEvent<HTMLFormElement>) => {
@@ -84,6 +95,16 @@ export const deleteTranslationFormSubmittedFx = createEffect(
     return { translationId, wordId };
   },
 );
+
+sample({
+  clock: locationChanged,
+  filter: (location) => {
+    const pathParts = location.split("/");
+    return !!(pathParts[1] === "dashboard" && pathParts[2]);
+  },
+  fn: (location) => location.split("/")[2],
+  target: $paramsWord,
+});
 
 sample({
   clock: addSentenceFormSubmittedFx.doneData,

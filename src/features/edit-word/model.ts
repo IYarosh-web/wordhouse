@@ -2,18 +2,19 @@ import { locationChanged } from "app/model";
 import { combine, createStore, createEffect, sample } from "effector";
 import { $wordStore, Word } from "entities/word";
 import { createGate } from "effector-react";
-import { updateWord } from "entities/word/model/store";
+import { deleteWordFx, updateWord } from "entities/word/model/store";
 import { Sentence, Definition, Translation } from "entities/word";
 import { deepClone } from "shared/lib";
+import { changeLocation } from "shared/ui/redirect/model";
 
-export const $paramsWord = createStore<Word["word"]>(null);
+export const $paramsWord = createStore<Word["word"]>('');
 export const $activeWord = combine(
   $paramsWord,
   $wordStore,
   (paramsWord, words) => words.find((word) => word.word === paramsWord) || null,
 );
 
-export const viewWordGate = createGate();
+export const ViewWordGate = createGate();
 
 export const deleteDefinitionFormSubmittedFx = createEffect(
   (event: React.FormEvent<HTMLFormElement>) => {
@@ -22,7 +23,7 @@ export const deleteDefinitionFormSubmittedFx = createEffect(
     const formData = new FormData(event.currentTarget);
     const definitionId = formData.get("definitionId") as string;
     const wordId = formData.get("wordId") as string;
-    console.log('delete definition', definitionId, wordId);
+
     return { definitionId, wordId };
   },
 );
@@ -71,7 +72,6 @@ export const addSentenceFormSubmittedFx = createEffect(
 export const addTranslationFormSubmittedFx = createEffect(
   (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('add');
 
     const formData = new FormData(event.currentTarget);
     const translation: Translation = {
@@ -112,8 +112,8 @@ sample({
   filter: (words, sentence) =>
     words.some((word) => word.id === sentence.wordId),
   fn: (words, sentence) => {
-    const word = deepClone(words.find((word) => word.id === sentence.wordId));
-    word.sentences.push(sentence);
+    const word = deepClone(words.find((word) => word.id === sentence.wordId)) as Word;
+    word.sentences?.push(sentence);
     return word;
   },
   target: updateWord,
@@ -125,7 +125,7 @@ sample({
   filter: (words, definition) =>
     words.some((word) => word.id === definition.wordId),
   fn: (words, definition) => {
-    const word = deepClone(words.find((word) => word.id === definition.wordId));
+    const word = deepClone(words.find((word) => word.id === definition.wordId)) as Word;
     word.definitions.push(definition);
     return word;
   },
@@ -138,7 +138,7 @@ sample({
   filter: (words, translation) =>
     words.some((word) => word.id === translation.wordId),
   fn: (words, translation) => {
-    const word = deepClone(words.find((word) => word.id === translation.wordId));
+    const word = deepClone(words.find((word) => word.id === translation.wordId)) as Word;
     word.translations.push(translation);
     return word;
   },
@@ -151,7 +151,7 @@ sample({
   filter: (words, data) =>
     words.some((word) => word.id === data.wordId),
   fn: (words, data) => {
-    const word = deepClone(words.find((word) => word.id === data.wordId));
+    const word = deepClone(words.find((word) => word.id === data.wordId)) as Word;
     word.translations = word.translations.filter(
       (translation) => translation.id !== data.translationId,
     );
@@ -166,7 +166,7 @@ sample({
   filter: (words, definition) =>
     words.some((word) => word.id === definition.wordId),
   fn: (words, data) => {
-    const word = deepClone(words.find((word) => word.id === data.wordId));
+    const word = deepClone(words.find((word) => word.id === data.wordId)) as Word;
     word.definitions = word.definitions.filter(
       (definition) => definition.id !== data.definitionId,
     );
@@ -181,11 +181,18 @@ sample({
   filter: (words, sentence) =>
     words.some((word) => word.id === sentence.wordId),
   fn: (words, data) => {
-    const word = deepClone(words.find((word) => word.id === data.wordId));
-    word.sentences = word.sentences.filter(
+    const word = deepClone(words.find((word) => word.id === data.wordId)) as Word;
+    word.sentences = word.sentences?.filter(
       (sentence) => sentence.id !== data.sentenceId,
     );
     return word;
   },
   target: updateWord,
+});
+
+sample({
+  clock: deleteWordFx.doneData,
+  fn: () => '/dashboard',
+  filter: ViewWordGate.open,
+  target: changeLocation,
 });

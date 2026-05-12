@@ -1,7 +1,7 @@
 import { createEvent, createStore, sample } from "effector";
 
 export const $isOpen = createStore(false);
-export const redirectLocation = createStore<string | null>(null);
+export const redirectLocation = createStore<string>('');
 
 export const changeLocation = createEvent<string>();
 export const locationChanged = createEvent();

@@ -1,4 +1,4 @@
-import { useUnit } from "effector-react";
+import { useGate, useUnit } from "effector-react";
 
 import {
   $activeWord,
@@ -8,6 +8,7 @@ import {
   deleteDefinitionFormSubmittedFx,
   addTranslationFormSubmittedFx,
   deleteTranslationFormSubmittedFx,
+  ViewWordGate,
 } from "../model";
 import { deleteWordFormSubmitted } from "features/delete-word/model";
 import { Button, Input } from "shared/ui";
@@ -32,6 +33,8 @@ export function EditWord() {
     deleteWordFormSubmitted,
     deleteTranslationFormSubmittedFx,
   ]);
+
+  useGate(ViewWordGate);
 
   if (!activeWord) {
     return null;

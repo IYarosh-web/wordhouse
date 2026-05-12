@@ -1,9 +1,12 @@
-import { useUnit } from "effector-react";
+import { useGate, useUnit } from "effector-react";
 import { addWordFormSubmittedFx } from "features/add-word";
 import { Input, Button } from "shared/ui";
+import { addWordGate } from "../model";
 
-function AddWordModal() {
+export function AddWordModal() {
   const [handleWordFormSubmitted] = useUnit([addWordFormSubmittedFx]);
+
+  useGate(addWordGate);
 
   return (
     <form className="flex flex-col gap-2" onSubmit={handleWordFormSubmitted}>
@@ -16,5 +19,3 @@ function AddWordModal() {
     </form>
   );
 }
-
-export { AddWordModal };

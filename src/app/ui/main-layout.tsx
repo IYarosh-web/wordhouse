@@ -6,6 +6,7 @@ import { PAGES_WITH_SCROLL_LAYOUT } from "./model";
 import { WordList } from "features/word-list";
 import { Navbar } from "features/navbar";
 import { FocusOnCtrlKey } from "shared/ui/focus-on-key";
+import { Redirect } from "shared/ui/redirect/ui";
 
 export function MainLayout() {
   const location = useLocation();
@@ -13,6 +14,7 @@ export function MainLayout() {
 
   return (
     <div className={`${styles.wrapper} flex font-sour-gummy`}>
+      <Redirect />
       <div className="flex gap-2 m-auto w-min">
         <div className={`${styles.scroll} ${isScrollLayout ? styles.open : styles.close}`}>
           <FocusOnCtrlKey keyCode="ArrowLeft">

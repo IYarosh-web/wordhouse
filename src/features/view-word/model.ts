@@ -1,7 +1,7 @@
 import { locationChanged } from "app/model";
-import { combine, createEffect, createEvent, createStore, sample } from "effector";
-import { $wordStore, Word, wordClicked } from "entities/word";
-import { history } from "app/router/history";
+import { combine, createStore, sample } from "effector";
+import { $wordStore, Word } from "entities/word";
+import { createGate } from "effector-react";
 
 export const $paramsWord = createStore<Word["word"]>(null);
 export const $activeWord = combine(
@@ -10,9 +10,7 @@ export const $activeWord = combine(
   (paramsWord, words) => words.find((word) => word.word === paramsWord) || null,
 );
 
-const openWordFx = createEffect((word: Word) => {
-  history.push('/dashboard/' + word.word);
-});
+export const viewWordGate = createGate();
 
 sample({
   clock: locationChanged,
@@ -22,9 +20,4 @@ sample({
   },
   fn: (location) => location.split("/")[2],
   target: $paramsWord,
-});
-
-sample({
-  clock: wordClicked,
-  target: openWordFx,
 });

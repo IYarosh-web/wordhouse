@@ -5,8 +5,6 @@ import type { Word, Sentence, Translation, Definition } from "./model/types";
 import { $wordStore, $uniqueWordsStore } from "./model/store";
 import { wordsApi } from "./api";
 
-export {wordClicked} from './model/contracts';
-
 export { Word, Sentence, Translation, Definition, $wordStore, $uniqueWordsStore };
 
 export { wordsApi };

@@ -1,7 +1,9 @@
+
 import { createEffect, createEvent, createStore, sample } from "effector";
 import { createGate } from "effector-react";
 import { Word } from "entities/word";
 import { $wordStore, addWordFx, updateWordFx } from "entities/word/model/store";
+import { changeLocation } from "shared/ui/redirect/model";
 
 export const $isOpen = createStore(false);
 
@@ -10,7 +12,7 @@ export const addWordFormSubmitted =
   createEvent<React.FormEvent<HTMLFormElement>>();
 export const closeModal = createEvent();
 
-export const AddWordGate = createGate();
+export const addWordGate = createGate();
 
 export const addWordFormSubmittedFx = createEffect(
   async (event: React.FormEvent<HTMLFormElement>) => {
@@ -89,4 +91,11 @@ sample({
   clock: [closeModal, addWordFormSubmittedFx.doneData],
   fn: () => false,
   target: $isOpen,
+});
+
+sample({
+  clock: addWordFx.done,
+  fn: ({params: {word}}) => `/dashboard/${word}`,
+  filter: addWordGate.open,
+  target: changeLocation,
 });

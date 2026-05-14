@@ -1,8 +1,9 @@
 import { useUnit } from "effector-react";
-import { $guessCount } from "../model";
 import { range } from "shared/lib";
-import { Guess } from "./guess";
+
 import { Guess as GuessType } from "../types";
+import { $guessCount } from "../model";
+import { Guess } from "./guess";
 
 type Props = {
   answer: string;

@@ -1,10 +1,12 @@
 import { useGate, useUnit } from "effector-react"
 import { useRef } from "react";
-import { $answer, $error, $gameStatus, $guesses, $userInput, guessSubmitted, wordleGate } from "../model"
+import { useEffect } from "react";
+
+import { Button } from "shared/ui";
+
+import { $answer, $error, $gameStatus, $guesses, $userInput, guessSubmitted, wordleGate } from "../model";
 import { Results } from "./results";
 import { Keyboard } from "./keyboard";
-import { Button } from "shared/ui";
-import { useEffect } from "react";
 
 export function WidgetWordle() {
   const submitButtonRef = useRef<HTMLButtonElement>(null);

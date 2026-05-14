@@ -2,8 +2,8 @@
 import { createEffect, createEvent, createStore, sample } from "effector";
 import { createGate } from "effector-react";
 import { Word } from "entities/word";
-import { $wordStore, addWordFx, updateWordFx } from "entities/word/model/store";
-import { changeLocation } from "shared/ui/redirect/model";
+import { $wordStore, wordAdded, addWord, updateWord } from "entities/word";
+import { redirectTo } from "shared/contracts";
 
 export const $isOpen = createStore(false);
 
@@ -12,7 +12,7 @@ export const addWordFormSubmitted =
   createEvent<React.FormEvent<HTMLFormElement>>();
 export const closeModal = createEvent();
 
-export const addWordGate = createGate();
+export const AddWordGate = createGate();
 
 export const addWordFormSubmittedFx = createEffect(
   async (event: React.FormEvent<HTMLFormElement>) => {
@@ -63,7 +63,7 @@ sample({
     return word;
   },
   filter: (words, word) => words.some((w) => w.word === word.word),
-  target: updateWordFx,
+  target: updateWord,
 });
 
 sample({
@@ -78,7 +78,7 @@ sample({
     return word;
   },
   filter: (words, word) => !words.some((w) => w.word === word.word),
-  target: addWordFx,
+  target: addWord,
 });
 
 sample({
@@ -94,8 +94,8 @@ sample({
 });
 
 sample({
-  clock: addWordFx.done,
-  fn: ({params: {word}}) => `/dashboard/${word}`,
-  filter: addWordGate.open,
-  target: changeLocation,
+  clock: wordAdded,
+  fn: word => `/dashboard/${word.word}`,
+  filter: AddWordGate.open,
+  target: redirectTo,
 });

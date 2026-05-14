@@ -10,3 +10,5 @@ export { Word, Sentence, Translation, Definition, $wordStore, $uniqueWordsStore 
 export { wordsApi };
 
 export { isWordValid } from './model/lib';
+
+export { loadWords, $isLoading, deleteWord, addWord, updateWord, wordAdded, wordDeleted, wordUpdated } from './model/store';

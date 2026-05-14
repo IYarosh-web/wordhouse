@@ -1,11 +1,10 @@
-import { locationChanged } from "app/model";
 import { combine, createStore, createEffect, sample } from "effector";
 import { $wordStore, Word } from "entities/word";
 import { createGate } from "effector-react";
-import { deleteWordFx, updateWord } from "entities/word/model/store";
+import { wordDeleted, updateWord } from "entities/word/model/store";
 import { Sentence, Definition, Translation } from "entities/word";
 import { deepClone } from "shared/lib";
-import { changeLocation } from "shared/ui/redirect/model";
+import { locationChanged, redirectTo } from "shared/contracts";
 
 export const $paramsWord = createStore<Word["word"]>('');
 export const $activeWord = combine(
@@ -191,8 +190,8 @@ sample({
 });
 
 sample({
-  clock: deleteWordFx.doneData,
+  clock: wordDeleted,
   fn: () => '/dashboard',
   filter: ViewWordGate.open,
-  target: changeLocation,
+  target: redirectTo,
 });

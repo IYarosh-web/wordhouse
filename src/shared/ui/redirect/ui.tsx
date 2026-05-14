@@ -1,11 +1,11 @@
 import { useUnit } from "effector-react";
 import { Link } from "react-router";
-import { $isOpen, locationChanged, redirectLocation } from "./model";
+import { $isOpen, locationChanged, $redirectLocation } from "./model";
 import { useEffect, useRef } from "react";
 
 export function Redirect() {
     const ref = useRef<HTMLAnchorElement>(null);
-    const [to, isOpen, done] = useUnit([redirectLocation, $isOpen, locationChanged]);
+    const [to, isOpen, done] = useUnit([$redirectLocation, $isOpen, locationChanged]);
 
     useEffect(() => {
         if (ref.current) {

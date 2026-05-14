@@ -1,9 +1,11 @@
 import { range } from "shared/lib";
+
+import { useUnit } from "effector-react";
+
+import { guessAnimationEnded } from "../model";
 import { checkGuess } from "../lib";
 
 import styles from './guess.module.css';
-import { useUnit } from "effector-react";
-import { guessAnimationEnded } from "../model";
 
 type Props = {
   answer: string;

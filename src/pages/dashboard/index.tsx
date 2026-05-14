@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from "react-router";
-import { locationChanged } from "app/model";
 import { useEffect } from "react";
 import { useUnit } from "effector-react";
+import { locationChanged } from "shared/contracts";
 
 export function Dashboard() {
   const location = useLocation();

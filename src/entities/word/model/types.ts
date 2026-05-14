@@ -3,7 +3,7 @@ type Word = {
   word: string;
   translations: Translation[];
   definitions: Definition[];
-  sentences?: Sentence[];
+  sentences: Sentence[];
 };
 
 type Definition = {

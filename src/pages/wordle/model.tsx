@@ -1,10 +1,12 @@
+import React from "react";
+import { createGate } from "effector-react";
 import { createEffect, createEvent, createStore, sample } from "effector";
-import { GameStatus, Guess, LetterStatus, Status } from "./types";
+
 import { $wordStore } from "entities/word";
 import { randomFrom, uuid } from "shared/lib";
-import React, { ChangeEvent } from "react";
-import { createGate } from "effector-react";
+
 import { checkGuess, checkWordExists } from "./lib";
+import { GameStatus, Guess, Status } from "./types";
 
 export const gameStarted = createEvent();
 export const keyPressed = createEvent<KeyboardEvent>();

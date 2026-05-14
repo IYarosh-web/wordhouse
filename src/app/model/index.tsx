@@ -1,10 +1,8 @@
-import { createEvent, sample } from "effector";
-import { loadWordsFx } from "entities/word/model/store";
-
-export const appInitialized = createEvent();
-export const locationChanged = createEvent<string>();
+import { sample } from "effector";
+import { loadWords } from "entities/word/model/store";
+import { appInitialized } from "shared/contracts";
 
 sample({
   clock: appInitialized,
-  target: loadWordsFx,
+  target: loadWords,
 });

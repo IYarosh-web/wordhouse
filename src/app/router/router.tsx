@@ -1,13 +1,10 @@
 import { createBrowserRouter, Navigate } from "react-router";
 
 import { MainLayout } from "app/ui";
-import Home from "pages/home";
-import { Dashboard } from "pages/index";
+import { Home, Dashboard, Widgets, Settings } from "pages";
 import { EditWord } from "features/edit-word";
 import { AddWord } from "features/add-word";
-import { Widgets } from "pages/widgets";
 import { WidgetWordle } from "pages/wordle";
-import { Settings } from "pages/settings";
 
 export const router = createBrowserRouter([
     {

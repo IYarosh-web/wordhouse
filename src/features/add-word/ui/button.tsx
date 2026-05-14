@@ -1,6 +1,7 @@
 import { Button } from "shared/ui";
-import { addWordClicked } from "../model";
 import { useUnit } from "effector-react";
+
+import { addWordClicked } from "../model";
 
 function AddWordButton() {
   const [handleAddWordClicked] = useUnit([addWordClicked]);

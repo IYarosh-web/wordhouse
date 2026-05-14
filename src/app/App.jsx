@@ -1,14 +1,16 @@
 import { useEffect } from "react";
 import { useUnit } from "effector-react";
-import { appInitialized } from "app/model";
 import { RouterProvider } from "react-router";
 import { router } from "app/router/router";
+import { $isLoading } from "entities/word";
+import { appInitialized } from "shared/contracts";
+
+import './model/index';
 
 import "effector/enable_debug_traces";
-import { loadWordsFx } from "entities/word/model/store";
 
 export const App = () => {
-  const [initApp, loading] = useUnit([appInitialized, loadWordsFx.pending]);
+  const [initApp, loading] = useUnit([appInitialized, $isLoading]);
 
   useEffect(() => {
     initApp();

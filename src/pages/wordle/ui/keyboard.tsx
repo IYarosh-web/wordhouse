@@ -1,6 +1,7 @@
 import { useUnit } from "effector-react";
-import { letterClicked, keyPressed, $letterStatuses } from "../model";
 import { useEffect } from "react";
+
+import { letterClicked, keyPressed, $letterStatuses } from "../model";
 
 import styles from './guess.module.css';
 

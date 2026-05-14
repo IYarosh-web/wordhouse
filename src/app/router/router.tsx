@@ -5,6 +5,8 @@ import { Home, Dashboard, Widgets, Settings } from "pages";
 import { EditWord } from "features/edit-word";
 import { AddWord } from "features/add-word";
 import { WidgetWordle } from "pages/wordle";
+import { Protected } from "./protected";
+import { Login } from "pages/login";
 
 export const router = createBrowserRouter([
     {
@@ -14,11 +16,11 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 path: "/",
-                element: <Home />
+                element: <Home />,
             },
             {
                 path: "dashboard",
-                element: <Dashboard />,
+                element: <Protected><Dashboard /></Protected>,
                 children: [
                     {
                         path: ":word",
@@ -32,6 +34,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "widgets",
+                element: <Protected />,
                 children: [
                     {
                         index: true,
@@ -45,12 +48,16 @@ export const router = createBrowserRouter([
             },
             {
                 path: "settings",
-                element: <Settings />
+                element: <Protected><Settings /></Protected>
+            },
+            {
+                path: "login",
+                element: <Login />
             },
             {
                 path: "*",
                 element: <Navigate to="dashboard" />
-            }
+            },
         ]
     },
 ], { basename: "/wordhouse" });

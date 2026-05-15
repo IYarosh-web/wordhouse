@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from "react-router";
+import { createHashRouter, Navigate } from "react-router";
 
 import { MainLayout } from "app/ui";
 import { Home, Dashboard, Widgets, Settings } from "pages";
@@ -8,7 +8,7 @@ import { WidgetWordle } from "pages/wordle";
 import { Protected } from "./protected";
 import { Login } from "pages/login";
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
     {
         path: "/",
         element: <MainLayout />,

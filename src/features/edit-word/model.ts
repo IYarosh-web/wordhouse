@@ -1,8 +1,10 @@
 import { combine, createStore, createEffect, sample } from "effector";
-import { $wordStore, Word } from "entities/word";
 import { createGate } from "effector-react";
-import { wordDeleted, updateWord } from "entities/word/model/store";
+
+import { $wordStore, Word } from "entities/word";
 import { Sentence, Definition, Translation } from "entities/word";
+import { wordDeleted, updateWord } from "entities/word/model/store";
+
 import { deepClone } from "shared/lib";
 import { locationChanged, redirectTo } from "shared/contracts";
 
@@ -49,6 +51,8 @@ export const addDefinitionFormSubmittedFx = createEffect(
       wordId: formData.get("wordId") as string,
     };
 
+    event.currentTarget.definition.value = '';
+
     return definition;
   },
 );
@@ -64,6 +68,8 @@ export const addSentenceFormSubmittedFx = createEffect(
       wordId: formData.get("wordId") as string,
     };
 
+    event.currentTarget.sentence.value = '';
+
     return sentence;
   },
 );
@@ -78,6 +84,8 @@ export const addTranslationFormSubmittedFx = createEffect(
       translation: formData.get("translation") as string,
       wordId: formData.get("wordId") as string,
     };
+
+    event.currentTarget.translation.value = '';
 
     return translation;
   },

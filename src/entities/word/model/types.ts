@@ -6,6 +6,8 @@ type Word = {
   sentences: Sentence[];
 };
 
+type WordDTO = Omit<Word, 'id'>;
+
 type Definition = {
   id: string;
   definition: string;
@@ -24,4 +26,4 @@ type Sentence = {
   wordId: string;
 };
 
-export type { Word, Sentence, Definition, Translation };
+export type { Word, Sentence, Definition, Translation, WordDTO };

@@ -8,22 +8,22 @@ class LocalUserApi implements UserApi {
         return this.user ?? null;
     }
 
-    signup(username: string): Promise<void> {
+    signup(username: string): Promise<User> {
         return new Promise((resolve, reject) => {
             if (this.user) {
                 reject(new Error('User already exists'));
             }
             this.user = { id: "1", username };
             localStorage.setItem('user', JSON.stringify(this.user));
-            resolve();
+            resolve(this.user);
         });
     }
 
-    login(username: string, password: string): Promise<void> {
+    login(username: string, password: string): Promise<User> {
         return new Promise((resolve, reject) => {
             this.user = { id: "1", username };
             localStorage.setItem('user', JSON.stringify(this.user));
-            resolve();
+            resolve(this.user);
         });
     }
 

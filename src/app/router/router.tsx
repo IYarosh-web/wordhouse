@@ -1,4 +1,4 @@
-import { createHashRouter, Navigate } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 
 import { MainLayout } from "app/ui";
 import { Home, Dashboard, Widgets, Settings } from "pages";
@@ -8,7 +8,7 @@ import { WidgetWordle } from "pages/wordle";
 import { Protected } from "./protected";
 import { Login } from "pages/login";
 
-export const router = createHashRouter([
+export const router = createBrowserRouter([
     {
         path: "/",
         element: <MainLayout />,
@@ -48,7 +48,13 @@ export const router = createHashRouter([
             },
             {
                 path: "settings",
-                element: <Protected><Settings /></Protected>
+                element: <Protected />,
+                children: [
+                    {
+                        index: true,
+                        element: <Settings />
+                    }
+                ]
             },
             {
                 path: "login",
@@ -56,8 +62,8 @@ export const router = createHashRouter([
             },
             {
                 path: "*",
-                element: <Navigate to="dashboard" />
+                element: <Navigate to="/dashboard" />
             },
         ]
     },
-], { basename: "/wordhouse" });
+]);

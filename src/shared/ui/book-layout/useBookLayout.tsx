@@ -1,12 +1,24 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export function useBookLayout(containerRef: React.RefObject<HTMLDivElement>) {
     const COLUMN_WIDTH = 330;
     const COLUMN_GAP = 24;
     const COLUMN_RULE_WIDTH = 2;    
     const PADDING = 24;
+    const SCROLL_CONTAINER_PADDING = 2;
     const WIDTH = COLUMN_WIDTH * 2 + COLUMN_GAP + PADDING * 2 + COLUMN_RULE_WIDTH; // Magic numbers, don't understand why but needed
     const SCROLL_AMOUNT = WIDTH - 17; // Magic numbers, don't understand why but needed
+
+    const [prevAvailable, setPrevAvailable] = useState(false);
+    const [nextAvailable, setNextAvailable] = useState(false);
+
+    const updateAvailibility = useCallback(() => {
+        const el = containerRef.current;
+        if (!el) return;
+    
+        setPrevAvailable(el.scrollLeft > 0);
+        setNextAvailable(el.scrollLeft < el.scrollWidth - el.clientWidth);
+    }, []);
 
     const next = useCallback(() => {
         if (containerRef.current) {
@@ -14,8 +26,9 @@ export function useBookLayout(containerRef: React.RefObject<HTMLDivElement>) {
                 left: SCROLL_AMOUNT,
                 behavior: "instant"
             });
+            updateAvailibility();
         }
-    }, []);
+    }, [updateAvailibility]);
 
     const prev = useCallback(() => {
         if (containerRef.current) {
@@ -23,8 +36,9 @@ export function useBookLayout(containerRef: React.RefObject<HTMLDivElement>) {
                 left: -SCROLL_AMOUNT,
                 behavior: "instant"
             });
+            updateAvailibility();
         }
-    }, []);
+    }, [updateAvailibility]);
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
@@ -36,7 +50,16 @@ export function useBookLayout(containerRef: React.RefObject<HTMLDivElement>) {
         }
         document.addEventListener('keydown', handleKeyDown);
         return () => document.removeEventListener('keydown', handleKeyDown);
-    }, [next, prev]);   
+    }, [next, prev]);
 
-    return { next, prev, COLUMN_WIDTH, COLUMN_GAP, COLUMN_RULE_WIDTH, PADDING, WIDTH, SCROLL_AMOUNT };
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            updateAvailibility();
+        });
+
+        return () => clearTimeout(timer);
+    });
+
+
+    return { next, prev, COLUMN_WIDTH, COLUMN_GAP, COLUMN_RULE_WIDTH, PADDING, WIDTH, SCROLL_AMOUNT, prevAvailable, nextAvailable, SCROLL_CONTAINER_PADDING };
 }

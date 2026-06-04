@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { useUnit } from "effector-react";
 import { RouterProvider } from "react-router";
+
+import  "./firebase";
+
 import { router } from "app/router/router";
 import { $isLoading } from "entities/word";
 import { appInitialized } from "shared/contracts";

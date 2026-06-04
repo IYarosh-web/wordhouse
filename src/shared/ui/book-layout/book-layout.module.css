@@ -7,3 +7,8 @@
     height: 388px;
     column-fill: auto;
 }
+
+.button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

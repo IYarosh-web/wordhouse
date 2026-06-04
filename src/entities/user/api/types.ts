@@ -1,8 +1,8 @@
 import { User } from "../model/types";
 
 export interface UserApi {
-    signup: (username: string, password: string) => Promise<void>;
-    login: (username: string, password: string) => Promise<void>;
+    signup: (username: string, password: string) => Promise<User>;
+    login: (username: string, password: string) => Promise<User>;
     logout: () => Promise<void>;
     getUser: () => User | null;
 }

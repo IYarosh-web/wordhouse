@@ -9,8 +9,8 @@ import styles from './book-layout.module.css';
 export function _BookLayout({children}: {children: React.ReactNode}, ref: React.RefObject<HTMLDivElement>) {
     const containerRef = useRef<HTMLDivElement>(null);
 
-    const { next, prev, COLUMN_WIDTH, COLUMN_GAP, COLUMN_RULE_WIDTH, PADDING, WIDTH } = useBookLayout(containerRef);
-    
+    const { next, prev, COLUMN_WIDTH, COLUMN_GAP, COLUMN_RULE_WIDTH, PADDING, WIDTH, prevAvailable, nextAvailable, SCROLL_CONTAINER_PADDING } = useBookLayout(containerRef);
+
     return (
         <div
             ref={ref}
@@ -26,8 +26,8 @@ export function _BookLayout({children}: {children: React.ReactNode}, ref: React.
                 {children}
             </div>
             <div className="h-8 flex justify-between">
-                <button onClick={prev}>←Prev</button>
-                <button onClick={next}>Next→</button>
+                <button className={styles.button} onClick={prev} disabled={!prevAvailable}>←Prev</button>
+                <button className={styles.button} onClick={next} disabled={!nextAvailable}>Next→</button>
             </div>
         </div>
     )

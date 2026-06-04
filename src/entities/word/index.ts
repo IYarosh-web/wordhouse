@@ -1,11 +1,11 @@
 // Words layer public API
 // Export your word components here
 
-import type { Word, Sentence, Translation, Definition } from "./model/types";
+import type { Word, Sentence, Translation, Definition, WordDTO } from "./model/types";
 import { $wordStore, $uniqueWordsStore } from "./model/store";
 import { wordsApi } from "./api";
 
-export { Word, Sentence, Translation, Definition, $wordStore, $uniqueWordsStore };
+export { Word, Sentence, Translation, Definition, WordDTO, $wordStore, $uniqueWordsStore };
 
 export { wordsApi };
 

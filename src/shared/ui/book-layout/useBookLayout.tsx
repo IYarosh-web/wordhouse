@@ -42,6 +42,12 @@ export function useBookLayout(containerRef: React.RefObject<HTMLDivElement>) {
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.defaultPrevented) return;
+
+            const activeElement = document.activeElement;
+            const isBookLayoutInFocus = containerRef.current?.contains(activeElement) || activeElement.childNodes.item(0) === containerRef.current;
+            if (!isBookLayoutInFocus) return;
+            
             if (event.key === 'ArrowRight') {
                 next();
             } else if (event.key === 'ArrowLeft') {

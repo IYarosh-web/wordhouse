@@ -6,7 +6,7 @@ export function useBookLayout(containerRef: React.RefObject<HTMLDivElement>) {
     const COLUMN_RULE_WIDTH = 2;    
     const PADDING = 24;
     const SCROLL_CONTAINER_PADDING = 2;
-    const WIDTH = COLUMN_WIDTH * 2 + COLUMN_GAP + PADDING * 2 + COLUMN_RULE_WIDTH; // Magic numbers, don't understand why but needed
+    const WIDTH = COLUMN_WIDTH * 2 + COLUMN_GAP + PADDING * 2 + COLUMN_RULE_WIDTH + SCROLL_CONTAINER_PADDING * 2; // Magic numbers, don't understand why but needed
     const SCROLL_AMOUNT = WIDTH - 17; // Magic numbers, don't understand why but needed
 
     const [prevAvailable, setPrevAvailable] = useState(false);

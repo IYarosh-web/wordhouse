@@ -20,7 +20,7 @@ export function _BookLayout({children}: {children: React.ReactNode}, ref: React.
         >
             <div
                 ref={containerRef}
-                style={{columnWidth: COLUMN_WIDTH, columnGap: COLUMN_GAP, columnRuleWidth: COLUMN_RULE_WIDTH}}
+                style={{columnWidth: COLUMN_WIDTH, columnGap: COLUMN_GAP, columnRuleWidth: COLUMN_RULE_WIDTH, padding: SCROLL_CONTAINER_PADDING }}
                 className={styles.scrollContainer}
             >
                 {children}

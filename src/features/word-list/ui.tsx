@@ -1,12 +1,12 @@
-import { $wordList, wordListGate } from "./model";
+import { $filter, $wordList, filterChanged, wordListGate } from "./model";
 import { useGate, useUnit } from "effector-react";
 import { Link, useLocation } from "react-router";
-import { Button } from "shared/ui";
+import { Button, Input } from "shared/ui";
 
 export function WordList() {
     const location = useLocation();
     
-    const [words] = useUnit([$wordList]);
+    const [words, filter, changeFilter] = useUnit([$wordList, $filter, filterChanged]);
 
     useGate(wordListGate);
 
@@ -20,6 +20,7 @@ export function WordList() {
                     <Button tabIndex={-1}>+</Button>
                 </Link>
             </h1>
+            <Input onChange={changeFilter} value={filter} placeholder="Search..." />
             {words.map(word => (
                 <Link to={`/dashboard/${word.word}`} className="text-left" key={word.id}>
                     <span className={activeWord === word.word ? 'text-blue-500' : ''}>

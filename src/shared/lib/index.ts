@@ -65,3 +65,7 @@ export const readFile = () => {
     fileInput.click();
   });
 };
+
+export const strIncludes = (str: string, search: string) => {
+  return str.toLowerCase().includes(search.toLowerCase());
+};

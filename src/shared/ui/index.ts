@@ -8,3 +8,5 @@ export { FocusOnCtrlKey } from "./focus-on-key";
 export { InlineButton } from "./inline-button";
 export { Textarea } from "./textarea";
 export { Icon } from "./icon";
+export { Select, type Option } from "./select";
+export { Menu, MenuItem, MenuButton, MenuItems } from "./dropdown";

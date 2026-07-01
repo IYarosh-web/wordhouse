@@ -1,4 +1,3 @@
-import { localStorageWordsApi } from "./localStorage";
 import { FirebaseWordsApi } from "./firebase";
 import { userApi } from "entities/user/api";
 

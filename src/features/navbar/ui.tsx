@@ -8,7 +8,7 @@ function _Navbar(_, ref: React.RefObject<HTMLElement>) {
   const location = useLocation();
 
   return (
-    <nav ref={ref} tabIndex={0}>
+    <nav className="outline-offset-4" ref={ref} tabIndex={0}>
       <ul className="flex gap-2 px-6">
         <li>
           <Link className={`${styles.dashboard} ${styles.item} ${location.pathname.startsWith("/dashboard") ? styles.active : ""}`} to="/dashboard" />

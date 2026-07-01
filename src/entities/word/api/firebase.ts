@@ -3,6 +3,7 @@ import { Word, WordDTO } from "../model/types";
 import { UserApi } from "entities/user/api/types";
 import { addDoc, collection, deleteDoc, doc, Firestore, getDocs, updateDoc } from "firebase/firestore";
 import { db } from "app/firebase";
+import { isWordValid, isWordValidDTO } from "../model/lib";
 
 export class FirebaseWordsApi implements WordApi {
     private db: Firestore;
@@ -14,21 +15,25 @@ export class FirebaseWordsApi implements WordApi {
     }
 
     async getWords() {
-        const user = this.userApi.getUser();
-        if (!user) {
-            throw new Error('User not found');
+        try {
+            const user = this.userApi.getUser();
+            if (!user) {
+                throw new Error('User not found');
+            }
+            const words: Word[] = [];
+            const querySnapshot = await getDocs(collection(this.db, `words.${user.id}`));
+            querySnapshot.forEach((doc) => {
+                words.push({
+                    ...doc.data() as Word,
+                    id: doc.id,
+                } as Word);
+            });
+
+            return words;
+        } catch (error) {
+            console.error(`Error getting words: ${error}`);
+            throw error;
         }
-        const words: Word[] = [];
-
-        const querySnapshot = await getDocs(collection(this.db, `words.${user.id}`));
-        querySnapshot.forEach((doc) => {
-            words.push({
-                ...doc.data() as Word,
-                id: doc.id,
-            } as Word);
-        });
-
-        return words;
     }
 
     async getWord(id: string) {
@@ -42,6 +47,9 @@ export class FirebaseWordsApi implements WordApi {
 
         if (!user) {
             throw new Error('User not found');
+        }
+        if (!isWordValidDTO(word)) {
+            throw new Error('Word is not valid');
         }
         const docRef = await addDoc(collection(this.db, `words.${user.id}`), word);
 
@@ -59,6 +67,9 @@ export class FirebaseWordsApi implements WordApi {
         const user = this.userApi.getUser();
         if (!user) {
             throw new Error('User not found');
+        }
+        if (!isWordValid(word)) {
+            throw new Error('Word is not valid');
         }
         await updateDoc(doc(this.db, `words.${user.id}/${word.id}`), word);
         return word;

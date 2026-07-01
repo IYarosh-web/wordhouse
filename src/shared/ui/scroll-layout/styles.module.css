@@ -1,7 +1,13 @@
 .scroll {
     transition: height 0.3s ease-in-out;
-    padding-top: 32px;
-    padding-bottom: 32px;
+
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: hsl(0, 0%, 20%);
+    }
 }
 
 .content {

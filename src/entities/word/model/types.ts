@@ -4,6 +4,8 @@ type Word = {
   translations: Translation[];
   definitions: Definition[];
   sentences: Sentence[];
+  createdAt: string;
+  updatedAt: string;
 };
 
 type WordDTO = Omit<Word, 'id'>;

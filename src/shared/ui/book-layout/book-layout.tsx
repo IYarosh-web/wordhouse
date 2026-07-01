@@ -15,7 +15,7 @@ export function _BookLayout({children}: {children: React.ReactNode}, ref: React.
         <div
             ref={ref}
             tabIndex={0}
-            className={styles.wrapper + " relative"}
+            className={styles.wrapper + " relative outline-offset-4"}
             style={{width: WIDTH, padding: PADDING, backgroundImage: `url(${bookImage})`}}
         >
             <div

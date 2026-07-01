@@ -9,7 +9,7 @@ function _ScrollLayout({
     open?: boolean
 }, ref: React.RefObject<HTMLDivElement>) {
     return (
-        <div ref={ref} tabIndex={0} className={`relative w-[300px]  ${open ? styles.open : styles.close} ${styles.scroll}`}>
+        <div ref={ref} tabIndex={0} className={`relative w-[300px] py-8 outline-offset-4  ${open ? styles.open : styles.close} ${styles.scroll}`}>
             <div className={`${styles.content} overflow-y-auto`}>
                 {open && children}
             </div>

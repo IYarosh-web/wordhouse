@@ -1,4 +1,5 @@
 import { WordApi } from "./types";
+import { Word } from "../model/types";
 
 export const localStorageWordsApi: WordApi = {
   getWords: () => {
@@ -6,9 +7,17 @@ export const localStorageWordsApi: WordApi = {
   },
   createWord: async (word) => {
     const words = await localStorageWordsApi.getWords();
-    words.push(word);
+
+    const newWord: Word = {
+      ...word,
+      id: crypto.randomUUID(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    words.push(newWord);
     localStorage.setItem("words", JSON.stringify(words));
-    return word;
+    return newWord;
   },
   updateWord: async (word) => {
     const words = await localStorageWordsApi.getWords();

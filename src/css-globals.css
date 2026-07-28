@@ -1,3 +1,6 @@
+@import "tailwindcss";
+@import "@heroui/styles";
+
 .sidebar {
   grid-area: sidebar;
 }

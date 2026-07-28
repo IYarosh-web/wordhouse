@@ -50,16 +50,16 @@ export function WidgetWordle() {
           </p>
           <Results guesses={guesses} answer={answer} />
       </div>
-      <div>
+      <div className="flex flex-col gap-2">
           <form action="#" className="min-h-20 flex flex-col gap-2" onSubmit={handleSubmit}>
             <span className="text-center">Your guess:</span>
             <input type="text" name="guess" value={input} className="hidden" />
             <div className="flex gap-2 justify-center">
               {answer.split('').map((_, index) => (
-                <span key={index} className="p-1 w-6 h-6 border-1 flex items-center justify-center">{input[index]}</span>
+                <span key={index} className="p-1 w-6 h-6 border flex items-center justify-center">{input[index]}</span>
               ))}
             </div>
-            <Button type="submit" ref={submitButtonRef}>Submit</Button>
+            <Button className="w-min mx-auto" type="submit" ref={submitButtonRef}>Submit</Button>
           </form>
           <Keyboard />  
       </div>

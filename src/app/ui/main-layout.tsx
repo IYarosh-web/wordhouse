@@ -17,7 +17,7 @@ export function MainLayout() {
       <Redirect />
       <div className="flex gap-2 m-auto w-min">
         <div className={`${styles.scroll} ${isScrollLayout ? styles.open : styles.close}`}>
-          <FocusOnCtrlKey keyCode="ArrowLeft">
+          <FocusOnCtrlKey keyCode="ArrowLeft" disabled={!isScrollLayout}>
             <ScrollLayout open={isScrollLayout}>
                 <WordList />
             </ScrollLayout>

@@ -16,8 +16,8 @@ export function Keyboard() {
 
   useEffect(() => {
     const keyboardHandler = (e: KeyboardEvent) => {
-        handleLetterPress(e);
-      }
+      handleLetterPress(e);
+    }
 
     document.addEventListener('keydown', keyboardHandler);
     return () => document.removeEventListener('keydown', keyboardHandler);

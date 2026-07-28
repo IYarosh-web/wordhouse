@@ -14,9 +14,6 @@ export function isWordValid(word: Word): boolean {
 }
 
 export function isWordValidDTO(word: WordDTO): boolean {
-    if (Object.keys(word).length !== 4) {
-        return false;
-    }
     if (!word.word) {
         return false;
     }

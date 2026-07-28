@@ -7,6 +7,7 @@ import { AddWord } from "features/add-word";
 import { WidgetWordle } from "pages/wordle";
 import { Protected } from "./protected";
 import { Login } from "pages/login";
+import { SentenceFillWidget } from "pages/sentence-fill";
 
 export const router = createBrowserRouter([
     {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
                     {
                         path: "wordle",
                         element: <WidgetWordle />
+                    },
+                    {
+                        path: "sentence-fill",
+                        element: <SentenceFillWidget />
                     }
                 ],
             },

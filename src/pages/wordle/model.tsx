@@ -5,8 +5,9 @@ import { createEffect, createEvent, createStore, sample } from "effector";
 import { $wordStore } from "entities/word";
 import { randomFrom, uuid } from "shared/lib";
 
-import { checkGuess, checkWordExists } from "./lib";
+import { checkGuess, checkWordExists, filterWord } from "./lib";
 import { GameStatus, Guess, Status } from "./types";
+import { MAX_GUESSES } from "./const";
 
 export const gameStarted = createEvent();
 export const keyPressed = createEvent<KeyboardEvent>();
@@ -15,7 +16,7 @@ export const guessSubmitted = createEvent<React.FormEvent<HTMLFormElement>>();
 export const guessAnimationEnded = createEvent();
 
 export const $answer = createStore<string>('');
-export const $guessCount = createStore<number>(6);
+export const $guessCount = createStore<number>(MAX_GUESSES);
 export const $guesses = createStore<Guess[]>([]);
 export const $userInput = createStore<string>('');
 export const $gameStatus = createStore<GameStatus>("running");
@@ -84,7 +85,7 @@ sample({
   source: $wordStore,
   filter: (words) => words.length > 0,
   fn: (words, _) => (
-    randomFrom(words).word.toUpperCase()
+    randomFrom(words.filter(filterWord)).word.toUpperCase()
   ),
   target: $answer,
 });
@@ -176,6 +177,14 @@ sample({
   fn: (): GameStatus => 'won',
   target: $gameStatus,
 });
+
+sample({
+  clock: guessAnimationEnded,
+  source: { guesses: $guesses },
+  filter: ({guesses}) => guesses.length >= MAX_GUESSES,
+  fn: (): GameStatus => 'lost',
+  target: $gameStatus, 
+})
 
 sample({
   clock: guessAnimationEnded,

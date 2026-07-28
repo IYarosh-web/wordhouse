@@ -2,10 +2,11 @@ import { NavLink } from "react-router";
 
 export function WidgetsList() {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="">
       <ul>
-        <li className="text-left">
+        <li className="text-left flex flex-col gap-2">
           <NavLink className="cursor-pointer" to="/widgets/wordle">Wordle</NavLink>
+          <NavLink className="cursor-pointer" to="/widgets/sentence-fill">Sentence Fill</NavLink>
         </li>
       </ul>
     </div>

@@ -1,8 +1,7 @@
 import { $filter, $wordList, filterChanged, wordListGate } from "../model";
 import { useGate, useUnit } from "effector-react";
 import { Link, useLocation } from "react-router";
-import { Button, Icon, Input } from "shared/ui";
-import { Select } from "shared/ui/select";
+import { ButtonLink, Icon, Icons, Input } from "shared/ui";
 import { SortSelector } from "./sort-selector";
 
 export function WordList() {
@@ -18,11 +17,9 @@ export function WordList() {
         <div className="flex flex-col gap-2">
             <h1 className="flex items-center gap-2">
                 <span className="pr-1">Word List</span>
-                <Link to="/dashboard/add-word">
-                    <Button square tabIndex={-1}>
-                        <Icon name="add" />
-                    </Button>
-                </Link>
+                <ButtonLink to="/dashboard/add-word">
+                    <Icons.Plus className="size-5" />
+                </ButtonLink>
                 <SortSelector />
             </h1>
             <Input onChange={changeFilter} value={filter} placeholder="Search..." />

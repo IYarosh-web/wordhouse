@@ -3,23 +3,7 @@
   width: 100vw;
 }
 
-.grid {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr 1fr;
-}
-
-.scroll {
-  padding-top: 44px;
-  transition: width 0.3s ease-in-out;
-  overflow: visible;
-}
-
-.open {
-  width: 300px;
-}
-
-.close {
-  width: 10px;
-  transition-delay: 0.5s;
+.widthWrapper {
+  width: 600px;
+  margin: 0 auto;
 }

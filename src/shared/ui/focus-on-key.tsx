@@ -14,6 +14,7 @@ function FocusOnCtrlKey({ children, keyCode, disabled = false }: React.PropsWith
 
       if (event.ctrlKey && event.key === keyCode) {
         event.preventDefault();
+        console.log("focusing", childRef.current);
         childRef.current?.focus();
       }
     };

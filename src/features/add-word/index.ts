@@ -6,4 +6,4 @@ export {
 } from "./model";
 
 // Public UI
-export { AddWordButton, AddWord } from "./ui";
+export { AddWordButton, AddWord, AddWordModal } from "./ui";

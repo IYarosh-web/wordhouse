@@ -1,25 +1,37 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import { forwardRef } from "react";
+import { forwardRef, PropsWithChildren } from "react";
 
-import styles from "./styles.module.css";
+import { Tabs } from "shared/ui";
+import { redirectTo } from "shared/contracts";
+import { Key } from "@heroui/react";
 
-function _Navbar(_, ref: React.RefObject<HTMLElement>) {
-  const location = useLocation();
+function _Navbar(_: PropsWithChildren, ref: React.ForwardedRef<HTMLElement>) {
+  const handleSelectionChange = (value: Key) => {
+    redirectTo("/" + value);
+  }
 
   return (
-    <nav className="outline-offset-4" ref={ref} tabIndex={0}>
-      <ul className="flex gap-2 px-6">
-        <li>
-          <Link className={`${styles.dashboard} ${styles.item} ${location.pathname.startsWith("/dashboard") ? styles.active : ""}`} to="/dashboard" />
-        </li>
-        <li>
-          <Link className={`${styles.widgets} ${styles.item} ${location.pathname.startsWith("/widgets") ? styles.active : ""}`} to="/widgets" />
-        </li>
-        <li>
-          <Link className={`${styles.settings} ${styles.item} ${location.pathname.startsWith("/settings") ? styles.active : ""}`} to="/settings" />
-        </li>
-      </ul>
+    <nav tabIndex={-1} ref={ref}> 
+      <Tabs onSelectionChange={handleSelectionChange}>
+        <Tabs.ListContainer>
+          <Tabs.List aria-label="Main navigation">
+            <Tabs.Tab id="dashboard">
+              Dashboard
+              <Tabs.Indicator />
+            </Tabs.Tab>
+            <Tabs.Tab id="widgets">
+              Widgets
+              <Tabs.Indicator />
+            </Tabs.Tab>
+            <Tabs.Tab id="settings">
+              Settings
+              <Tabs.Indicator />
+            </Tabs.Tab>
+          </Tabs.List>
+          
+        </Tabs.ListContainer> 
+      </Tabs>
     </nav>
   )
 }

@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useUnit } from "effector-react";
-import { RouterProvider } from "react-router";
+import { BrowserRouter } from "react-router-dom";
 
 import  "./firebase";
 
-import { router } from "app/router/router";
+import { AppRouter } from "app/router/router";
+import { MainLayout } from "app/ui/main-layout";
 import { $isLoading } from "entities/word";
 import { appInitialized } from "shared/contracts";
 
@@ -23,5 +24,11 @@ export const App = () => {
     return <>Loading...</>
   }
 
-  return <RouterProvider router={router} />
+  return (
+    <BrowserRouter>
+      <MainLayout>
+        <AppRouter />
+      </MainLayout>
+    </BrowserRouter>
+  );
 };

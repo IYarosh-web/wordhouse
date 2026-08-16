@@ -4,7 +4,7 @@ import { loginFormSubmittedFx } from "./model";
 
 export function Login() {
     const [handleLoginFormSubmitted] = useUnit([loginFormSubmittedFx]);
-    
+
     return (
         <div>
             <h1>Login</h1>

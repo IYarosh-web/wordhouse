@@ -1,74 +1,57 @@
-import { createBrowserRouter, Navigate } from "react-router";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
-import { MainLayout } from "app/ui";
-import { Home, Dashboard, Widgets, Settings } from "pages";
-import { EditWord } from "features/edit-word";
-import { AddWord } from "features/add-word";
-import { WidgetWordle } from "pages/wordle";
+import { Dashboard, Widgets, Settings } from "pages";
+import { EditWordModal } from "features/edit-word";
+import { AddWordModal } from "features/add-word";
 import { Protected } from "./protected";
 import { Login } from "pages/login";
-import { SentenceFillWidget } from "pages/sentence-fill";
+import { AnimatePresence, motion } from "framer-motion";
 
-export const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <MainLayout />,
-        children: [
-            {
-                index: true,
-                path: "/",
-                element: <Home />,
-            },
-            {
-                path: "dashboard",
-                element: <Protected><Dashboard /></Protected>,
-                children: [
-                    {
-                        path: ":word",
-                        element: <EditWord />
-                    },
-                    {
-                        path: "add-word",
-                        element: <AddWord />
-                    }
-                ]
-            },
-            {
-                path: "widgets",
-                element: <Protected />,
-                children: [
-                    {
-                        index: true,
-                        element: <Widgets />
-                    },
-                    {
-                        path: "wordle",
-                        element: <WidgetWordle />
-                    },
-                    {
-                        path: "sentence-fill",
-                        element: <SentenceFillWidget />
-                    }
-                ],
-            },
-            {
-                path: "settings",
-                element: <Protected />,
-                children: [
-                    {
-                        index: true,
-                        element: <Settings />
-                    }
-                ]
-            },
-            {
-                path: "login",
-                element: <Login />
-            },
-            {
-                path: "*",
-                element: <Navigate to="/dashboard" />
-            },
-        ]
-    },
-]);
+const pageVariants = {
+    initial: { opacity: 0, x: "100%" },
+    animate: { opacity: 1, x: 0, transition: { type: "tween", ease: "easeInOut", duration: 0.4 } },
+    exit: { opacity: 0, x: "-100%", transition: { type: "tween", ease: "easeInOut", duration: 0.4 } }
+  };
+
+const PageWrapper = ({ children }: React.PropsWithChildren) => (
+    <motion.div
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      style={{
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        boxSizing: "border-box",
+        padding: "20px"
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+
+export function AppRouter() {
+  const location = useLocation();
+
+  const pathname = location.pathname.split('/')[1];
+
+    return (
+      <div className="flex flex-col gap-2">
+        <div style={{ position: "relative", width: "100%", height: "calc(100vh - 50px)", overflow: "hidden" }}>
+          <AnimatePresence mode="popLayout">
+            <Routes location={location} key={pathname}>
+                <Route path="/login" element={<Login />} />
+                <Route path="/dashboard" element={<PageWrapper><Protected><Dashboard /></Protected></PageWrapper>}>
+                  <Route path="add-word" element={<AddWordModal />} />
+                  <Route path=":word" element={<EditWordModal />} />
+                </Route>
+                <Route path="/widgets" element={<PageWrapper><Protected><Widgets /></Protected></PageWrapper>} />
+                <Route path="/settings" element={<PageWrapper><Protected><Settings /></Protected></PageWrapper>} />
+                <Route path="*" element={<Navigate to="/dashboard" />} />
+            </Routes>
+          </AnimatePresence>
+        </div>
+      </div>
+    );
+}

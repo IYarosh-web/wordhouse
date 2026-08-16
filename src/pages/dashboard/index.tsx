@@ -2,6 +2,7 @@ import { Outlet, useLocation } from "react-router";
 import { useEffect } from "react";
 import { useUnit } from "effector-react";
 import { locationChanged } from "shared/contracts";
+import { WordList } from "features/word-list";
 
 export function Dashboard() {
   const location = useLocation();
@@ -14,6 +15,7 @@ export function Dashboard() {
 
   return (
     <div className="h-full w-full">
+      <WordList />
       <Outlet />
     </div>
   );

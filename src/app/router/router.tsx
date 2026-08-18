@@ -38,7 +38,7 @@ export function AppRouter() {
 
     return (
       <div className="flex flex-col gap-2">
-        <div style={{ position: "relative", width: "100%", height: "calc(100vh - 50px)", overflow: "hidden" }}>
+        <div style={{ position: "relative", width: "100%" }}>
           <AnimatePresence mode="popLayout">
             <Routes location={location} key={pathname}>
                 <Route path="/login" element={<Login />} />

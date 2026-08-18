@@ -1,0 +1,31 @@
+.tab {
+    transition: transform 0.1s ease-in-out;
+}
+
+.tab span {
+    z-index: 1
+}
+
+.tab::before {
+    content: " ";
+    position: absolute;
+    inset: 0;
+    top: 100%;
+    background-color: gray;
+    transition: top 0.1s ease-in-out;
+    z-index: 0;
+}
+
+.tab:active {
+    transform: scale(0.98);
+}
+
+.tab:not(.selected):hover::before,
+.tab:not(.selected):focus::before {
+    top: 0;
+}
+
+.selected {
+    background-color: var(--border);
+    color: white;
+}

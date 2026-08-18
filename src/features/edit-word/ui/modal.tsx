@@ -1,4 +1,4 @@
-import { Modal } from "shared/ui";
+import { Dialog, DialogPanel } from "shared/ui";
 import { EditWordForm } from "./form";
 import { redirectTo } from "shared/contracts";
 
@@ -8,16 +8,10 @@ export function EditWordModal() {
     }
 
     return (
-        <Modal>
-            <Modal.Backdrop isOpen onOpenChange={handleClose}>
-                <Modal.Container>
-                    <Modal.Dialog>
-                        <Modal.Body>
-                            <EditWordForm />
-                        </Modal.Body>
-                    </Modal.Dialog>
-                </Modal.Container>
-            </Modal.Backdrop>
-        </Modal>
+        <Dialog open onClose={handleClose}>
+            <DialogPanel>
+                <EditWordForm />
+            </DialogPanel>
+        </Dialog>
     )
 }

@@ -1,1 +1,0 @@
-export { Typography } from '@heroui/react';

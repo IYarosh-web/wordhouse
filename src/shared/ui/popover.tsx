@@ -1,1 +1,1 @@
-export { Popover } from "@heroui/react";
+export { Popover } from "@headlessui/react";

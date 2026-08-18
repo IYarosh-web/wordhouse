@@ -1,37 +1,32 @@
-import { Link } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 import { forwardRef, PropsWithChildren } from "react";
 
-import { Tabs } from "shared/ui";
-import { redirectTo } from "shared/contracts";
-import { Key } from "@heroui/react";
+import styles from "./styles.module.css";
+
+const tabs = [
+  { id: "Dashboard", to: "/dashboard" },
+  { id: "Widgets", to: "/widgets" },
+  { id: "Settings", to: "/settings" },
+];
 
 function _Navbar(_: PropsWithChildren, ref: React.ForwardedRef<HTMLElement>) {
-  const handleSelectionChange = (value: Key) => {
-    redirectTo("/" + value);
-  }
+  const { pathname } = useLocation();
+
+  const selectedTab = tabs.findIndex(tab => pathname.startsWith(tab.to));
 
   return (
-    <nav tabIndex={-1} ref={ref}> 
-      <Tabs onSelectionChange={handleSelectionChange}>
-        <Tabs.ListContainer>
-          <Tabs.List aria-label="Main navigation">
-            <Tabs.Tab id="dashboard">
-              Dashboard
-              <Tabs.Indicator />
-            </Tabs.Tab>
-            <Tabs.Tab id="widgets">
-              Widgets
-              <Tabs.Indicator />
-            </Tabs.Tab>
-            <Tabs.Tab id="settings">
-              Settings
-              <Tabs.Indicator />
-            </Tabs.Tab>
-          </Tabs.List>
-          
-        </Tabs.ListContainer> 
-      </Tabs>
+    <nav className="flex gap-2" tabIndex={0} ref={ref}>
+        {tabs.map((tab, index) => (
+          <NavLink
+            className={`${styles.tab} ${index === selectedTab ? styles.selected : ""} relative px-2 py-1 br flex align-center justify-center capitalize`}
+            key={tab.id}
+            id={tab.id}
+            to={tab.to}
+          >
+            <span>{tab.id}</span>
+          </NavLink>
+        ))}
     </nav>
   )
 }

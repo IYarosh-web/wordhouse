@@ -1,8 +1,8 @@
 import { forwardRef } from "react";
-import { Input as HeroInput, InputProps } from "@heroui/react";
+import { Input as HeadlessInput, InputProps } from "@headlessui/react";
 
 export const _Input = (props: InputProps, ref: React.ForwardedRef<HTMLInputElement>) => {
-    return <HeroInput {...props} ref={ref} />;
+    return <HeadlessInput {...props} ref={ref} />;
 }
 
 const Input = forwardRef(_Input);

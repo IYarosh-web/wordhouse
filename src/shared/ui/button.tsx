@@ -1,9 +1,9 @@
-import { Button as HeroButton, ButtonProps } from "@heroui/react";
+import { Button as HeadlessButton, ButtonProps } from "@headlessui/react";
 
 import { forwardRef } from "react";
 
 const _Button = (props: ButtonProps, ref: React.ForwardedRef<HTMLButtonElement>) => {
-    return <HeroButton {...props} ref={ref} />;
+    return <HeadlessButton {...props} ref={ref} />;
 }
 
 const Button = forwardRef(_Button);

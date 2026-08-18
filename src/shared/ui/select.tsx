@@ -1,1 +1,1 @@
-export { Select } from "@heroui/react";
+export { Select } from "@headlessui/react";

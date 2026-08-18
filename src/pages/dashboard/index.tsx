@@ -14,7 +14,8 @@ export function Dashboard() {
   }, [location, changeLocation]);
 
   return (
-    <div className="h-full w-full">
+    <div>
+      <h2 className="text-2xl font-bold">Dashboard</h2>
       <WordList />
       <Outlet />
     </div>

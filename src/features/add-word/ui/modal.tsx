@@ -1,4 +1,4 @@
-import { Modal, Button, Icon, Icons } from "shared/ui";
+import { Dialog, DialogPanel } from "shared/ui";
 import { AddWordForm } from "./form";
 import { redirectTo } from "shared/contracts";
 import { Typography } from "@heroui/react";
@@ -9,22 +9,10 @@ export function AddWordModal() {
     }
 
     return (
-        <Modal>
-            <Modal.Backdrop isOpen onOpenChange={handleClose}>
-                <Modal.Container>
-                    <Modal.Dialog>
-                        <Modal.Header className="flex">
-                            <Typography align="center" type="h5">Add word</Typography>
-                            <Modal.CloseTrigger>
-                                <Icons.Xmark />
-                            </Modal.CloseTrigger>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <AddWordForm />
-                        </Modal.Body>
-                    </Modal.Dialog>
-                </Modal.Container>
-            </Modal.Backdrop>
-        </Modal>
+        <Dialog open onClose={handleClose}>
+            <DialogPanel>
+                <AddWordForm />
+            </DialogPanel>
+        </Dialog>
     )
 }

@@ -1,1 +1,1 @@
-export { Tabs } from '@heroui/react'
+export { TabGroup, TabList, Tab, TabPanel, TabPanels } from '@headlessui/react';

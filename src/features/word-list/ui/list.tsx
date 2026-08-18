@@ -1,7 +1,7 @@
 import { $filter, $wordList, filterChanged, wordListGate } from "../model";
 import { useGate, useUnit } from "effector-react";
 import { Link, useLocation } from "react-router";
-import { ButtonLink, Icon, Icons, Input, Label, ListBox } from "shared/ui";
+import { ButtonLink, Icon, Icons, Input } from "shared/ui";
 import { SortSelector } from "./sort-selector";
 import { redirectTo } from "shared/contracts";
 import { Selection } from "@heroui/react";
@@ -29,15 +29,11 @@ export function WordList() {
                 <SortSelector />
             </h1>
             <Input onChange={changeFilter} value={filter} placeholder="Search..." />
-            <ListBox aria-label="Word list" selectionMode="single" onSelectionChange={handleSelectionChange}>
                 {words.map(word => (
-                    <ListBox.Item id={word.word} key={word.id} value={word.word} textValue={word.word}>
-                        <Label className={activeWord === word.word ? 'text-blue-500' : ''}>
-                            {word.word}
-                        </Label>
-                    </ListBox.Item>
+                    <label key={word.id} className={activeWord === word.word ? 'text-blue-500' : ''}>
+                        {word.word}
+                    </label>
                 ))}
-            </ListBox>
         </div>
     )
 }

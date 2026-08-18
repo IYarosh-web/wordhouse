@@ -19,7 +19,7 @@ function _Navbar(_: PropsWithChildren, ref: React.ForwardedRef<HTMLElement>) {
     <nav className="flex gap-2" tabIndex={0} ref={ref}>
         {tabs.map((tab, index) => (
           <NavLink
-            className={`${styles.tab} ${index === selectedTab ? styles.selected : ""} relative px-2 py-1 br flex align-center justify-center capitalize`}
+            className={`${styles.tab} ${index === selectedTab ? styles.selected : ""} relative px-2 py-1 border-2 flex align-center justify-center capitalize`}
             key={tab.id}
             id={tab.id}
             to={tab.to}

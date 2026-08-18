@@ -1,11 +1,8 @@
-import { Button as HeadlessButton, ButtonProps } from "@headlessui/react";
+import { ButtonProps, Button as HeadlessButton } from "@headlessui/react";
 
-import { forwardRef } from "react";
+const Button = (({className, ...props}: ButtonProps) => (
+    <HeadlessButton className={"br bg-[#FF9E20] " + className} {...props} />
+)) as typeof HeadlessButton;
 
-const _Button = (props: ButtonProps, ref: React.ForwardedRef<HTMLButtonElement>) => {
-    return <HeadlessButton {...props} ref={ref} />;
-}
-
-const Button = forwardRef(_Button);
 
 export { Button };

@@ -1,10 +1,9 @@
 import { $filter, $wordList, filterChanged, wordListGate } from "../model";
 import { useGate, useUnit } from "effector-react";
-import { Link, useLocation } from "react-router";
-import { ButtonLink, Icon, Icons, Input } from "shared/ui";
+import { motion } from "framer-motion";
+import { Link, NavLink, useLocation } from "react-router";
+import { Button, Icons, Input } from "shared/ui";
 import { SortSelector } from "./sort-selector";
-import { redirectTo } from "shared/contracts";
-import { Selection } from "@heroui/react";
 
 export function WordList() {
     const location = useLocation();
@@ -15,25 +14,23 @@ export function WordList() {
 
     const activeWord = location.pathname.split('/').pop();
 
-    const handleSelectionChange = (keys: Selection) => {
-        redirectTo(`/dashboard/${Array.from(keys as Set<string>)[0]}`); // TODO: parseSelection
-    }
-
     return (
         <div className="flex flex-col gap-2">
             <h1 className="flex items-center gap-2">
                 <span className="pr-1">Word List</span>
-                <ButtonLink to="/dashboard/add-word">
-                    <Icons.Plus className="size-5" />
-                </ButtonLink>
+                <motion.div layoutId="add-word" className="flex">
+                    <Button className="p-1" as={Link} to="/dashboard/add-word">
+                        <Icons.Plus className="size-5" />
+                    </Button>
+                </motion.div>
                 <SortSelector />
             </h1>
             <Input onChange={changeFilter} value={filter} placeholder="Search..." />
-                {words.map(word => (
-                    <label key={word.id} className={activeWord === word.word ? 'text-blue-500' : ''}>
-                        {word.word}
-                    </label>
-                ))}
+            {words.map(word => (
+                <NavLink to={`/dashboard/${word.word}`} key={word.id}>
+                    <motion.span key={word.id} layoutId={word.word}>{word.word}</motion.span>
+                </NavLink>
+            ))}
         </div>
     )
 }

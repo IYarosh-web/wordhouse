@@ -11,7 +11,7 @@ export function MainLayout({children}: React.PropsWithChildren) {
       <FocusOnCtrlKey keyCode="ArrowUp">
         <Navbar />
       </FocusOnCtrlKey>
-      <div className={`${styles.box} br bg-background px-2 pt-2 overflow-x-hidden`}>
+      <div className={`${styles.box} border-4 bg-background px-2 pt-2 overflow-x-hidden`}>
         <Redirect />
 
         <FocusOnCtrlKey keyCode="ArrowRight">

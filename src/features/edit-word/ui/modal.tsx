@@ -8,6 +8,7 @@ import { useLocation } from "react-router";
 export function EditWordModal() {
     const location = useLocation();
     const word = location.pathname.split('/').pop();
+
     const handleClose = () => {
         redirectTo('/dashboard');
     }

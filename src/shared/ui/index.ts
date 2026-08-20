@@ -2,7 +2,6 @@
 // Export your reusable UI components here
 // Example: export { Button } from './Button';
 export { Button } from "./button";
-export { ButtonLink } from "./button-link";
 export { Dialog, DialogPanel, DialogTitle } from "./dialog";
 export { Input } from "./input";
 export { FocusOnCtrlKey } from "./focus-on-key";

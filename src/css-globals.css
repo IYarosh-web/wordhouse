@@ -16,8 +16,8 @@
   grid-area: right;
 }
 
-html {
-  /* font-family: "Pixelify Sans", cursive; */
+body {
+  font-family: monospace;
 }
 
 :root {

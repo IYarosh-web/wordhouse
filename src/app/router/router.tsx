@@ -6,6 +6,7 @@ import { AddWordModal } from "features/add-word";
 import { Protected } from "./protected";
 import { Login } from "pages/login";
 import { AnimatePresence, motion } from "framer-motion";
+import { WidgetWordle } from "pages/wordle";
 
 const pageVariants = {
     initial: { opacity: 0, x: "100%" },
@@ -47,6 +48,7 @@ export function AppRouter() {
                   <Route path=":word" element={<EditWordModal />} />
                 </Route>
                 <Route path="/widgets" element={<PageWrapper><Protected><Widgets /></Protected></PageWrapper>} />
+                <Route path="/widgets/wordle" element={<WidgetWordle />} />
                 <Route path="/settings" element={<PageWrapper><Protected><Settings /></Protected></PageWrapper>} />
                 <Route path="*" element={<Navigate to="/dashboard" />} />
             </Routes>

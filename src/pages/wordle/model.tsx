@@ -7,13 +7,14 @@ import { randomFrom, uuid } from "shared/lib";
 
 import { checkGuess, checkWordExists, filterWord } from "./lib";
 import { GameStatus, Guess, Status } from "./types";
-import { MAX_GUESSES } from "./const";
+import { MAX_GUESSES, WORD_EXIST_CHECK } from "./const";
 
 export const gameStarted = createEvent();
 export const keyPressed = createEvent<KeyboardEvent>();
 export const letterClicked = createEvent<React.MouseEvent<HTMLButtonElement, MouseEvent>>();
 export const guessSubmitted = createEvent<React.FormEvent<HTMLFormElement>>();
 export const guessAnimationEnded = createEvent();
+export const resetGame = createEvent();
 
 export const $answer = createStore<string>('');
 export const $guessCount = createStore<number>(MAX_GUESSES);
@@ -34,7 +35,7 @@ const guessSubmittedFx = createEffect(
       return "";
     }
 
-    const exists = await checkWordExists(guess);
+    const exists = WORD_EXIST_CHECK ? await checkWordExists(guess) : true;
     if (!exists) {
       throw new Error("Word not found");
     }
@@ -95,6 +96,18 @@ sample({
   fn: () => '',
   target: $userInput,
 });
+
+sample({
+  clock: gameStarted,
+  fn: () => ({}),
+  target: $letterStatuses,
+});
+
+sample({
+  clock: gameStarted,
+  fn: (): GameStatus => 'running',
+  target: $gameStatus,
+})
 
 // END: Handle game start
 
@@ -172,22 +185,6 @@ sample({
 
 sample({
   clock: guessAnimationEnded,
-  source: { guesses: $guesses, answer: $answer },
-  filter: ({answer, guesses}) => guesses.some((guess) => guess.value === answer),
-  fn: (): GameStatus => 'won',
-  target: $gameStatus,
-});
-
-sample({
-  clock: guessAnimationEnded,
-  source: { guesses: $guesses },
-  filter: ({guesses}) => guesses.length >= MAX_GUESSES,
-  fn: (): GameStatus => 'lost',
-  target: $gameStatus, 
-})
-
-sample({
-  clock: guessAnimationEnded,
   source: {guesses: $guesses, answer: $answer, statuses: $letterStatuses},
   fn: ({answer, guesses, statuses}) => {
     const newStatuses: Record<string, Status> = {...statuses};
@@ -209,6 +206,21 @@ sample({
     return newStatuses;
   },
   target: $letterStatuses,
+});
+
+sample({
+  clock: guessAnimationEnded,
+  source: {guesses: $guesses, answer: $answer},
+  fn: ({answer, guesses}) => {
+    if (guesses.some((guess) => guess.value === answer)) {
+      return 'won';
+    }
+    if (guesses.length >= MAX_GUESSES) {
+      return 'lost';
+    }
+    return 'running';
+  },
+  target: $gameStatus,
 });
 
 // START: Handle guess submission failure

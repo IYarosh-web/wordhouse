@@ -1,4 +1,6 @@
 import { Word } from "entities/word";
+import words from "an-array-of-english-words";
+
 import { LetterStatus, Status } from "./types";
 import { MAX_WORD_LENGTH, MIN_WORD_LENGTH } from "./const";
 
@@ -54,8 +56,9 @@ export function checkGuess(guess: string, answer: string): LetterStatus[] {
 }
 
 export async function checkWordExists(word: string): Promise<boolean> {
-  const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-  return response.status === 200;
+  // const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+  // return response.status === 200;
+  return Promise.resolve(words.includes(word.toLowerCase()));
 }
 
 export function filterWord(word: Word): boolean {

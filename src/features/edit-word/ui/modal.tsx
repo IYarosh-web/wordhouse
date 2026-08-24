@@ -1,11 +1,16 @@
 import { motion } from "framer-motion";
 
-import { Dialog, DialogPanel, DialogTitle } from "shared/ui";
+import { Button, Dialog, DialogPanel, DialogTitle, Icons, Input } from "shared/ui";
 import { EditWordForm } from "./form";
 import { redirectTo } from "shared/contracts";
 import { useLocation } from "react-router";
+import { useUnit } from "effector-react";
+import { $activeWord } from "../model";
+import { deleteWordFormSubmitted } from "features/delete-word";
 
 export function EditWordModal() {
+
+    const [activeWord, deleteWord] = useUnit([$activeWord, deleteWordFormSubmitted]);
     const location = useLocation();
     const word = location.pathname.split('/').pop();
 
@@ -15,16 +20,29 @@ export function EditWordModal() {
 
     return (
         <Dialog className="relative z-50" open onClose={handleClose}>
-        <div className="fixed inset-0 z-10 w-screen">
-            <div className="flex min-h-full items-center justify-center p-4">
-                <motion.div layoutId={word}>
-                    <DialogPanel className="w-full max-w-md border-2 p-6 bg-white">
-                        <DialogTitle as="h2" className="text-xl font-bold">{word}</DialogTitle>
-                        <EditWordForm />
-                    </DialogPanel>
-                </motion.div>
+            <div className="fixed inset-0 z-10 w-screen">
+                <div className="flex min-h-full items-center justify-center">
+                    <motion.div layoutId={word}>
+                        <DialogPanel className="w-xl border-2 bg-white">
+                            <DialogTitle as="h2" className="flex justify-between items-center text-xl font-bold px-6 py-2 bg-amber-200">
+                                {word}
+                                <div className="flex gap-2">
+                                    <form onSubmit={deleteWord}>  
+                                        <Input type="hidden" name="wordId" value={activeWord?.id} />
+                                        <Button className="p-2 bg-transparent" type="submit">
+                                            <Icons.TrashBin />
+                                        </Button>
+                                    </form>
+                                    <Button className="p-2" onClick={handleClose}>
+                                        <Icons.Xmark />
+                                    </Button>
+                                </div>
+                            </DialogTitle>
+                            <EditWordForm />
+                        </DialogPanel>
+                    </motion.div>
+                </div>
             </div>
-        </div>
-    </Dialog>
+        </Dialog>
     )
 }

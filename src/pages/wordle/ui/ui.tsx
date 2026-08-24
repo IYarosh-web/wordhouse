@@ -2,9 +2,9 @@ import { useGate, useUnit } from "effector-react"
 import { useRef } from "react";
 import { useEffect } from "react";
 
-import { Button } from "shared/ui";
+import { Button, Icons } from "shared/ui";
 
-import { $answer, $error, $gameStatus, $guesses, $userInput, guessSubmitted, wordleGate } from "../model";
+import { $answer, $error, $gameStatus, $guesses, $userInput, gameStarted, guessSubmitted, resetGame, wordleGate } from "../model";
 import { Results } from "./results";
 import { Keyboard } from "./keyboard";
 
@@ -17,6 +17,7 @@ export function WidgetWordle() {
     handleSubmit,
     error,
     gameStatus,
+    reset,
   ] = useUnit([
     $answer,
     $userInput,
@@ -24,6 +25,7 @@ export function WidgetWordle() {
     guessSubmitted,
     $error,
     $gameStatus,
+    gameStarted,
   ]);
 
   useGate(wordleGate);
@@ -42,8 +44,8 @@ export function WidgetWordle() {
   return (
     <>
       <div className="flex flex-col gap-2 m-auto h-full">
-          <h3 className="text-2xl text-center font-bold">Wordle</h3>
-          <p className="min-h-6">
+          <h3 className="text-2xl text-center font-bold">Wordle <Button onClick={reset}><Icons.ArrowsRotateLeft /></Button></h3>
+          <p className="min-h-6 text-center">
             {error && <span className="text-red-500">{error}</span>}
             {gameStatus === 'won' && <span className="text-green-500">You won!</span>}
             {gameStatus === 'lost' && <span className="text-red-500">Unfrotunately, you've lost! The word was {answer}.</span>}

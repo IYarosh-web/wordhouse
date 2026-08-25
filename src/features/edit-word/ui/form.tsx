@@ -51,10 +51,10 @@ export function EditWordForm() {
           <form className="flex gap-1 items-center" key={definition.id} onSubmit={deleteDefinition}>
             <Input type="hidden" name="definitionId" value={definition.id} />
             <Input type="hidden" name="wordId" value={activeWord.id} />
-            <Button type="submit">
+            <Button className="self-baseline" type="submit">
               <Icons.Xmark />
             </Button>
-            {definition.definition}
+            <span>{definition.definition}</span>
           </form>
         ))}
         <form onSubmit={addTranslation} className="flex gap-1 items-center">
@@ -68,7 +68,7 @@ export function EditWordForm() {
           <form className="flex gap-1 items-center" key={translation.id} onSubmit={deleteTranslation}>
             <Input type="hidden" name="translationId" value={translation.id} />
             <Input type="hidden" name="wordId" value={activeWord.id} />
-            <Button type="submit">
+            <Button className="self-baseline" type="submit">
               <Icons.Xmark />
             </Button>
             {translation.translation}
@@ -85,7 +85,7 @@ export function EditWordForm() {
           <form className="flex gap-1 items-center pb-1" key={sentence.id} onSubmit={deleteSentence}>
             <Input type="hidden" name="sentenceId" value={sentence.id} />
             <Input type="hidden" name="wordId" value={activeWord.id} />
-            <Button type="submit">
+            <Button className="self-baseline" type="submit">
               <Icons.Xmark />
             </Button>
             <span>{sentence.sentence}</span>

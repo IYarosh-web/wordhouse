@@ -8,7 +8,6 @@ export const loginFormSubmittedFx = createEffect(async (event: React.FormEvent<H
     const username = formData.get("username") as string;
     const password = formData.get("password") as string;
 
-    debugger;
     const user = await userApi.login(username, password);
     return user;
 });

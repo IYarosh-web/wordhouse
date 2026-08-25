@@ -1,4 +1,4 @@
-import { Dialog, DialogPanel, DialogTitle } from "shared/ui";
+import { Button, Dialog, DialogPanel, DialogTitle, Icons } from "shared/ui";
 import { AddWordForm } from "./form";
 import { redirectTo } from "shared/contracts";
 import { motion } from "framer-motion";
@@ -11,10 +11,15 @@ export function AddWordModal() {
     return (
         <Dialog className="relative z-50" open onClose={handleClose}>
             <div className="fixed inset-0 z-10 w-screen">
-                <div className="flex min-h-full items-center justify-center p-4">
+                <div className="flex min-h-full items-center justify-center">
                     <motion.div layoutId="add-word">
-                        <DialogPanel className="w-full max-w-md border-2 p-6 bg-white">
-                            <DialogTitle as="h2" className="text-xl font-bold">Add word</DialogTitle>
+                        <DialogPanel className="w-md border-2 bg-white">
+                            <DialogTitle as="h2" className="flex justify-between items-center text-xl font-bold px-6 py-2 bg-amber-200">
+                                Add word
+                                <Button className="p-2" onClick={handleClose}>
+                                    <Icons.Xmark />
+                                </Button>
+                            </DialogTitle>
                             <AddWordForm />
                         </DialogPanel>
                     </motion.div>

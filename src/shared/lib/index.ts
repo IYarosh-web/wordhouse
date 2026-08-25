@@ -69,3 +69,12 @@ export const readFile = () => {
 export const strIncludes = (str: string, search: string) => {
   return str.toLowerCase().includes(search.toLowerCase());
 };
+
+export { isMacPlatform } from "./platform";
+export {
+  formatShortcutKey,
+  formatShortcutKeys,
+  type ShortcutKey,
+  type ShortcutModifier,
+  type ShortcutSpecialKey,
+} from "./keyboard-shortcut";

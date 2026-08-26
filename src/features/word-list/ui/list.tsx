@@ -20,8 +20,8 @@ export function WordList() {
                             <Icons.Plus className="size-5" />
                         </Button>
                     </FocusOnCtrlKey>
-                    <KeyboardShortcut className="ml-4" keys={["ctrl", "ArrowRight"]} />
                 </motion.div>
+                <KeyboardShortcut keys={["ctrl", "ArrowRight"]} />
                 <SortSelector />
             </h1>
             <Input onChange={changeFilter} value={filter} placeholder="Search..." />

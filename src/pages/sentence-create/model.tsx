@@ -1,6 +1,6 @@
 import { createEvent, createStore, sample } from "effector";
 import { createGate } from "effector-react";
-import { $wordStore, createSentence, EMPTY_WORD, Word } from "entities/word";
+import { $wordStore, createSentence, EMPTY_WORD, updateWord, Word } from "entities/word";
 import { randomFrom } from "shared/lib";
 
 export const $word = createStore<Word>(EMPTY_WORD);
@@ -27,10 +27,9 @@ sample({
 sample({
     clock: sentenceSubmitted,
     source: $word,
+    filter: word => word !== undefined,
     fn: (word, e) => {
-        if (!word) {
-            return undefined;
-        }
+        e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
         const sentence = formData.get("sentence") as string;
@@ -40,6 +39,7 @@ sample({
             createSentence(word.id, sentence),
         ]
         
-        return sentence;
+        return word;
     },
+    target: updateWord,
 })

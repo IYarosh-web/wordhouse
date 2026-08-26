@@ -43,7 +43,7 @@ export function WidgetWordle() {
 
   return (
     <>
-      <div className="flex flex-col gap-2 m-auto h-full">
+      <div className="flex flex-col gap-2 p-6 m-auto h-full">
           <h3 className="text-2xl text-center font-bold">Wordle <Button onClick={reset}><Icons.ArrowsRotateLeft /></Button></h3>
           <p className="min-h-6 text-center">
             {error && <span className="text-red-500">{error}</span>}

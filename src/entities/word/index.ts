@@ -9,6 +9,6 @@ export { Word, Sentence, Translation, Definition, WordDTO, $wordStore, $uniqueWo
 
 export { wordsApi };
 
-export { isWordValid } from './model/lib';
+export { isWordValid, createSentence, EMPTY_WORD } from './model/lib';
 
 export { loadWords, $isLoading, deleteWord, addWord, updateWord, wordAdded, wordDeleted, wordUpdated } from './model/store';

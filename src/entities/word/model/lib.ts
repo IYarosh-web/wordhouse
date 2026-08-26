@@ -1,4 +1,4 @@
-import { Word, WordDTO } from "./types";
+import { Sentence, Word, WordDTO } from "./types";
 
 export function isWordValid(word: Word): boolean {
     if (Object.keys(word).length !== 5) {
@@ -22,3 +22,19 @@ export function isWordValidDTO(word: WordDTO): boolean {
     }
     return true;
 }
+
+export const createSentence = (wordId: Word['id'], sentence: string): Sentence => ({
+    id: crypto.randomUUID(),
+    wordId,
+    sentence,
+});
+
+export const EMPTY_WORD: Readonly<Word> = Object.freeze({
+    id: '',
+    word: '',
+    translations: [],
+    definitions: [],
+    sentences: [],
+    createdAt: '',
+    updatedAt: '',
+});

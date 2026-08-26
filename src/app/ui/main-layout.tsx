@@ -1,5 +1,5 @@
 import { Navbar } from "features/navbar";
-import { FocusOnCtrlKey, KeyboardShortcutHint } from "shared/ui";
+import { FocusOnCtrlKey, KeyboardShortcut } from "shared/ui";
 import { Redirect } from "shared/ui/redirect/ui";
 
 import styles from "./main-layout.module.css";
@@ -12,18 +12,10 @@ export function MainLayout({children}: React.PropsWithChildren) {
         <FocusOnCtrlKey keyCode="ArrowUp">
           <Navbar />
         </FocusOnCtrlKey>
-        <KeyboardShortcutHint keys={["ctrl", "ArrowUp"]}>
-          to focus navigation
-        </KeyboardShortcutHint>
+        <KeyboardShortcut keys={["ctrl", "ArrowUp"]} />
       </div>
-      <div className={`${styles.box} border-4 bg-background px-2 pt-2 overflow-x-hidden`}>
+      <div className={`${styles.box} relative border-4 bg-background px-2 pt-2 overflow-x-hidden`}>
         <Redirect />
-
-        <div className="mb-2 flex justify-end">
-          <KeyboardShortcutHint keys={["ctrl", "ArrowRight"]}>
-            to focus content
-          </KeyboardShortcutHint>
-        </div>
 
         <FocusOnCtrlKey keyCode="ArrowRight">
           {children}

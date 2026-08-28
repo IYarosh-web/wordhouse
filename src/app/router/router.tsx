@@ -1,8 +1,6 @@
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
 import { Dashboard, Widgets, Settings } from "pages";
-import { EditWordModal } from "features/edit-word";
-import { AddWordModal } from "features/add-word";
 import { Login } from "pages/login";
 import { WidgetWordle } from "pages/wordle";
 import { SentenceCreateWidget } from "pages/sentence-create";
@@ -44,10 +42,7 @@ export function AppRouter() {
           <AnimatePresence mode="popLayout">
             <Routes location={location} key={pathname}>
                 <Route path="/login" element={<Login />} />
-                <Route path="/dashboard" element={<PageWrapper><Protected><Dashboard /></Protected></PageWrapper>}>
-                  <Route path="add-word" element={<AddWordModal />} />
-                  <Route path=":word" element={<EditWordModal />} />
-                </Route>
+                <Route path="/dashboard" element={<PageWrapper><Protected><Dashboard /></Protected></PageWrapper>} />
                 <Route path="/widgets" element={<PageWrapper><Protected><Widgets /></Protected></PageWrapper>} />
                 <Route path="/widgets/wordle" element={<WidgetWordle />} />
                 <Route path="/widgets/sentence-create" element={<SentenceCreateWidget />} />

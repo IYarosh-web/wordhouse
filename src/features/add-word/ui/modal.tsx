@@ -1,11 +1,11 @@
 import { Button, Dialog, DialogPanel, DialogTitle, Icons } from "shared/ui";
 import { AddWordForm } from "./form";
-import { redirectTo } from "shared/contracts";
+import { closeModal } from "shared/contracts";
 import { motion } from "framer-motion";
 
 export function AddWordModal() {
     const handleClose = () => {
-        redirectTo('/dashboard');
+        closeModal();
     }
 
     return (

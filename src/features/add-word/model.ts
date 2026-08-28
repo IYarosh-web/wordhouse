@@ -1,16 +1,13 @@
-
-import { createEffect, createEvent, createStore, sample } from "effector";
+import { createEffect, createEvent, sample } from "effector";
 import { createGate } from "effector-react";
 import { Word } from "entities/word";
-import { $wordStore, wordAdded, addWord, updateWord } from "entities/word";
-import { redirectTo } from "shared/contracts";
-
-export const $isOpen = createStore(false);
+import { $wordStore, wordAdded, wordUpdated, addWord, updateWord } from "entities/word";
+import { openModal } from "shared/contracts";
+import { MODALS } from "shared/routing";
 
 export const addWordClicked = createEvent<React.MouseEvent>();
 export const addWordFormSubmitted =
   createEvent<React.FormEvent<HTMLFormElement>>();
-export const closeModal = createEvent();
 
 export const AddWordGate = createGate();
 
@@ -83,19 +80,16 @@ sample({
 
 sample({
   clock: addWordClicked,
-  fn: () => true,
-  target: $isOpen,
+  fn: () => ({ name: MODALS.addWord }),
+  target: openModal,
 });
 
 sample({
-  clock: [closeModal, addWordFormSubmittedFx.doneData],
-  fn: () => false,
-  target: $isOpen,
-});
-
-sample({
-  clock: wordAdded,
-  fn: word => `/dashboard/${word.word}`,
-  filter: AddWordGate.open,
-  target: redirectTo,
+  clock: [wordAdded, wordUpdated],
+  filter: AddWordGate.status,
+  fn: (word) => ({
+    name: MODALS.editWord,
+    params: { word: word.word },
+  }),
+  target: openModal,
 });

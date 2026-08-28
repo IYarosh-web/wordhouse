@@ -1,4 +1,4 @@
-import { combine, createStore, createEffect, sample } from "effector";
+import { combine, createEffect, sample } from "effector";
 import { createGate } from "effector-react";
 
 import { $wordStore, Word } from "entities/word";
@@ -6,9 +6,14 @@ import { Sentence, Definition, Translation } from "entities/word";
 import { wordDeleted, updateWord } from "entities/word/model/store";
 
 import { deepClone } from "shared/lib";
-import { locationChanged, redirectTo } from "shared/contracts";
+import { closeModal } from "shared/contracts";
+import { $modal, $wordParam, MODALS } from "shared/routing";
 
-export const $paramsWord = createStore<Word["word"]>('');
+export const $paramsWord = combine(
+  $modal,
+  $wordParam,
+  (modal, word) => (modal === MODALS.editWord ? word : ""),
+);
 export const $activeWord = combine(
   $paramsWord,
   $wordStore,
@@ -104,16 +109,6 @@ export const deleteTranslationFormSubmittedFx = createEffect(
 );
 
 sample({
-  clock: locationChanged,
-  filter: (location) => {
-    const pathParts = location.split("/");
-    return !!(pathParts[1] === "dashboard" && pathParts[2]);
-  },
-  fn: (location) => location.split("/")[2],
-  target: $paramsWord,
-});
-
-sample({
   clock: addSentenceFormSubmittedFx.doneData,
   source: $wordStore,
   filter: (words, sentence) =>
@@ -199,7 +194,6 @@ sample({
 
 sample({
   clock: wordDeleted,
-  fn: () => '/dashboard',
-  filter: ViewWordGate.open,
-  target: redirectTo,
+  filter: ViewWordGate.status,
+  target: closeModal,
 });

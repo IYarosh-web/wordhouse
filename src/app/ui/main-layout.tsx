@@ -2,9 +2,13 @@ import { Navbar } from "features/navbar";
 import { FocusOnCtrlKey, KeyboardShortcut } from "shared/ui";
 import { Redirect } from "shared/ui/redirect/ui";
 
+import { GlobalModalHost } from "../modals";
+import { useLocationSync } from "../router/use-location-sync";
+
 import styles from "./main-layout.module.css";
 
 export function MainLayout({children}: React.PropsWithChildren) {
+  useLocationSync();
 
   return (
     <div className={`${styles.wrapper} bg-background-inverse flex flex-col justify-center gap-2`}>
@@ -21,6 +25,7 @@ export function MainLayout({children}: React.PropsWithChildren) {
           {children}
         </FocusOnCtrlKey>
       </div>
+      <GlobalModalHost />
     </div>
   );
 }

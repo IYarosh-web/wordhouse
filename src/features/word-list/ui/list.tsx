@@ -29,7 +29,7 @@ export function WordList() {
                 <motion.div
                     key={word.id}
                     layoutId={word.word}
-                    className="flex px-2 py-1 border-b-2"
+                    className="flex px-2 pl-1.5 py-1 border-b-2"
                 >
                     <NavLink to={`/dashboard/${word.word}`}>
                         <span>{word.word}</span>

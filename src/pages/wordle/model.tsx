@@ -189,16 +189,16 @@ sample({
   fn: ({answer, guesses, statuses}) => {
     const newStatuses: Record<string, Status> = {...statuses};
     guesses.forEach((guess) => {
-      const statusPriotities = {
-        correct: 0,
+      const statusPriorities = {
+        correct: 2,
         misplaced: 1,
-        missing: 2,
+        missing: 0,
       };
       
       const check = checkGuess(guess.value, answer);
 
       check.forEach((letterStatus) => {
-        if (!statuses[letterStatus.char] || statusPriotities[letterStatus.status] > statusPriotities[statuses[letterStatus.char]]) {
+        if (!newStatuses[letterStatus.char] || statusPriorities[letterStatus.status] > statusPriorities[newStatuses[letterStatus.char]]) {
           newStatuses[letterStatus.char] = letterStatus.status;
         }
       });

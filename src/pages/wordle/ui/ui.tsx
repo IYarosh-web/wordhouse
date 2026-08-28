@@ -40,7 +40,6 @@ export function WidgetWordle() {
     return () => document.removeEventListener('keydown', handleSubmit);
   }, []);
 
-
   return (
     <>
       <div className="flex flex-col gap-2 p-6 m-auto h-full">

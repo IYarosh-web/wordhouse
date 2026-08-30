@@ -9,10 +9,13 @@ export const $sentenceToFill = createStore('');
 export const $showAnswer = createStore(false);
 export const $hintsCount = createStore(0);
 export const $gameStatus = createStore<GameStatus>('running');
+export const $input = createStore<string>('');
+export const $message = createStore<string>('');
 
 export const gameRestarted = createEvent();
 export const guessSubmitted = createEvent<React.FormEvent<HTMLFormElement>>();
 export const hintRequested = createEvent();
+export const inputChanged = createEvent<React.ChangeEvent<HTMLInputElement>>();
 
 export const gameGate = createGate();
 
@@ -42,6 +45,13 @@ sample({
 });
 
 sample({
+    clock: inputChanged,
+    source: $answer,
+    fn: (answer, event) => event.currentTarget.value.slice(0, answer.length),
+    target: $input,
+});
+
+sample({
     clock: guessSubmitted, 
     source: $answer,
     fn: (answer, event) => {
@@ -54,14 +64,29 @@ sample({
             return 'lost';
         }
 
-        return guess === answer ? 'won' : 'lost';
+        return guess.toLowerCase() === answer.toLowerCase() ? 'won' : 'lost';
     },
-    target: $answer,
+    target: $gameStatus,
+});
+
+sample({
+    clock: $gameStatus,
+    fn: (gameStatus) => gameStatus === 'won' ? 'won' : gameStatus,
+    target: $gameStatus,
 });
 
 sample({
     clock: guessSubmitted,
-    source: $gameStatus,
-    fn: (gameStatus) => gameStatus === 'running' ? 'won' : gameStatus,
-    target: $gameStatus,
+    source: $answer,
+    fn: (answer, event) => {
+        const formData = new FormData(event.target as HTMLFormElement);
+        const guess = formData.get('guess');
+
+        if (String(guess).toLowerCase() === answer.toLowerCase()) {
+            return 'Congrats! You guessed the word correctly!';
+        } else {
+            return 'Oops! That was not the correct word. Try again!';
+        }
+    },
+    target: $message,
 });

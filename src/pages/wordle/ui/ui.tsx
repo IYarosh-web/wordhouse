@@ -7,6 +7,7 @@ import { Button, Icons } from "shared/ui";
 import { $answer, $error, $gameStatus, $guesses, $userInput, gameStarted, guessSubmitted, resetGame, wordleGate } from "../model";
 import { Results } from "./results";
 import { Keyboard } from "./keyboard";
+import { WordLinkComponent } from "features/word-link";
 
 export function WidgetWordle() {
   const submitButtonRef = useRef<HTMLButtonElement>(null);
@@ -47,7 +48,7 @@ export function WidgetWordle() {
           <p className="min-h-6 text-center">
             {error && <span className="text-red-500">{error}</span>}
             {gameStatus === 'won' && <span className="text-green-500">You won!</span>}
-            {gameStatus === 'lost' && <span className="text-red-500">Unfrotunately, you've lost! The word was {answer}.</span>}
+            {gameStatus === 'lost' && <span className="text-red-500">Unfrotunately, you've lost! The word was <WordLinkComponent word={answer} />.</span>}
           </p>
           <Results guesses={guesses} answer={answer} />
       </div>

@@ -5,6 +5,7 @@ import { Link, NavLink } from "react-router";
 import { Button, FocusOnCtrlKey, Icons, Input, KeyboardShortcut } from "shared/ui";
 import { MODALS, modalSearch } from "shared/routing";
 import { SortSelector } from "./sort-selector";
+import { WordLinkComponent } from "features/word-link";
 
 export function WordList() {
     const [words, filter, changeFilter] = useUnit([$wordList, $filter, filterChanged]);
@@ -32,9 +33,7 @@ export function WordList() {
                     layoutId={word.word}
                     className="flex px-2 pl-1.5 py-1 border-b-2"
                 >
-                    <NavLink to={{ search: modalSearch(MODALS.editWord, { word: word.word }) }}>
-                        <span>{word.word}</span>
-                    </NavLink>
+                    <WordLinkComponent word={word.word} />
                 </motion.div>
             ))}
         </div>

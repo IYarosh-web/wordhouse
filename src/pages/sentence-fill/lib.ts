@@ -13,7 +13,7 @@ export const getSentenceToFill = (words: Word[]) => {
     const sentence = randomFrom(word.sentences.filter(sentence => strIncludes(sentence.sentence, word.word)));
     
     const wordIndexStart = sentence.sentence.toLowerCase().indexOf(word.word.toLowerCase());
-    const wordIndexEnd = sentence.sentence.toLowerCase().indexOf(' ', wordIndexStart);
+    const wordIndexEnd = wordIndexStart + word.word.length;
     
     const sentenceWithGap = sentence.sentence.slice(0, wordIndexStart) + new Array(word.word.length).fill('_').join('') + sentence.sentence.slice(wordIndexEnd);
     return {

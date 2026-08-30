@@ -1,10 +1,12 @@
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { Dashboard, Widgets, Settings } from "pages";
 import { Login } from "pages/login";
 import { WidgetWordle } from "pages/wordle";
 import { SentenceCreateWidget } from "pages/sentence-create";
-import { AnimatePresence, motion } from "framer-motion";
+import { SentenceFillWidget } from "pages/sentence-fill";
+
 import { Protected } from "./protected";
 
 const pageVariants = {
@@ -46,6 +48,7 @@ export function AppRouter() {
                 <Route path="/widgets" element={<PageWrapper><Protected><Widgets /></Protected></PageWrapper>} />
                 <Route path="/widgets/wordle" element={<WidgetWordle />} />
                 <Route path="/widgets/sentence-create" element={<SentenceCreateWidget />} />
+                <Route path="/widgets/sentence-fill" element={<SentenceFillWidget />} />
                 <Route path="/settings" element={<PageWrapper><Protected><Settings /></Protected></PageWrapper>} />
                 <Route path="*" element={<Navigate to="/dashboard" />} />
             </Routes>

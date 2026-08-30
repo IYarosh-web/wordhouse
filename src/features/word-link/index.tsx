@@ -1,0 +1,1 @@
+export { WordLinkComponent } from "./ui";

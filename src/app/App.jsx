@@ -8,6 +8,7 @@ import { AppRouter } from "app/router/router";
 import { MainLayout } from "app/ui/main-layout";
 import { $isLoading } from "entities/word";
 import { appInitialized } from "shared/contracts";
+import { ShortcutsProvider } from "shared/ui";
 
 import "./model/index";
 
@@ -26,9 +27,11 @@ export const App = () => {
 
   return (
     <BrowserRouter>
-      <MainLayout>
-        <AppRouter />
-      </MainLayout>
+      <ShortcutsProvider>
+        <MainLayout>
+          <AppRouter />
+        </MainLayout>
+      </ShortcutsProvider>
     </BrowserRouter>
   );
 };

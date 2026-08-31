@@ -1,4 +1,4 @@
-import { Fragment, useSyncExternalStore } from "react";
+import { createContext, Fragment, useContext, useEffect, useState } from "react";
 
 import {
   formatShortcutKey,
@@ -7,6 +7,39 @@ import {
 import { isMacPlatform } from "shared/lib/platform";
 
 type KbdProps = React.ComponentPropsWithoutRef<"kbd">;
+
+export const ShortcutsContext = createContext(false);
+
+export const ShortcutsProvider = ({ children }: React.PropsWithChildren) => {
+  const [isVisible, setIsVisible] = useState(false);
+  
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Control') {
+        setIsVisible(true);
+      }
+    };
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (event.key === 'Control') {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
+    };
+  }, [setIsVisible]);
+
+  return (
+    <ShortcutsContext.Provider value={isVisible}>
+      {children}
+    </ShortcutsContext.Provider>
+  );
+};
 
 function Kbd({ className = "", children, ...props }: KbdProps) {
   return (
@@ -30,11 +63,13 @@ function KeyboardShortcut({
   separator = "+",
   className = "",
 }: KeyboardShortcutProps) {
+  const isVisible = useContext(ShortcutsContext);
+  
   const isMac = isMacPlatform();
 
   return (
     <span
-      className={`inline-flex items-center opacity-50 hover:opacity-100 transition-opacity duration-300 gap-1 ${className}`}
+      className={`inline-flex items-center transition-opacity duration-300 gap-1 ${className} ${isVisible ? 'opacity-100' : 'opacity-0'}`}
     >
       {keys.map((key, index) => (
         <Fragment key={`${key}-${index}`}>

@@ -18,7 +18,7 @@ export function MainLayout({ children }: React.PropsWithChildren) {
         <FocusOnCtrlKey keyCode="ArrowUp">
           <Navbar />
         </FocusOnCtrlKey>
-        <KeyboardShortcut keys={["ctrl", "ArrowUp"]} />
+        <KeyboardShortcut keys={["ArrowUp"]} />
       </div>
       <div
         className={`${styles.box} relative border-4 bg-background px-2 pt-2 overflow-x-hidden`}

@@ -12,7 +12,7 @@ export function Settings() {
     <div className="flex flex-col gap-2">
       <div className="flex items-center gap-2">
         <h3 className="text-2xl font-bold">Settings</h3>
-        <KeyboardShortcut keys={["ctrl", "ArrowRight"]} />
+        <KeyboardShortcut keys={["ArrowRight"]} />
       </div>
       <FocusOnCtrlKey keyCode="ArrowRight">
         <button className="text-left" onClick={exportWordsClicked}>

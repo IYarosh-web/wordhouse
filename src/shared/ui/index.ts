@@ -13,4 +13,5 @@ export {
   Kbd,
   KeyboardShortcut,
   KeyboardShortcutHint,
+  ShortcutsProvider,
 } from "./keyboard-shortcut";

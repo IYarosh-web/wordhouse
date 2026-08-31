@@ -37,7 +37,7 @@ export function WordList() {
             </Button>
           </FocusOnCtrlKey>
         </motion.div>
-        <KeyboardShortcut keys={["ctrl", "ArrowRight"]} />
+        <KeyboardShortcut keys={["ArrowRight"]} />
         <SortSelector />
       </h1>
       <Input onChange={changeFilter} value={filter} placeholder="Search..." />

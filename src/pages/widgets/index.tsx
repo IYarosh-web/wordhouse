@@ -6,7 +6,7 @@ export function Widgets() {
     <div className="flex flex-col gap-2">
       <div className="flex items-center gap-2">
         <h1 className="text-2xl font-bold">Widgets</h1>
-        <KeyboardShortcut keys={["ctrl", "ArrowRight"]} />
+        <KeyboardShortcut keys={["ArrowRight"]} />
       </div>
       <WidgetsList />
     </div>

@@ -38,5 +38,5 @@ export const localStorageWordsApi: WordApi = {
   },
   uploadWords: async (words) => {
     localStorage.setItem("words", JSON.stringify(words));
-  }
+  },
 };

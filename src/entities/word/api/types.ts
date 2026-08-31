@@ -13,4 +13,3 @@ export interface WordApi {
 export interface WordApiDeps {
   userApi: UserApi;
 }
-

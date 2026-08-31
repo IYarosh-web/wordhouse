@@ -1,1 +1,1 @@
-export { TabGroup, TabList, Tab, TabPanel, TabPanels } from '@headlessui/react';
+export { TabGroup, TabList, Tab, TabPanel, TabPanels } from "@headlessui/react";

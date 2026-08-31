@@ -33,7 +33,9 @@ function KeyboardShortcut({
   const isMac = isMacPlatform();
 
   return (
-    <span className={`inline-flex items-center opacity-50 hover:opacity-100 transition-opacity duration-300 gap-1 ${className}`}>
+    <span
+      className={`inline-flex items-center opacity-50 hover:opacity-100 transition-opacity duration-300 gap-1 ${className}`}
+    >
       {keys.map((key, index) => (
         <Fragment key={`${key}-${index}`}>
           {index > 0 && (
@@ -63,7 +65,8 @@ function KeyboardShortcutHint({
   const isMac = isMacPlatform();
   const labels = keys.map((key) => formatShortcutKey(key, isMac));
   const accessibleLabel =
-    hint ?? `Press ${labels.join(` ${typeof separator === "string" ? separator : " + "} `)}`;
+    hint ??
+    `Press ${labels.join(` ${typeof separator === "string" ? separator : " + "} `)}`;
 
   return (
     <span className={`inline-flex items-center gap-1 text-xs ${className}`}>

@@ -1,20 +1,20 @@
 .face {
-    position: absolute;
+  position: absolute;
 }
 
 .front {
-    background-color: red;
+  background-color: red;
 }
 
 .back {
-    background-color: green;
-    transform: translateZ(1px);
+  background-color: green;
+  transform: translateZ(1px);
 }
 
 .ul {
-    perspective: 200px;
+  perspective: 200px;
 }
 
 .li {
-    transform-style: preserve-3d;
+  transform-style: preserve-3d;
 }

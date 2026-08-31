@@ -43,7 +43,7 @@ body {
   --purple-mountain-majesty: #786fa6;
   --purple-corallite: #574b90;
 
-  --border: #1D2128;
+  --border: #1d2128;
   --border-radius-large: 16px;
   --border-radius-medium: 8px;
   --border-radius-small: 4px;
@@ -58,7 +58,8 @@ body {
   --shadow-color: var(--biscay);
   --shadow-color-hover: var(--pencil-lead);
 
-  --box-shadow: var(--shadow-offset) var(--shadow-blur-radius) var(--shadow-spread-radius);
+  --box-shadow: var(--shadow-offset) var(--shadow-blur-radius)
+    var(--shadow-spread-radius);
 
   --focus-color: var(--cornflower);
 }

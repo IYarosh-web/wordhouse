@@ -30,14 +30,12 @@ export const randomFrom = <T = unknown>(arr: T[]): T => {
   return arr[index];
 };
 
-export const uuid = () => (
-  crypto.randomUUID()
-);
+export const uuid = () => crypto.randomUUID();
 
 export const downloadFile = (filename: string, content: string) => {
-  const blob = new Blob([content], { type: 'application/json' });
+  const blob = new Blob([content], { type: "application/json" });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
+  const a = document.createElement("a");
   a.href = url;
   a.download = filename;
   a.click();
@@ -45,9 +43,9 @@ export const downloadFile = (filename: string, content: string) => {
 
 export const readFile = () => {
   return new Promise((resolve, reject) => {
-    const fileInput = document.createElement('input');
-    fileInput.type = 'file';
-    fileInput.accept = 'application/json';
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = "application/json";
     fileInput.onchange = (event: Event) => {
       const target = event.target as HTMLInputElement;
       const file = target.files?.[0];

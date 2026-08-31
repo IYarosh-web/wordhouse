@@ -1,1 +1,1 @@
-export { WidgetsList } from './widgets-list';
+export { WidgetsList } from "./widgets-list";

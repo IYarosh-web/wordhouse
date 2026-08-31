@@ -1,1 +1,1 @@
-export { WordList } from './ui/list';
+export { WordList } from "./ui/list";

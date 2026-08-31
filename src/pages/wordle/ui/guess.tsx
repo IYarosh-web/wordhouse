@@ -5,23 +5,26 @@ import { useUnit } from "effector-react";
 import { guessAnimationEnded } from "../model";
 import { checkGuess } from "../lib";
 
-import styles from './guess.module.css';
+import styles from "./guess.module.css";
 
 type Props = {
   answer: string;
   value?: string;
-}
+};
 
-export function Guess({value = "", answer}: Props) {
+export function Guess({ value = "", answer }: Props) {
   const [handleAnimationEnded] = useUnit([guessAnimationEnded]);
 
   const result = checkGuess(value, answer);
 
   const handleAnimationEnd = (e: React.AnimationEvent<HTMLDivElement>) => {
-    if (e.target instanceof HTMLDivElement && e.target.dataset.islast === 'true') {
+    if (
+      e.target instanceof HTMLDivElement &&
+      e.target.dataset.islast === "true"
+    ) {
       handleAnimationEnded();
     }
-  }
+  };
 
   return (
     <div className="flex gap-2">
@@ -40,5 +43,5 @@ export function Guess({value = "", answer}: Props) {
         </div>
       ))}
     </div>
-  )
+  );
 }

@@ -1,1 +1,1 @@
-export { deleteWordFormSubmitted } from './model';
+export { deleteWordFormSubmitted } from "./model";

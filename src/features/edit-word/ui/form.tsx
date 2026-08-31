@@ -41,14 +41,23 @@ export function EditWordForm() {
     <>
       <div className="flex flex-col gap-1 p-6">
         <form onSubmit={addDefinition} className="flex gap-1 items-center">
-          <Input type="text" placeholder="Definition" name="definition" className="flex-1" />
+          <Input
+            type="text"
+            placeholder="Definition"
+            name="definition"
+            className="flex-1"
+          />
           <Input type="hidden" name="wordId" value={activeWord.id} />
           <Button className="p-2" type="submit">
             <Icons.Plus />
           </Button>
         </form>
         {activeWord.definitions.map((definition) => (
-          <form className="flex gap-1 items-center" key={definition.id} onSubmit={deleteDefinition}>
+          <form
+            className="flex gap-1 items-center"
+            key={definition.id}
+            onSubmit={deleteDefinition}
+          >
             <Input type="hidden" name="definitionId" value={definition.id} />
             <Input type="hidden" name="wordId" value={activeWord.id} />
             <Button className="self-baseline" type="submit">
@@ -58,14 +67,23 @@ export function EditWordForm() {
           </form>
         ))}
         <form onSubmit={addTranslation} className="flex gap-1 items-center">
-          <Input type="text" placeholder="Translation" name="translation" className="flex-1" />
+          <Input
+            type="text"
+            placeholder="Translation"
+            name="translation"
+            className="flex-1"
+          />
           <Input type="hidden" name="wordId" value={activeWord.id} />
           <Button className="p-2" type="submit">
             <Icons.Plus />
           </Button>
         </form>
         {activeWord.translations?.map((translation) => (
-          <form className="flex gap-1 items-center" key={translation.id} onSubmit={deleteTranslation}>
+          <form
+            className="flex gap-1 items-center"
+            key={translation.id}
+            onSubmit={deleteTranslation}
+          >
             <Input type="hidden" name="translationId" value={translation.id} />
             <Input type="hidden" name="wordId" value={activeWord.id} />
             <Button className="self-baseline" type="submit">
@@ -75,14 +93,23 @@ export function EditWordForm() {
           </form>
         ))}
         <form onSubmit={addSentence} className="flex gap-1 items-center">
-          <Input type="text" placeholder="Sentence" name="sentence" className="flex-1" />
+          <Input
+            type="text"
+            placeholder="Sentence"
+            name="sentence"
+            className="flex-1"
+          />
           <Input type="hidden" name="wordId" value={activeWord.id} />
           <Button className="p-2" type="submit">
             <Icons.Plus />
           </Button>
         </form>
         {activeWord.sentences?.map((sentence) => (
-          <form className="flex gap-1 items-center pb-1" key={sentence.id} onSubmit={deleteSentence}>
+          <form
+            className="flex gap-1 items-center pb-1"
+            key={sentence.id}
+            onSubmit={deleteSentence}
+          >
             <Input type="hidden" name="sentenceId" value={sentence.id} />
             <Input type="hidden" name="wordId" value={activeWord.id} />
             <Button className="self-baseline" type="submit">

@@ -2,14 +2,14 @@ import { useEffect } from "react";
 import { useUnit } from "effector-react";
 import { BrowserRouter } from "react-router-dom";
 
-import  "./firebase";
+import "./firebase";
 
 import { AppRouter } from "app/router/router";
 import { MainLayout } from "app/ui/main-layout";
 import { $isLoading } from "entities/word";
 import { appInitialized } from "shared/contracts";
 
-import './model/index';
+import "./model/index";
 
 import "effector/enable_debug_traces";
 
@@ -21,7 +21,7 @@ export const App = () => {
   }, [initApp]);
 
   if (loading) {
-    return <>Loading...</>
+    return <>Loading...</>;
   }
 
   return (

@@ -37,7 +37,7 @@ export const updateWord = createEvent<Word>();
 export const deleteWord = createEvent<Word["id"]>();
 export const wordAdded = createEvent<Word>();
 export const wordUpdated = createEvent<Word>();
-export const wordDeleted = createEvent<Word['id']>();
+export const wordDeleted = createEvent<Word["id"]>();
 
 sample({
   clock: loadWordsFx.doneData,

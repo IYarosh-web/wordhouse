@@ -9,10 +9,7 @@ export type ModalName = (typeof MODALS)[keyof typeof MODALS];
 
 export const MODAL_SEARCH_KEYS = [MODAL_PARAM, "word"] as const;
 
-export function modalSearch(
-  name: string,
-  params?: Record<string, string>,
-) {
+export function modalSearch(name: string, params?: Record<string, string>) {
   const search = new URLSearchParams();
   search.set(MODAL_PARAM, name);
 

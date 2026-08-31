@@ -11,7 +11,9 @@ const MODAL_COMPONENTS = {
 
 export function GlobalModalHost() {
   const name = useUnit($modal);
-  const Modal = name ? MODAL_COMPONENTS[name as keyof typeof MODAL_COMPONENTS] : null;
+  const Modal = name
+    ? MODAL_COMPONENTS[name as keyof typeof MODAL_COMPONENTS]
+    : null;
 
   if (!Modal) {
     return null;

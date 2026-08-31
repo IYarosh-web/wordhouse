@@ -11,27 +11,28 @@ import { MAX_GUESSES, WORD_EXIST_CHECK } from "./const";
 
 export const gameStarted = createEvent();
 export const keyPressed = createEvent<KeyboardEvent>();
-export const letterClicked = createEvent<React.MouseEvent<HTMLButtonElement, MouseEvent>>();
+export const letterClicked =
+  createEvent<React.MouseEvent<HTMLButtonElement, MouseEvent>>();
 export const guessSubmitted = createEvent<React.FormEvent<HTMLFormElement>>();
 export const guessAnimationEnded = createEvent();
 export const resetGame = createEvent();
 
-export const $answer = createStore<string>('');
+export const $answer = createStore<string>("");
 export const $guessCount = createStore<number>(MAX_GUESSES);
 export const $guesses = createStore<Guess[]>([]);
-export const $userInput = createStore<string>('');
+export const $userInput = createStore<string>("");
 export const $gameStatus = createStore<GameStatus>("running");
 export const $letterStatuses = createStore<Record<string, Status>>({});
-export const $error = createStore<string>('');
+export const $error = createStore<string>("");
 
 const guessSubmittedFx = createEffect(
   async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    
+
     const formData = new FormData(event.currentTarget);
     const guess = formData.get("guess") || "";
-    
-    if (typeof guess !== 'string') {
+
+    if (typeof guess !== "string") {
       return "";
     }
 
@@ -46,7 +47,7 @@ const guessSubmittedFx = createEffect(
 
 const errorTimeoutFx = createEffect(async () => {
   await new Promise((resolve) => setTimeout(resolve, 4000));
-  return '';
+  return "";
 });
 
 export const wordleGate = createGate();
@@ -55,15 +56,20 @@ sample({
   clock: guessSubmitted,
   source: {
     status: $gameStatus,
-    answer: $answer
+    answer: $answer,
   },
-  filter: ({status, answer}, event) => {
+  filter: ({ status, answer }, event) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
     const guess = formData.get("guess") || "";
 
-    return status === 'running' && typeof guess === 'string' && answer.length > 0 && guess.length === answer.length;
+    return (
+      status === "running" &&
+      typeof guess === "string" &&
+      answer.length > 0 &&
+      guess.length === answer.length
+    );
   },
   fn: (_, event) => event,
   target: guessSubmittedFx,
@@ -85,15 +91,13 @@ sample({
   clock: gameStarted,
   source: $wordStore,
   filter: (words) => words.length > 0,
-  fn: (words, _) => (
-    randomFrom(words.filter(filterWord)).word.toUpperCase()
-  ),
+  fn: (words, _) => randomFrom(words.filter(filterWord)).word.toUpperCase(),
   target: $answer,
 });
 
 sample({
   clock: gameStarted,
-  fn: () => '',
+  fn: () => "",
   target: $userInput,
 });
 
@@ -105,9 +109,9 @@ sample({
 
 sample({
   clock: gameStarted,
-  fn: (): GameStatus => 'running',
+  fn: (): GameStatus => "running",
   target: $gameStatus,
-})
+});
 
 // END: Handle game start
 
@@ -119,7 +123,7 @@ sample({
     userInput: $userInput,
   },
   filter: (_, event) => !!(event.key.length === 1 && event.key.match(/[A-Z]/i)),
-  fn: ({answer, userInput}, event) => {
+  fn: ({ answer, userInput }, event) => {
     const value = (userInput + event.key.toUpperCase()).slice(0, answer.length);
     return value;
   },
@@ -128,7 +132,7 @@ sample({
 
 sample({
   clock: keyPressed,
-  filter: (_, event) => event.key === 'Backspace',
+  filter: (_, event) => event.key === "Backspace",
   source: $userInput,
   fn: (userInput) => userInput.slice(0, -1),
   target: $userInput,
@@ -140,7 +144,7 @@ sample({
     input: $userInput,
     answer: $answer,
   },
-  fn: ({input, answer}, event) => {
+  fn: ({ input, answer }, event) => {
     const letter = event.currentTarget.dataset.letter;
     return (input + letter).slice(0, answer.length);
   },
@@ -156,14 +160,14 @@ sample({
     guesses: $guesses,
     answer: $answer,
   },
-  filter: ({answer}, guess) => guess.length === answer.length,
-  fn: (source, guess) => ([
+  filter: ({ answer }, guess) => guess.length === answer.length,
+  fn: (source, guess) => [
     ...source.guesses,
-    ({
+    {
       id: uuid(),
       value: guess,
-    }),
-  ]),
+    },
+  ],
   target: $guesses,
 });
 
@@ -171,13 +175,13 @@ sample({
   clock: guessSubmittedFx.doneData,
   source: $answer,
   filter: (answer, guess) => guess.length === answer.length,
-  fn: () => '',
+  fn: () => "",
   target: $userInput,
 });
 
 sample({
   clock: guessSubmittedFx.doneData,
-  fn: () => '',
+  fn: () => "",
   target: $error,
 });
 
@@ -185,20 +189,24 @@ sample({
 
 sample({
   clock: guessAnimationEnded,
-  source: {guesses: $guesses, answer: $answer, statuses: $letterStatuses},
-  fn: ({answer, guesses, statuses}) => {
-    const newStatuses: Record<string, Status> = {...statuses};
+  source: { guesses: $guesses, answer: $answer, statuses: $letterStatuses },
+  fn: ({ answer, guesses, statuses }) => {
+    const newStatuses: Record<string, Status> = { ...statuses };
     guesses.forEach((guess) => {
       const statusPriorities = {
         correct: 2,
         misplaced: 1,
         missing: 0,
       };
-      
+
       const check = checkGuess(guess.value, answer);
 
       check.forEach((letterStatus) => {
-        if (!newStatuses[letterStatus.char] || statusPriorities[letterStatus.status] > statusPriorities[newStatuses[letterStatus.char]]) {
+        if (
+          !newStatuses[letterStatus.char] ||
+          statusPriorities[letterStatus.status] >
+            statusPriorities[newStatuses[letterStatus.char]]
+        ) {
           newStatuses[letterStatus.char] = letterStatus.status;
         }
       });
@@ -210,15 +218,15 @@ sample({
 
 sample({
   clock: guessAnimationEnded,
-  source: {guesses: $guesses, answer: $answer},
-  fn: ({answer, guesses}) => {
+  source: { guesses: $guesses, answer: $answer },
+  fn: ({ answer, guesses }) => {
     if (guesses.some((guess) => guess.value === answer)) {
-      return 'won';
+      return "won";
     }
     if (guesses.length >= MAX_GUESSES) {
-      return 'lost';
+      return "lost";
     }
-    return 'running';
+    return "running";
   },
   target: $gameStatus,
 });
@@ -238,7 +246,7 @@ sample({
 
 sample({
   clock: errorTimeoutFx.done,
-  fn: () => '',
+  fn: () => "",
   target: $error,
 });
 

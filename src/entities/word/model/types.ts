@@ -8,7 +8,7 @@ type Word = {
   updatedAt: string;
 };
 
-type WordDTO = Omit<Word, 'id'>;
+type WordDTO = Omit<Word, "id">;
 
 type Definition = {
   id: string;

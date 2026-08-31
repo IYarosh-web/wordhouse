@@ -7,14 +7,14 @@ import { MAX_WORD_LENGTH, MIN_WORD_LENGTH } from "./const";
 export function checkGuess(guess: string, answer: string): LetterStatus[] {
   // This constant is a placeholder that indicates we've successfully
   // dealt with this character (it's correct, or misplaced).
-  const SOLVED_CHAR = '✓';
+  const SOLVED_CHAR = "✓";
 
   if (!guess) {
     return [];
   }
 
-  const guessChars = guess.toUpperCase().split('');
-  const answerChars = answer.split('');
+  const guessChars = guess.toUpperCase().split("");
+  const answerChars = answer.split("");
 
   const result: LetterStatus[] = [];
 
@@ -23,7 +23,7 @@ export function checkGuess(guess: string, answer: string): LetterStatus[] {
     if (guessChars[i] === answerChars[i]) {
       result[i] = {
         char: guessChars[i],
-        status: 'correct',
+        status: "correct",
       };
       answerChars[i] = SOLVED_CHAR;
       guessChars[i] = SOLVED_CHAR;
@@ -37,12 +37,12 @@ export function checkGuess(guess: string, answer: string): LetterStatus[] {
       continue;
     }
 
-    let status: Status = 'missing';
+    let status: Status = "missing";
     const misplacedIndex = answerChars.findIndex(
-      (char) => char === guessChars[i]
+      (char) => char === guessChars[i],
     );
     if (misplacedIndex >= 0) {
-      status = 'misplaced';
+      status = "misplaced";
       answerChars[misplacedIndex] = SOLVED_CHAR;
     }
 
@@ -62,5 +62,7 @@ export async function checkWordExists(word: string): Promise<boolean> {
 }
 
 export function filterWord(word: Word): boolean {
-  return word.word.length >= MIN_WORD_LENGTH && word.word.length <= MAX_WORD_LENGTH;
+  return (
+    word.word.length >= MIN_WORD_LENGTH && word.word.length <= MAX_WORD_LENGTH
+  );
 }

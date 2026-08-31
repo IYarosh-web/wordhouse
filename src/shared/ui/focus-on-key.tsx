@@ -5,7 +5,11 @@ type Props = {
   disabled?: boolean;
 };
 
-function FocusOnCtrlKey({ children, keyCode, disabled = false }: React.PropsWithChildren<Props>) {
+function FocusOnCtrlKey({
+  children,
+  keyCode,
+  disabled = false,
+}: React.PropsWithChildren<Props>) {
   const childRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -23,7 +27,7 @@ function FocusOnCtrlKey({ children, keyCode, disabled = false }: React.PropsWith
   }, [disabled, keyCode]);
 
   if (isValidElement(children)) {
-    const el = cloneElement(children, {ref: childRef});
+    const el = cloneElement(children, { ref: childRef });
     return el;
   }
 

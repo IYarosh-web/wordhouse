@@ -9,10 +9,8 @@ import { deepClone } from "shared/lib";
 import { closeModal } from "shared/contracts";
 import { $modal, $wordParam, MODALS } from "shared/routing";
 
-export const $paramsWord = combine(
-  $modal,
-  $wordParam,
-  (modal, word) => (modal === MODALS.editWord ? word : ""),
+export const $paramsWord = combine($modal, $wordParam, (modal, word) =>
+  modal === MODALS.editWord ? word : "",
 );
 export const $activeWord = combine(
   $paramsWord,
@@ -56,7 +54,7 @@ export const addDefinitionFormSubmittedFx = createEffect(
       wordId: formData.get("wordId") as string,
     };
 
-    event.currentTarget.definition.value = '';
+    event.currentTarget.definition.value = "";
 
     return definition;
   },
@@ -73,7 +71,7 @@ export const addSentenceFormSubmittedFx = createEffect(
       wordId: formData.get("wordId") as string,
     };
 
-    event.currentTarget.sentence.value = '';
+    event.currentTarget.sentence.value = "";
 
     return sentence;
   },
@@ -90,7 +88,7 @@ export const addTranslationFormSubmittedFx = createEffect(
       wordId: formData.get("wordId") as string,
     };
 
-    event.currentTarget.translation.value = '';
+    event.currentTarget.translation.value = "";
 
     return translation;
   },
@@ -103,7 +101,7 @@ export const deleteTranslationFormSubmittedFx = createEffect(
     const formData = new FormData(event.currentTarget);
     const translationId = formData.get("translationId") as string;
     const wordId = formData.get("wordId") as string;
-    
+
     return { translationId, wordId };
   },
 );
@@ -114,7 +112,9 @@ sample({
   filter: (words, sentence) =>
     words.some((word) => word.id === sentence.wordId),
   fn: (words, sentence) => {
-    const word = deepClone(words.find((word) => word.id === sentence.wordId)) as Word;
+    const word = deepClone(
+      words.find((word) => word.id === sentence.wordId),
+    ) as Word;
     word.sentences?.push(sentence);
     return word;
   },
@@ -127,7 +127,9 @@ sample({
   filter: (words, definition) =>
     words.some((word) => word.id === definition.wordId),
   fn: (words, definition) => {
-    const word = deepClone(words.find((word) => word.id === definition.wordId)) as Word;
+    const word = deepClone(
+      words.find((word) => word.id === definition.wordId),
+    ) as Word;
     word.definitions.push(definition);
     return word;
   },
@@ -140,7 +142,9 @@ sample({
   filter: (words, translation) =>
     words.some((word) => word.id === translation.wordId),
   fn: (words, translation) => {
-    const word = deepClone(words.find((word) => word.id === translation.wordId)) as Word;
+    const word = deepClone(
+      words.find((word) => word.id === translation.wordId),
+    ) as Word;
     word.translations.push(translation);
     return word;
   },
@@ -150,10 +154,11 @@ sample({
 sample({
   clock: deleteTranslationFormSubmittedFx.doneData,
   source: $wordStore,
-  filter: (words, data) =>
-    words.some((word) => word.id === data.wordId),
+  filter: (words, data) => words.some((word) => word.id === data.wordId),
   fn: (words, data) => {
-    const word = deepClone(words.find((word) => word.id === data.wordId)) as Word;
+    const word = deepClone(
+      words.find((word) => word.id === data.wordId),
+    ) as Word;
     word.translations = word.translations.filter(
       (translation) => translation.id !== data.translationId,
     );
@@ -168,7 +173,9 @@ sample({
   filter: (words, definition) =>
     words.some((word) => word.id === definition.wordId),
   fn: (words, data) => {
-    const word = deepClone(words.find((word) => word.id === data.wordId)) as Word;
+    const word = deepClone(
+      words.find((word) => word.id === data.wordId),
+    ) as Word;
     word.definitions = word.definitions.filter(
       (definition) => definition.id !== data.definitionId,
     );
@@ -183,7 +190,9 @@ sample({
   filter: (words, sentence) =>
     words.some((word) => word.id === sentence.wordId),
   fn: (words, data) => {
-    const word = deepClone(words.find((word) => word.id === data.wordId)) as Word;
+    const word = deepClone(
+      words.find((word) => word.id === data.wordId),
+    ) as Word;
     word.sentences = word.sentences?.filter(
       (sentence) => sentence.id !== data.sentenceId,
     );

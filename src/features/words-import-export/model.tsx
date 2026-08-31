@@ -3,41 +3,44 @@ import { WordApi } from "entities/word/api/types";
 import { FilesApi } from "shared/files/types";
 
 type ImportExportModelDeps = {
-    wordsApi: WordApi;
-    filesApi: FilesApi;
-}
+  wordsApi: WordApi;
+  filesApi: FilesApi;
+};
 
 export const importWordsClicked = createEvent();
 export const exportWordsClicked = createEvent();
 
-export const createImportExportModel = ({ wordsApi, filesApi }: ImportExportModelDeps) => {
-    const exportWordsFx = createEffect(async () => {
-        const words = await wordsApi.getWords();
-        
-        filesApi.downloadFile('words.json', JSON.stringify(words));
-    });
+export const createImportExportModel = ({
+  wordsApi,
+  filesApi,
+}: ImportExportModelDeps) => {
+  const exportWordsFx = createEffect(async () => {
+    const words = await wordsApi.getWords();
 
-    const importWordsFx = createEffect(async () => {
-        const file = await filesApi.readUserFile();
-        const words = JSON.parse(file);
-        await wordsApi.uploadWords(words);
-    });
+    filesApi.downloadFile("words.json", JSON.stringify(words));
+  });
 
-    const importWordsClicked = createEvent();
-    const exportWordsClicked = createEvent();
+  const importWordsFx = createEffect(async () => {
+    const file = await filesApi.readUserFile();
+    const words = JSON.parse(file);
+    await wordsApi.uploadWords(words);
+  });
 
-    sample({
-        clock: importWordsClicked,
-        target: importWordsFx,
-    });
+  const importWordsClicked = createEvent();
+  const exportWordsClicked = createEvent();
 
-    sample({
-        clock: exportWordsClicked,
-        target: exportWordsFx,
-    });
+  sample({
+    clock: importWordsClicked,
+    target: importWordsFx,
+  });
 
-    return {
-        importWordsClicked,
-        exportWordsClicked,
-    }
-}
+  sample({
+    clock: exportWordsClicked,
+    target: exportWordsFx,
+  });
+
+  return {
+    importWordsClicked,
+    exportWordsClicked,
+  };
+};

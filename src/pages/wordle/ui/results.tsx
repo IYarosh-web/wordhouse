@@ -8,21 +8,18 @@ import { Guess } from "./guess";
 type Props = {
   answer: string;
   guesses: GuessType[];
-}
+};
 
-export function Results({
-  answer,
-  guesses,
-}: Props) {
+export function Results({ answer, guesses }: Props) {
   const [count] = useUnit([$guessCount]);
 
   return (
     <div className="flex flex-col gap-2 items-center">
-      {range(count).map(i => (
+      {range(count).map((i) => (
         <div key={i}>
           <Guess value={guesses[i]?.value} answer={answer} />
         </div>
       ))}
     </div>
-  )
+  );
 }

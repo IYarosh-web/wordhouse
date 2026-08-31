@@ -2,13 +2,13 @@ import { Link } from "react-router";
 import { MODALS, modalSearch } from "shared/routing";
 
 type Props = {
-    word: string;
-}
+  word: string;
+};
 
 export function WordLinkComponent({ word }: Props) {
-    return (
-        <Link to={{ search: modalSearch(MODALS.editWord, { word }) }}>
-            <span>{word}</span>
-        </Link>
-    )
+  return (
+    <Link to={{ search: modalSearch(MODALS.editWord, { word }) }}>
+      <span>{word}</span>
+    </Link>
+  );
 }

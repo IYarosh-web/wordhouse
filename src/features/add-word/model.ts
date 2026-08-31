@@ -1,7 +1,13 @@
 import { createEffect, createEvent, sample } from "effector";
 import { createGate } from "effector-react";
 import { Word } from "entities/word";
-import { $wordStore, wordAdded, wordUpdated, addWord, updateWord } from "entities/word";
+import {
+  $wordStore,
+  wordAdded,
+  wordUpdated,
+  addWord,
+  updateWord,
+} from "entities/word";
 import { openModal } from "shared/contracts";
 import { MODALS } from "shared/routing";
 
@@ -40,7 +46,7 @@ export const addWordFormSubmittedFx = createEffect(
           id: crypto.randomUUID(),
           sentence: formData.get("sentence") as string,
           wordId: id,
-        }
+        },
       ],
     };
 

@@ -1,3 +1,1 @@
-export const PAGES_WITH_SCROLL_LAYOUT = [
-    "/dashboard",
-];
+export const PAGES_WITH_SCROLL_LAYOUT = ["/dashboard"];

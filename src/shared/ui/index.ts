@@ -9,4 +9,8 @@ export { Select } from "./select";
 export { TabGroup, TabList, Tab, TabPanel, TabPanels } from "./tabs";
 export { Dialog, DialogPanel, DialogTitle } from "./dialog";
 export { Textarea } from "./textarea";
-export { Kbd, KeyboardShortcut, KeyboardShortcutHint } from "./keyboard-shortcut";
+export {
+  Kbd,
+  KeyboardShortcut,
+  KeyboardShortcutHint,
+} from "./keyboard-shortcut";

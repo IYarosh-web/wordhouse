@@ -75,6 +75,9 @@ export function formatShortcutKey(key: ShortcutKey, isMac = isMacPlatform()) {
   return normalized;
 }
 
-export function formatShortcutKeys(keys: ShortcutKey[], isMac = isMacPlatform()) {
+export function formatShortcutKeys(
+  keys: ShortcutKey[],
+  isMac = isMacPlatform(),
+) {
   return keys.map((key) => formatShortcutKey(key, isMac));
 }

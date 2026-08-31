@@ -4,7 +4,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(132deg, #FFBE91 25%, #FFDDB0 25.1%, #FFDDB0 50%, #FFFCE1 50.1%, #FFFCE1 75%, #CFEBFF 75.1%, #CFEBFF 100%);
+  background: linear-gradient(
+    132deg,
+    #ffbe91 25%,
+    #ffddb0 25.1%,
+    #ffddb0 50%,
+    #fffce1 50.1%,
+    #fffce1 75%,
+    #cfebff 75.1%,
+    #cfebff 100%
+  );
 }
 
 .box {

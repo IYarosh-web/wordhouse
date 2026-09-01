@@ -8,7 +8,7 @@ import type {
   Definition,
   WordDTO,
 } from "./model/types";
-import { $wordStore, $uniqueWordsStore } from "./model/store";
+import { createWordEntity } from "./model/store";
 import { wordsApi } from "./api";
 
 export {
@@ -17,21 +17,10 @@ export {
   Translation,
   Definition,
   WordDTO,
-  $wordStore,
-  $uniqueWordsStore,
 };
-
-export { wordsApi };
 
 export { isWordValid, createSentence, EMPTY_WORD } from "./model/lib";
 
-export {
-  loadWords,
-  $isLoading,
-  deleteWord,
-  addWord,
-  updateWord,
-  wordAdded,
-  wordDeleted,
-  wordUpdated,
-} from "./model/store";
+export const wordEntity = createWordEntity({ wordsApi });
+
+export type WordEntity = ReturnType<typeof createWordEntity>;

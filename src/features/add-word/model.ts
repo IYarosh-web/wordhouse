@@ -2,11 +2,7 @@ import { createEffect, createEvent, sample } from "effector";
 import { createGate } from "effector-react";
 import { Word } from "entities/word";
 import {
-  $wordStore,
-  wordAdded,
-  wordUpdated,
-  addWord,
-  updateWord,
+  wordEntity,
 } from "entities/word";
 import { openModal } from "shared/contracts";
 import { MODALS } from "shared/routing";
@@ -48,6 +44,8 @@ export const addWordFormSubmittedFx = createEffect(
           wordId: id,
         },
       ],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     };
 
     return word;
@@ -56,7 +54,7 @@ export const addWordFormSubmittedFx = createEffect(
 
 sample({
   clock: addWordFormSubmittedFx.doneData,
-  source: $wordStore,
+  source: wordEntity.$wordStore,
   fn: (words, word) => {
     const sameWord = words.find((w) => w.word === word.word);
     if (sameWord) {
@@ -66,12 +64,12 @@ sample({
     return word;
   },
   filter: (words, word) => words.some((w) => w.word === word.word),
-  target: updateWord,
+  target: wordEntity.updateWord,
 });
 
 sample({
   clock: addWordFormSubmittedFx.doneData,
-  source: $wordStore,
+  source: wordEntity.$wordStore,
   fn: (words, word) => {
     const sameWord = words.find((w) => w.word === word.word);
     if (sameWord) {
@@ -81,7 +79,7 @@ sample({
     return word;
   },
   filter: (words, word) => !words.some((w) => w.word === word.word),
-  target: addWord,
+  target: wordEntity.addWord,
 });
 
 sample({
@@ -91,7 +89,7 @@ sample({
 });
 
 sample({
-  clock: [wordAdded, wordUpdated],
+  clock: [wordEntity.wordAdded, wordEntity.wordUpdated],
   filter: AddWordGate.status,
   fn: (word) => ({
     name: MODALS.editWord,

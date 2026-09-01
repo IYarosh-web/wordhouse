@@ -1,6 +1,6 @@
 import { combine, createEvent, createStore, sample } from "effector";
 import { createGate } from "effector-react";
-import { $wordStore } from "entities/word";
+import { wordEntity } from "entities/word";
 import { ChangeEvent } from "react";
 
 import { strIncludes } from "shared/lib";
@@ -12,7 +12,7 @@ export const sortChanged = createEvent<SortOption>();
 export const $filter = createStore<string>("");
 export const $sort = createStore<SortOption>("alphabetical");
 export const $wordList = combine(
-  $wordStore,
+  wordEntity.$wordStore,
   $filter,
   $sort,
   (words, filter, sort) =>

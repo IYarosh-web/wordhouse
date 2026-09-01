@@ -1,5 +1,5 @@
 import { createEvent, sample } from "effector";
-import { deleteWord } from "entities/word";
+import { wordEntity } from "entities/word";
 
 export const deleteWordFormSubmitted =
   createEvent<React.FormEvent<HTMLFormElement>>();
@@ -12,5 +12,5 @@ sample({
     const formData = new FormData(event.currentTarget);
     return formData.get("wordId") as string;
   },
-  target: deleteWord,
+  target: wordEntity.deleteWord,
 });

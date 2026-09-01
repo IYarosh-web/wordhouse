@@ -1,9 +1,9 @@
 import { createEffect, createEvent, sample } from "effector";
-import { WordApi } from "entities/word/api/types";
+import { WordEntity } from "entities/word";
 import { FilesApi } from "shared/files/types";
 
 type ImportExportModelDeps = {
-  wordsApi: WordApi;
+  wordEntity: WordEntity;
   filesApi: FilesApi;
 };
 
@@ -11,11 +11,11 @@ export const importWordsClicked = createEvent();
 export const exportWordsClicked = createEvent();
 
 export const createImportExportModel = ({
-  wordsApi,
+  wordEntity,
   filesApi,
 }: ImportExportModelDeps) => {
   const exportWordsFx = createEffect(async () => {
-    const words = await wordsApi.getWords();
+    const words = await wordEntity.$wordStore.getState();
 
     filesApi.downloadFile("words.json", JSON.stringify(words));
   });
@@ -23,7 +23,7 @@ export const createImportExportModel = ({
   const importWordsFx = createEffect(async () => {
     const file = await filesApi.readUserFile();
     const words = JSON.parse(file);
-    await wordsApi.uploadWords(words);
+    await wordEntity.addWord(words);
   });
 
   const importWordsClicked = createEvent();

@@ -1,7 +1,7 @@
 import { $filter, $wordList, filterChanged, wordListGate } from "../model";
 import { useGate, useUnit } from "effector-react";
 import { motion } from "framer-motion";
-import { Link, NavLink } from "react-router";
+import { Link } from "react-router";
 import {
   Button,
   FocusOnCtrlKey,

@@ -1,5 +1,5 @@
 import { createEvent, createStore, sample } from "effector";
-import { $wordStore } from "entities/word";
+import { wordEntity } from "entities/word";
 import { getSentenceToFill } from "./lib";
 import { createGate } from "effector-react";
 import { GameStatus } from "shared/lib/types";
@@ -21,7 +21,7 @@ export const gameGate = createGate();
 
 const gamePrepared = sample({
   clock: [gameGate.open, gameRestarted],
-  source: $wordStore,
+  source: wordEntity.$wordStore,
   fn: getSentenceToFill,
 });
 

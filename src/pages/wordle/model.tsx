@@ -2,7 +2,7 @@ import React from "react";
 import { createGate } from "effector-react";
 import { createEffect, createEvent, createStore, sample } from "effector";
 
-import { $wordStore } from "entities/word";
+import { wordEntity } from "entities/word";
 import { randomFrom, uuid } from "shared/lib";
 
 import { checkGuess, checkWordExists, filterWord } from "./lib";
@@ -89,7 +89,7 @@ sample({
 
 sample({
   clock: gameStarted,
-  source: $wordStore,
+  source: wordEntity.$wordStore,
   filter: (words) => words.length > 0,
   fn: (words, _) => randomFrom(words.filter(filterWord)).word.toUpperCase(),
   target: $answer,

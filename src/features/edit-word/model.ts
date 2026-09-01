@@ -1,9 +1,8 @@
 import { combine, createEffect, sample } from "effector";
 import { createGate } from "effector-react";
 
-import { $wordStore, Word } from "entities/word";
+import { wordEntity, Word } from "entities/word";
 import { Sentence, Definition, Translation } from "entities/word";
-import { wordDeleted, updateWord } from "entities/word/model/store";
 
 import { deepClone } from "shared/lib";
 import { closeModal } from "shared/contracts";
@@ -14,7 +13,7 @@ export const $paramsWord = combine($modal, $wordParam, (modal, word) =>
 );
 export const $activeWord = combine(
   $paramsWord,
-  $wordStore,
+  wordEntity.$wordStore,
   (paramsWord, words) => words.find((word) => word.word === paramsWord) || null,
 );
 
@@ -108,7 +107,7 @@ export const deleteTranslationFormSubmittedFx = createEffect(
 
 sample({
   clock: addSentenceFormSubmittedFx.doneData,
-  source: $wordStore,
+  source: wordEntity.$wordStore,
   filter: (words, sentence) =>
     words.some((word) => word.id === sentence.wordId),
   fn: (words, sentence) => {
@@ -118,12 +117,12 @@ sample({
     word.sentences?.push(sentence);
     return word;
   },
-  target: updateWord,
+  target: wordEntity.updateWord,
 });
 
 sample({
   clock: addDefinitionFormSubmittedFx.doneData,
-  source: $wordStore,
+  source: wordEntity.$wordStore,
   filter: (words, definition) =>
     words.some((word) => word.id === definition.wordId),
   fn: (words, definition) => {
@@ -133,12 +132,12 @@ sample({
     word.definitions.push(definition);
     return word;
   },
-  target: updateWord,
+  target: wordEntity.updateWord,
 });
 
 sample({
   clock: addTranslationFormSubmittedFx.doneData,
-  source: $wordStore,
+  source: wordEntity.$wordStore,
   filter: (words, translation) =>
     words.some((word) => word.id === translation.wordId),
   fn: (words, translation) => {
@@ -148,12 +147,12 @@ sample({
     word.translations.push(translation);
     return word;
   },
-  target: updateWord,
+  target: wordEntity.updateWord,
 });
 
 sample({
   clock: deleteTranslationFormSubmittedFx.doneData,
-  source: $wordStore,
+  source: wordEntity.$wordStore,
   filter: (words, data) => words.some((word) => word.id === data.wordId),
   fn: (words, data) => {
     const word = deepClone(
@@ -164,12 +163,12 @@ sample({
     );
     return word;
   },
-  target: updateWord,
+  target: wordEntity.updateWord,
 });
 
 sample({
   clock: deleteDefinitionFormSubmittedFx.doneData,
-  source: $wordStore,
+  source: wordEntity.$wordStore,
   filter: (words, definition) =>
     words.some((word) => word.id === definition.wordId),
   fn: (words, data) => {
@@ -181,12 +180,12 @@ sample({
     );
     return word;
   },
-  target: updateWord,
+  target: wordEntity.updateWord,
 });
 
 sample({
   clock: deleteSentenceFormSubmittedFx.doneData,
-  source: $wordStore,
+  source: wordEntity.$wordStore,
   filter: (words, sentence) =>
     words.some((word) => word.id === sentence.wordId),
   fn: (words, data) => {
@@ -198,11 +197,11 @@ sample({
     );
     return word;
   },
-  target: updateWord,
+  target: wordEntity.updateWord,
 });
 
 sample({
-  clock: wordDeleted,
+  clock: wordEntity.wordDeleted,
   filter: ViewWordGate.status,
   target: closeModal,
 });

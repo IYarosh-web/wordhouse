@@ -1,101 +1,114 @@
 import { createEffect, createEvent, createStore, sample } from "effector";
 import { Word } from "./types";
-import { wordsApi } from "../api";
+import { WordApi } from "../api/types";
 
-const loadWordsFx = createEffect(async () => {
-  const words = await wordsApi.getWords();
-  return words;
-});
+type WordEntityDeps = {
+  wordsApi: WordApi;
+};
 
-const deleteWordFx = createEffect(async (id: string) => {
-  await wordsApi.deleteWord(id);
-  return id;
-});
+export const createWordEntity = ({ wordsApi }: WordEntityDeps) => {
+  const loadWordsFx = createEffect(async () => {
+    const words = await wordsApi.getWords();
+    return words;
+  });
 
-const addWordFx = createEffect(async (word: Word) => {
-  await wordsApi.createWord(word);
-  return word;
-});
+  const deleteWordFx = createEffect(async (id: string) => {
+    await wordsApi.deleteWord(id);
+    return id;
+  });
 
-const updateWordFx = createEffect(async (word: Word) => {
-  await wordsApi.updateWord(word);
-  return word;
-});
+  const addWordFx = createEffect(async (word: Word) => {
+    await wordsApi.createWord(word);
+    return word;
+  });
 
-export const $isLoading = loadWordsFx.pending;
-export const $wordStore = createStore<Word[]>([]);
-export const $uniqueWordsStore = $wordStore.map((words) =>
-  words.filter(
-    (word, index, self) =>
-      self.findIndex((t) => t.word === word.word) === index,
-  ),
-);
+  const updateWordFx = createEffect(async (word: Word) => {
+    await wordsApi.updateWord(word);
+    return word;
+  });
 
-export const loadWords = createEvent();
-export const addWord = createEvent<Word>();
-export const updateWord = createEvent<Word>();
-export const deleteWord = createEvent<Word["id"]>();
-export const wordAdded = createEvent<Word>();
-export const wordUpdated = createEvent<Word>();
-export const wordDeleted = createEvent<Word["id"]>();
+  const $isLoading = loadWordsFx.pending;
+  const $wordStore = createStore<Word[]>([]);
 
-sample({
-  clock: loadWordsFx.doneData,
-  target: $wordStore,
-});
+  const loadWords = createEvent();
+  const addWord = createEvent<Word>();
+  const updateWord = createEvent<Word>();
+  const deleteWord = createEvent<Word["id"]>();
 
-sample({
-  clock: addWord,
-  target: addWordFx,
-});
+  const wordAdded = createEvent<Word>();
+  const wordUpdated = createEvent<Word>();
+  const wordDeleted = createEvent<Word["id"]>();
 
-sample({
-  clock: updateWord,
-  target: updateWordFx,
-});
+  sample({
+    clock: loadWordsFx.doneData,
+    target: $wordStore,
+  });
 
-sample({
-  clock: deleteWord,
-  target: deleteWordFx,
-});
+  sample({
+    clock: addWord,
+    target: addWordFx,
+  });
 
-sample({
-  clock: deleteWordFx.doneData,
-  source: $wordStore,
-  fn: (words, id) => words.filter((word) => word.id !== id),
-  target: $wordStore,
-});
+  sample({
+    clock: updateWord,
+    target: updateWordFx,
+  });
 
-sample({
-  clock: addWordFx.doneData,
-  source: $wordStore,
-  fn: (words, word) => [...words, word],
-  target: $wordStore,
-});
+  sample({
+    clock: deleteWord,
+    target: deleteWordFx,
+  });
 
-sample({
-  clock: updateWordFx.doneData,
-  source: $wordStore,
-  fn: (words, word) => words.map((w) => (w.id === word.id ? word : w)),
-  target: $wordStore,
-});
+  sample({
+    clock: deleteWordFx.doneData,
+    source: $wordStore,
+    fn: (words, id) => words.filter((word) => word.id !== id),
+    target: $wordStore,
+  });
 
-sample({
-  clock: loadWords,
-  target: loadWordsFx,
-});
+  sample({
+    clock: addWordFx.doneData,
+    source: $wordStore,
+    fn: (words, word) => [...words, word],
+    target: $wordStore,
+  });
 
-sample({
-  clock: addWordFx.doneData,
-  target: wordAdded,
-});
+  sample({
+    clock: updateWordFx.doneData,
+    source: $wordStore,
+    fn: (words, word) => words.map((w) => (w.id === word.id ? word : w)),
+    target: $wordStore,
+  });
 
-sample({
-  clock: updateWordFx.doneData,
-  target: wordUpdated,
-});
+  sample({
+    clock: loadWords,
+    target: loadWordsFx,
+  });
 
-sample({
-  clock: deleteWordFx.doneData,
-  target: wordDeleted,
-});
+  sample({
+    clock: addWordFx.doneData,
+    target: wordAdded,
+  });
+
+  sample({
+    clock: updateWordFx.doneData,
+    target: wordUpdated,
+  });
+
+  sample({
+    clock: deleteWordFx.doneData,
+    target: wordDeleted,
+  });
+
+  return {
+    $isLoading,
+    $wordStore,
+    loadWords,
+    addWord,
+    updateWord,
+    deleteWord,
+    wordAdded,
+    wordUpdated,
+    wordDeleted,
+  }
+}

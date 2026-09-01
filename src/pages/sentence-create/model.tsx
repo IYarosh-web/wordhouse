@@ -1,10 +1,9 @@
 import { createEvent, createStore, sample } from "effector";
 import { createGate } from "effector-react";
 import {
-  $wordStore,
+  wordEntity,
   createSentence,
   EMPTY_WORD,
-  updateWord,
   Word,
 } from "entities/word";
 import { randomFrom } from "shared/lib";
@@ -24,7 +23,7 @@ sample({
 
 sample({
   clock: gameStarted,
-  source: $wordStore,
+  source: wordEntity.$wordStore,
   fn: (words) => randomFrom(words),
   target: $word,
 });
@@ -43,5 +42,5 @@ sample({
 
     return word;
   },
-  target: updateWord,
+  target: wordEntity.updateWord,
 });

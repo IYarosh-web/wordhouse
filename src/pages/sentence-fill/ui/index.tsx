@@ -39,10 +39,16 @@ export function SentenceFillWidget() {
           value={input}
           onChange={changeInput}
         />
-        <Button className="px-2 py-1" type="submit">Submit</Button>
-        <Button className="px-2 py-1" type="button">Hint</Button>
+        <Button className="px-2 py-1" type="submit">
+          Submit
+        </Button>
+        <Button className="px-2 py-1" type="button">
+          Hint
+        </Button>
       </form>
-      <Button className="px-2 py-1" onClick={() => restart()}>Restart</Button>
+      <Button className="px-2 py-1" onClick={() => restart()}>
+        Restart
+      </Button>
     </div>
   );
 }

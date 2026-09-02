@@ -35,13 +35,14 @@ export const createWordEntity = ({ wordsApi }: WordEntityDeps) => {
   const updateWord = createEvent<Word>();
   const deleteWord = createEvent<Word["id"]>();
 
+  const wordsLoaded = createEvent<Word[]>();
   const wordAdded = createEvent<Word>();
   const wordUpdated = createEvent<Word>();
   const wordDeleted = createEvent<Word["id"]>();
 
   sample({
     clock: loadWordsFx.doneData,
-    target: $wordStore,
+    target: [$wordStore, wordsLoaded],
   });
 
   sample({
@@ -110,5 +111,6 @@ export const createWordEntity = ({ wordsApi }: WordEntityDeps) => {
     wordAdded,
     wordUpdated,
     wordDeleted,
-  }
-}
+    wordsLoaded,
+  };
+};

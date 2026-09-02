@@ -1,9 +1,7 @@
 import { createEffect, createEvent, sample } from "effector";
 import { createGate } from "effector-react";
 import { Word } from "entities/word";
-import {
-  wordEntity,
-} from "entities/word";
+import { wordEntity } from "entities/word";
 import { openModal } from "shared/contracts";
 import { MODALS } from "shared/routing";
 

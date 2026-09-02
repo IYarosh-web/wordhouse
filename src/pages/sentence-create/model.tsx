@@ -1,11 +1,6 @@
 import { createEvent, createStore, sample } from "effector";
 import { createGate } from "effector-react";
-import {
-  wordEntity,
-  createSentence,
-  EMPTY_WORD,
-  Word,
-} from "entities/word";
+import { wordEntity, createSentence, EMPTY_WORD, Word } from "entities/word";
 import { randomFrom } from "shared/lib";
 
 export const $word = createStore<Word>(EMPTY_WORD);

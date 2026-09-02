@@ -1,4 +1,10 @@
-import { createContext, Fragment, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  Fragment,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 import {
   formatShortcutKey,
@@ -12,25 +18,25 @@ export const ShortcutsContext = createContext(false);
 
 export const ShortcutsProvider = ({ children }: React.PropsWithChildren) => {
   const [isVisible, setIsVisible] = useState(false);
-  
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Control') {
+      if (event.key === "Control") {
         setIsVisible(true);
       }
     };
     const handleKeyUp = (event: KeyboardEvent) => {
-      if (event.key === 'Control') {
+      if (event.key === "Control") {
         setIsVisible(false);
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('keyup', handleKeyUp);
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keyup", handleKeyUp);
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('keyup', handleKeyUp);
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keyup", handleKeyUp);
     };
   }, [setIsVisible]);
 
@@ -64,12 +70,12 @@ function KeyboardShortcut({
   className = "",
 }: KeyboardShortcutProps) {
   const isVisible = useContext(ShortcutsContext);
-  
+
   const isMac = isMacPlatform();
 
   return (
     <span
-      className={`inline-flex items-center transition-opacity duration-300 gap-1 ${className} ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+      className={`inline-flex items-center transition-opacity duration-300 gap-1 ${className} ${isVisible ? "opacity-100" : "opacity-0"}`}
     >
       {keys.map((key, index) => (
         <Fragment key={`${key}-${index}`}>

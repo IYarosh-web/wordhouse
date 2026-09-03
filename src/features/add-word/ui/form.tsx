@@ -1,14 +1,12 @@
 import { useGate, useUnit } from "effector-react";
 
-import { addWordFormSubmittedFx } from "features/add-word";
 import { Input, Button, Textarea } from "shared/ui";
 
-import { AddWordGate } from "../model";
-
+import { addWord } from "../model";
 export function AddWordForm() {
-  const [handleWordFormSubmitted] = useUnit([addWordFormSubmittedFx]);
+  const [handleWordFormSubmitted] = useUnit([addWord.formSubmitted]);
 
-  useGate(AddWordGate);
+  useGate(addWord.Gate);
 
   return (
     <form

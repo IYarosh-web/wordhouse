@@ -1,6 +1,6 @@
 import React from "react";
 import { createGate } from "effector-react";
-import { createEffect, createEvent, createStore, sample } from "effector";
+import { combine, createEffect, createEvent, createStore, sample } from "effector";
 
 import { wordEntity } from "entities/word";
 import { randomFrom, uuid } from "shared/lib";
@@ -15,7 +15,7 @@ export const letterClicked =
   createEvent<React.MouseEvent<HTMLButtonElement, MouseEvent>>();
 export const guessSubmitted = createEvent<React.FormEvent<HTMLFormElement>>();
 export const guessAnimationEnded = createEvent();
-export const resetGame = createEvent();
+export const hintRequested = createEvent();
 
 export const $answer = createStore<string>("");
 export const $guessCount = createStore<number>(MAX_GUESSES);
@@ -24,6 +24,8 @@ export const $userInput = createStore<string>("");
 export const $gameStatus = createStore<GameStatus>("running");
 export const $letterStatuses = createStore<Record<string, Status>>({});
 export const $error = createStore<string>("");
+export const $hintsCount = createStore<number>(0);
+export const $visibleInput = combine($hintsCount, $answer, $userInput, (hintsCount, answer, userInput) => (answer.slice(0, hintsCount) + userInput).slice(0, answer.length));
 
 const guessSubmittedFx = createEffect(
   async (event: React.FormEvent<HTMLFormElement>) => {
@@ -103,6 +105,12 @@ sample({
 
 sample({
   clock: gameStarted,
+  fn: () => 0,
+  target: $hintsCount,
+});
+
+sample({
+  clock: gameStarted,
   fn: () => ({}),
   target: $letterStatuses,
 });
@@ -149,6 +157,13 @@ sample({
     return (input + letter).slice(0, answer.length);
   },
   target: $userInput,
+});
+
+sample({
+  clock: hintRequested,
+  source: $hintsCount,
+  fn: (hintsCount) => hintsCount + 1,
+  target: $hintsCount,
 });
 
 // END: Handle user input

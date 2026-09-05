@@ -2,17 +2,19 @@ import { useGate, useUnit } from "effector-react";
 import { useRef } from "react";
 import { useEffect } from "react";
 
-import { Button, Icons } from "shared/ui";
+import { Button, FocusOnCtrlKey, Icons, KeyboardShortcut } from "shared/ui";
 
 import {
   $answer,
   $error,
   $gameStatus,
   $guesses,
+  $hintsCount,
   $userInput,
+  $visibleInput,
   gameStarted,
   guessSubmitted,
-  resetGame,
+  hintRequested,
   wordleGate,
 } from "../model";
 import { Results } from "./results";
@@ -21,17 +23,20 @@ import { WordLinkComponent } from "features/word-link";
 
 export function WidgetWordle() {
   const submitButtonRef = useRef<HTMLButtonElement>(null);
-  const [answer, input, guesses, handleSubmit, error, gameStatus, reset] =
+  const [answer, visibleInput, input, guesses, handleSubmit, error, gameStatus, reset, requestHint, hintsCount] =
     useUnit([
       $answer,
+      $visibleInput,
       $userInput,
       $guesses,
       guessSubmitted,
       $error,
       $gameStatus,
       gameStarted,
+      hintRequested,
+      $hintsCount,
     ]);
-
+    console.log({input, visibleInput});
   useGate(wordleGate);
 
   useEffect(() => {
@@ -56,7 +61,7 @@ export function WidgetWordle() {
         <p className="min-h-6 text-center">
           {error && <span className="text-red-500">{error}</span>}
           {gameStatus === "won" && (
-            <span className="text-green-500">You won!</span>
+            <span className="text-green-500">You won! The word is <WordLinkComponent word={answer} />.</span>
           )}
           {gameStatus === "lost" && (
             <span className="text-red-500">
@@ -74,20 +79,28 @@ export function WidgetWordle() {
           onSubmit={handleSubmit}
         >
           <span className="text-center">Your guess:</span>
-          <input type="text" name="guess" value={input} className="hidden" />
+          <input type="text" name="guess" value={visibleInput} className="hidden" />
           <div className="flex gap-2 justify-center">
             {answer.split("").map((_, index) => (
               <span
                 key={index}
-                className="p-1 w-6 h-6 border flex items-center justify-center"
+                className={`p-1 w-6 h-6 border flex items-center justify-center ${hintsCount > index && "bg-amber-200"}`}
               >
-                {input[index]}
+                {visibleInput[index]}
               </span>
             ))}
           </div>
-          <Button className="w-min mx-auto" type="submit" ref={submitButtonRef}>
-            Submit
-          </Button>
+          <div className="flex gap-2 items-center justify-center">
+            <KeyboardShortcut keys={["ArrowRight"]} />
+            <FocusOnCtrlKey keyCode="ArrowRight">
+              <Button className="w-min px-2 py-1" type="submit" ref={submitButtonRef}>
+                Submit
+              </Button>
+            </FocusOnCtrlKey>
+            <Button className="w-min px-2 py-1" type="button" onClick={requestHint}>
+              Hint
+            </Button>
+          </div>
         </form>
         <Keyboard />
       </div>

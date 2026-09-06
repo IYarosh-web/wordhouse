@@ -54,29 +54,6 @@ const errorTimeoutFx = createEffect(async () => {
 
 export const wordleGate = createGate();
 
-sample({
-  clock: guessSubmitted,
-  source: {
-    status: $gameStatus,
-    answer: $answer,
-  },
-  filter: ({ status, answer }, event) => {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-    const guess = formData.get("guess") || "";
-
-    return (
-      status === "running" &&
-      typeof guess === "string" &&
-      answer.length > 0 &&
-      guess.length === answer.length
-    );
-  },
-  fn: (_, event) => event,
-  target: guessSubmittedFx,
-});
-
 // START: Handle game start
 sample({
   clock: wordleGate.open,
@@ -169,6 +146,29 @@ sample({
 // END: Handle user input
 
 // START: Handle guess submission
+sample({
+  clock: guessSubmitted,
+  source: {
+    status: $gameStatus,
+    answer: $answer,
+  },
+  filter: ({ status, answer }, event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const guess = formData.get("guess") || "";
+    console.log({ guess });
+    return (
+      status === "running" &&
+      typeof guess === "string" &&
+      answer.length > 0 &&
+      guess.length === answer.length
+    );
+  },
+  fn: (_, event) => event,
+  target: guessSubmittedFx,
+});
+
 sample({
   clock: guessSubmittedFx.doneData,
   source: {

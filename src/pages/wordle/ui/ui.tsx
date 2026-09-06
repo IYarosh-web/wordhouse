@@ -23,7 +23,18 @@ import { WordLinkComponent } from "features/word-link";
 
 export function WidgetWordle() {
   const submitButtonRef = useRef<HTMLButtonElement>(null);
-  const [answer, visibleInput, input, guesses, handleSubmit, error, gameStatus, reset, requestHint, hintsCount] =
+
+  const [
+    answer,
+    visibleInput,
+    input,
+    guesses,
+    submitGuess,
+    error,
+    gameStatus,
+    reset,
+    requestHint,
+    hintsCount] =
     useUnit([
       $answer,
       $visibleInput,
@@ -36,7 +47,7 @@ export function WidgetWordle() {
       hintRequested,
       $hintsCount,
     ]);
-    console.log({input, visibleInput});
+
   useGate(wordleGate);
 
   useEffect(() => {
@@ -76,7 +87,7 @@ export function WidgetWordle() {
         <form
           action="#"
           className="min-h-20 flex flex-col gap-2"
-          onSubmit={handleSubmit}
+          onSubmit={submitGuess}
         >
           <span className="text-center">Your guess:</span>
           <input type="text" name="guess" value={visibleInput} className="hidden" />

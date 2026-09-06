@@ -10,7 +10,7 @@ function FocusOnCtrlKey({
   keyCode,
   disabled = false,
 }: React.PropsWithChildren<Props>) {
-  const childRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -18,7 +18,9 @@ function FocusOnCtrlKey({
 
       if (event.ctrlKey && event.key === keyCode) {
         event.preventDefault();
-        childRef.current?.focus();
+        if (wrapperRef.current?.firstChild instanceof HTMLElement) {
+          wrapperRef.current.firstChild.focus();
+        }
       }
     };
 
@@ -26,12 +28,11 @@ function FocusOnCtrlKey({
     return () => window.removeEventListener("keydown", handleKeyDown, true);
   }, [disabled, keyCode]);
 
-  if (isValidElement(children)) {
-    const el = cloneElement(children, { ref: childRef });
-    return el;
-  }
-
-  return children;
+  return (
+    <div className="contents" ref={wrapperRef}>
+      {children}
+    </div>
+  );
 }
 
 export { FocusOnCtrlKey };

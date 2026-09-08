@@ -143,6 +143,13 @@ sample({
   target: $hintsCount,
 });
 
+sample({
+  clock: hintRequested,
+  source: $userInput,
+  fn: (userInput) => userInput.slice(0, -1),
+  target: $userInput,
+});
+
 // END: Handle user input
 
 // START: Handle guess submission

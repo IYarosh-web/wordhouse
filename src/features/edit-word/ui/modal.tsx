@@ -13,6 +13,7 @@ import { closeModal } from "shared/contracts";
 import { useUnit } from "effector-react";
 import { $activeWord, $paramsWord } from "../model";
 import { deleteWordFormSubmitted } from "features/delete-word";
+import { EmptyWordPlaceholder } from "./empty";
 
 export function EditWordModal() {
   const [activeWord, deleteWord, word] = useUnit([
@@ -48,7 +49,7 @@ export function EditWordModal() {
                   </Button>
                 </div>
               </DialogTitle>
-              <EditWordForm />
+              {activeWord ? <EditWordForm /> : <EmptyWordPlaceholder />}
             </DialogPanel>
           </motion.div>
         </div>

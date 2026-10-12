@@ -81,3 +81,11 @@ export function formatShortcutKeys(
 ) {
   return keys.map((key) => formatShortcutKey(key, isMac));
 }
+
+export function isCommandKeyEvent(event: KeyboardEvent) {
+  if (isMacPlatform()) {
+    return event.key === 'Alt';
+  }
+
+  return event.ctrlKey;
+}

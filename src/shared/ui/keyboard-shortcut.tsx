@@ -8,6 +8,7 @@ import {
 
 import {
   formatShortcutKey,
+  isCommandKeyEvent,
   type ShortcutKey,
 } from "shared/lib/keyboard-shortcut";
 import { isMacPlatform } from "shared/lib/platform";
@@ -21,12 +22,12 @@ export const ShortcutsProvider = ({ children }: React.PropsWithChildren) => {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Control") {
+      if (isCommandKeyEvent(event)) {
         setIsVisible(true);
       }
     };
     const handleKeyUp = (event: KeyboardEvent) => {
-      if (event.key === "Control") {
+      if (isCommandKeyEvent(event)) {
         setIsVisible(false);
       }
     };

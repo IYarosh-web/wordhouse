@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogPanel, DialogTitle, Icons } from "shared/ui";
 import { AddWordForm } from "./form";
 import { closeModal } from "shared/contracts";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 export function AddWordModal() {
   const handleClose = () => {

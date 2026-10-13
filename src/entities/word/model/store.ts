@@ -18,13 +18,13 @@ export const createWordEntity = ({ wordsApi }: WordEntityDeps) => {
   });
 
   const addWordFx = createEffect(async (word: Word) => {
-    await wordsApi.createWord(word);
-    return word;
+    const createdWord = await wordsApi.createWord(word);
+    return createdWord;
   });
 
   const updateWordFx = createEffect(async (word: Word) => {
-    await wordsApi.updateWord(word);
-    return word;
+    const updatedWord = await wordsApi.updateWord(word);
+    return updatedWord;
   });
 
   const $isLoading = loadWordsFx.pending;

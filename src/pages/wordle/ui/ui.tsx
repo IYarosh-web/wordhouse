@@ -72,16 +72,16 @@ export function WidgetWordle() {
         <p className="min-h-6 text-center">
           {error && <span className="text-red-500">{error}</span>}
           {gameStatus === "won" && (
-            <span className="text-green-500">You won! The word is <WordLinkComponent word={answer} />.</span>
+            <span className="text-green-500">You won! The word is <WordLinkComponent autoFocus word={answer.word} />.</span>
           )}
           {gameStatus === "lost" && (
             <span className="text-red-500">
               Unfrotunately, you've lost! The word was{" "}
-              <WordLinkComponent word={answer} />.
+              <WordLinkComponent autoFocus word={answer.word} />.
             </span>
           )}
         </p>
-        <Results guesses={guesses} answer={answer} />
+        <Results guesses={guesses} answer={answer.word.toUpperCase()} />
       </div>
       <div className="flex flex-col gap-2">
         <form
@@ -92,7 +92,7 @@ export function WidgetWordle() {
           <span className="text-center">Your guess:</span>
           <input type="text" name="guess" value={visibleInput} className="hidden" />
           <div className="flex gap-2 justify-center">
-            {answer.split("").map((_, index) => (
+            {answer.word.split("").map((_, index) => (
               <span
                 key={index}
                 className={`p-1 w-6 h-6 border flex items-center justify-center ${hintsCount > index && "bg-amber-200"}`}

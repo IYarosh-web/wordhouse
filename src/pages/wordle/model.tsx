@@ -2,7 +2,7 @@ import React from "react";
 import { createGate } from "effector-react";
 import { combine, createEffect, createEvent, createStore, sample } from "effector";
 
-import { wordEntity } from "entities/word";
+import { EMPTY_WORD, Word, wordEntity } from "entities/word";
 import { randomFrom, uuid } from "shared/lib";
 
 import { checkGuess, checkWordExists, filterWord } from "./lib";
@@ -17,7 +17,7 @@ export const guessSubmitted = createEvent<React.FormEvent<HTMLFormElement>>();
 export const guessAnimationEnded = createEvent();
 export const hintRequested = createEvent();
 
-export const $answer = createStore<string>("");
+export const $answer = createStore<Word>(EMPTY_WORD);
 export const $guessCount = createStore<number>(MAX_GUESSES);
 export const $guesses = createStore<Guess[]>([]);
 export const $userInput = createStore<string>("");
@@ -25,7 +25,7 @@ export const $gameStatus = createStore<GameStatus>("running");
 export const $letterStatuses = createStore<Record<string, Status>>({});
 export const $error = createStore<string>("");
 export const $hintsCount = createStore<number>(0);
-export const $visibleInput = combine($hintsCount, $answer, $userInput, (hintsCount, answer, userInput) => (answer.slice(0, hintsCount) + userInput).slice(0, answer.length));
+export const $visibleInput = combine($hintsCount, $answer, $userInput, (hintsCount, answer, userInput) => (answer.word.slice(0, hintsCount) + userInput).slice(0, answer.word.length));
 
 const guessSubmittedFx = createEffect(
   async (event: React.FormEvent<HTMLFormElement>) => {
@@ -70,7 +70,7 @@ sample({
   clock: gameStarted,
   source: wordEntity.$wordStore,
   filter: (words) => words.length > 0,
-  fn: (words, _) => randomFrom(words.filter(filterWord)).word.toUpperCase(),
+  fn: (words, _) => randomFrom(words.filter(filterWord)),
   target: $answer,
 });
 
@@ -109,7 +109,7 @@ sample({
   },
   filter: (_, event) => !!(event.key.length === 1 && event.key.match(/[A-Z]/i)),
   fn: ({ answer, userInput }, event) => {
-    const value = (userInput + event.key.toUpperCase()).slice(0, answer.length);
+    const value = (userInput + event.key.toUpperCase()).slice(0, answer.word.length);
     return value;
   },
   target: $userInput,
@@ -131,7 +131,7 @@ sample({
   },
   fn: ({ input, answer }, event) => {
     const letter = event.currentTarget.dataset.letter;
-    return (input + letter).slice(0, answer.length);
+    return (input + letter).slice(0, answer.word.length);
   },
   target: $userInput,
 });
@@ -164,12 +164,12 @@ sample({
 
     const formData = new FormData(event.currentTarget);
     const guess = formData.get("guess") || "";
-    console.log({ guess });
+
     return (
       status === "running" &&
       typeof guess === "string" &&
-      answer.length > 0 &&
-      guess.length === answer.length
+      answer.word.length > 0 &&
+      guess.length === answer.word.length
     );
   },
   fn: (_, event) => event,
@@ -182,7 +182,7 @@ sample({
     guesses: $guesses,
     answer: $answer,
   },
-  filter: ({ answer }, guess) => guess.length === answer.length,
+  filter: ({ answer }, guess) => guess.length === answer.word.length,
   fn: (source, guess) => [
     ...source.guesses,
     {
@@ -196,7 +196,7 @@ sample({
 sample({
   clock: guessSubmittedFx.doneData,
   source: $answer,
-  filter: (answer, guess) => guess.length === answer.length,
+  filter: (answer, guess) => guess.length === answer.word.length,
   fn: () => "",
   target: $userInput,
 });
@@ -221,7 +221,7 @@ sample({
         missing: 0,
       };
 
-      const check = checkGuess(guess.value, answer);
+      const check = checkGuess(guess.value.toUpperCase(), answer.word.toUpperCase());
 
       check.forEach((letterStatus) => {
         if (
@@ -242,7 +242,7 @@ sample({
   clock: guessAnimationEnded,
   source: { guesses: $guesses, answer: $answer },
   fn: ({ answer, guesses }) => {
-    if (guesses.some((guess) => guess.value === answer)) {
+    if (guesses.some((guess) => guess.value.toUpperCase() === answer.word.toUpperCase())) {
       return "won";
     }
     if (guesses.length >= MAX_GUESSES) {

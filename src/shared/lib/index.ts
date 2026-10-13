@@ -26,7 +26,7 @@ export const range = (
 };
 
 export const randomFrom = <T = unknown>(arr: T[]): T => {
-  const index = Math.round(Math.random() * arr.length);
+  const index = Math.floor(Math.random() * arr.length);
   return arr[index];
 };
 

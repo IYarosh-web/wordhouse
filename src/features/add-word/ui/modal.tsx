@@ -19,7 +19,7 @@ export function AddWordModal() {
                 className="flex justify-between items-center text-xl font-bold px-6 py-2 bg-amber-200"
               >
                 Add word
-                <Button className="p-2" onClick={handleClose}>
+                <Button autoFocus className="p-2" onClick={handleClose}>
                   <Icons.Xmark />
                 </Button>
               </DialogTitle>

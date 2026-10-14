@@ -44,7 +44,7 @@ export function EditWordModal() {
                       <Icons.TrashBin />
                     </Button>
                   </form>
-                  <Button className="p-2" onClick={handleClose}>
+                  <Button autoFocus className="p-2" onClick={handleClose}>
                     <Icons.Xmark />
                   </Button>
                 </div>

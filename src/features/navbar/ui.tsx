@@ -19,7 +19,7 @@ function _Navbar(_: PropsWithChildren, ref: React.ForwardedRef<HTMLElement>) {
   return (
     <nav className="flex gap-2" tabIndex={0} ref={ref}>
       <motion.div
-        className="w-8 h-8 border-t-8 border-amber-200 bg-white"
+        className="w-8 h-8 border-t-8 border-amber-200 bg-white z-10"
         layoutId="word"
       />
       {tabs.map((tab, index) => (

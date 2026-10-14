@@ -1,7 +1,7 @@
 import { Sentence, Word, WordDTO } from "./types";
 
 export function isWordValid(word: Word): boolean {
-  if (Object.keys(word).length !== 5) {
+  if (Object.keys(word).length !== 7) {
     return false;
   }
   if (!word.id || !word.word) {

@@ -6,7 +6,6 @@ import { GameStatus } from "shared/lib/types";
 
 export const $answer = createStore("");
 export const $sentenceToFill = createStore("");
-export const $showAnswer = createStore(false);
 export const $hintsCount = createStore(0);
 export const $gameStatus = createStore<GameStatus>("running");
 export const $input = createStore<string>("");
@@ -18,6 +17,12 @@ export const hintRequested = createEvent();
 export const inputChanged = createEvent<React.ChangeEvent<HTMLInputElement>>();
 
 export const gameGate = createGate();
+
+$answer.reset(gameRestarted);
+$hintsCount.reset(gameRestarted);
+$input.reset(gameRestarted);
+$message.reset(gameRestarted);
+$gameStatus.reset(gameRestarted);
 
 const gamePrepared = sample({
   clock: [gameGate.open, gameRestarted],

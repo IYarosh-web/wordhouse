@@ -20,17 +20,16 @@ export const getSentenceToFill = (words: Word[]) => {
     ),
   );
 
-  const wordIndexStart = sentence.sentence
-    .toLowerCase()
-    .indexOf(word.word.toLowerCase());
-  const wordIndexEnd = wordIndexStart + word.word.length;
-
-  const sentenceWithGap =
-    sentence.sentence.slice(0, wordIndexStart) +
-    new Array(word.word.length).fill("_").join("") +
-    sentence.sentence.slice(wordIndexEnd);
   return {
     word: word.word,
-    sentence: sentenceWithGap,
+    sentence: sentence.sentence,
   };
 };
+
+export const hideAnswerInSentence = (sentence: string, word: string, hintsCount: number = 0, showAnswer: boolean = false) => {
+  const wordStartIndex = sentence.toUpperCase().indexOf(word.toUpperCase());
+  const wordEndIndex = wordStartIndex + sentence.slice(wordStartIndex).search(/(\s|\,|\.|$)/);
+  const answer = sentence.slice(wordStartIndex, wordEndIndex).split('').map((l, i) => (showAnswer ||  i < hintsCount) ? l : '_').join('');
+
+  return sentence.slice(0, wordStartIndex) + answer + sentence.slice(wordEndIndex);
+}

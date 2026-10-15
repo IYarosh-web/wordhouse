@@ -17,8 +17,8 @@ export function WidgetsList() {
           <NavLink className="cursor-pointer" to="/widgets/sentence-create">
             Sentence Create
           </NavLink>
-          <NavLink className="cursor-pointer" to="/widgets/word-by-sentence">
-            Guess word by sentence
+          <NavLink className="cursor-pointer" to="/widgets/word-by-definition">
+            Guess word by definition
           </NavLink>
         </li>
       </ul>

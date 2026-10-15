@@ -87,5 +87,5 @@ export function isCommandKeyEvent(event: KeyboardEvent) {
     return event.key === 'Alt';
   }
 
-  return event.ctrlKey;
+  return event.key === 'Control';
 }

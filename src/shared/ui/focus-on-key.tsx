@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { isCommandKeyEvent } from "shared/lib/keyboard-shortcut";
 
 type Props = {
@@ -12,17 +12,18 @@ function FocusOnCtrlKey({
   disabled = false,
 }: React.PropsWithChildren<Props>) {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const commandKeyPressed = useRef(false);
+  const [commandKeyPressed, setCommandKeyPressed] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      console.log('huh?', event);
       if (disabled) return;
 
       if (isCommandKeyEvent(event)) {
-        commandKeyPressed.current = true;
+        setCommandKeyPressed(true);
       }
 
-      if (commandKeyPressed.current && event.key === keyCode) {
+      if (commandKeyPressed && event.key === keyCode) {
         event.preventDefault();
         if (wrapperRef.current?.firstChild instanceof HTMLElement) {
           wrapperRef.current.firstChild.focus();
@@ -31,8 +32,9 @@ function FocusOnCtrlKey({
     };
 
     const handleKeyUp = (event: KeyboardEvent) => {
+      console.log('huh?', event);
       if (isCommandKeyEvent(event)) {
-        commandKeyPressed.current = false;
+        setCommandKeyPressed(false);
       }
     };
 
@@ -43,7 +45,7 @@ function FocusOnCtrlKey({
       window.removeEventListener("keydown", handleKeyDown, true);
       window.removeEventListener("keyup", handleKeyUp, true);
     }
-  }, [disabled, keyCode]);
+  }, [disabled, keyCode, commandKeyPressed]);
 
   return (
     <div className="contents" ref={wrapperRef}>

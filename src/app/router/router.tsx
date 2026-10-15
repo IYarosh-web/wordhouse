@@ -6,7 +6,7 @@ import { Login } from "pages/login";
 import { WidgetWordle } from "pages/wordle";
 import { SentenceCreateWidget } from "pages/sentence-create";
 import { SentenceFillWidget } from "pages/sentence-fill";
-import { GuessWordBySentenceWidget } from "pages/word-by-sentence";
+import { GuessWordByDefinitionWidget } from "pages/word-by-definition";
 
 import { Protected } from "./protected";
 
@@ -83,8 +83,8 @@ export function AppRouter() {
               element={<SentenceFillWidget />}
             />
             <Route
-              path="/widgets/word-by-sentence"
-              element={<GuessWordBySentenceWidget />}
+              path="/widgets/word-by-definition"
+              element={<GuessWordByDefinitionWidget />}
             />
             <Route
               path="/settings"

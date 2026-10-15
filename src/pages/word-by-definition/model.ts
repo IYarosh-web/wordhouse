@@ -3,17 +3,19 @@ import { createGate } from "effector-react";
 import { WordApi } from "entities/word/api/types";
 import React from "react";
 import { randomFrom } from "shared/lib";
+import { GameStatus } from "shared/lib/types";
 
-type WordBySentenceWidgetDeps = {
+type WordByDefinitionWidgetDeps = {
     wordsApi: WordApi
 }
 
-export const createWordBySentenceWidget = (deps: WordBySentenceWidgetDeps) => {
+export const createWordByDefinitionWidget = (deps: WordByDefinitionWidgetDeps) => {
     const $answer = createStore('');
     const $revealCount = createStore(1);
-    const $sentencesPool = createStore(['']);
-    const $revealedSentences = combine($sentencesPool, $revealCount, (pool, hints) => pool.slice(0, hints));
+    const $definitionsPool = createStore(['']);
+    const $revealedDefinitions = combine($definitionsPool, $revealCount, (pool, hints) => pool.slice(0, hints));
     const $message = createStore('');
+    const $status = createStore<GameStatus>('running')
     
     const guessSubmitted = createEvent<React.FormEvent<HTMLFormElement>>();
     const hintRequested = createEvent();
@@ -23,21 +25,21 @@ export const createWordBySentenceWidget = (deps: WordBySentenceWidgetDeps) => {
 
     const gameRestartFx = createEffect(async () => {
         const words = await deps.wordsApi.getWords();
-        const validWords = words.filter(w => w.sentences.length > 0);
-        console.log({validWords});
+        const validWords = words.filter(w => w.definitions.length > 0);
         const word = randomFrom(validWords);
 
         return {
             word: word.word,
-            sentences: word.sentences.map(s => s.sentence),
+            definitions: word.definitions.map(d => d.definition),
         }
     });
     
     $answer.reset(gameRestartRequested);
     $revealCount.reset(gameRestartRequested);
-    $sentencesPool.reset(gameRestartRequested);
+    $definitionsPool.reset(gameRestartRequested);
     $answer.reset(gameRestartRequested);
     $message.reset(gameRestartRequested);
+    $status.reset(gameRestartRequested);
 
     sample({
         clock: gameRestartRequested,
@@ -47,28 +49,29 @@ export const createWordBySentenceWidget = (deps: WordBySentenceWidgetDeps) => {
     sample({
         clock: guessSubmitted,
         source: $answer,
-        fn: (answer, event) => {
+        fn: (answer, event): GameStatus => {
             event.preventDefault();
             const formData = new FormData(event.currentTarget);
             
             const guess = formData.get('guess');
 
             if (!guess || typeof guess !== 'string') {
-                return;
+                return 'running';
             }
 
-            if (guess === answer) {
+            if (guess.toUpperCase() === answer.toUpperCase()) {
                 const guessField = event.currentTarget.elements.namedItem('guess');
                 if (guessField instanceof HTMLInputElement) {
                     guessField.value = '';
                 }
 
-                return 'You\'ve won';
+                return 'won';
             }
 
 
-            return 'Wrong guess';
-        }
+            return 'running';
+        },
+        target: $status,
     });
 
     sample({
@@ -86,8 +89,8 @@ export const createWordBySentenceWidget = (deps: WordBySentenceWidgetDeps) => {
 
     sample({
         clock: gameRestartFx.doneData,
-        fn: (state) => state.sentences,
-        target: $sentencesPool,
+        fn: (state) => state.definitions,
+        target: $definitionsPool,
     });
 
     sample({
@@ -98,9 +101,10 @@ export const createWordBySentenceWidget = (deps: WordBySentenceWidgetDeps) => {
     return {
         $answer,
         $revealCount,
-        $sentencesPool,
-        $revealedSentences,
+        $definitionsPool,
+        $revealedDefinitions,
         $message,
+        $status,
 
         guessSubmitted,
         hintRequested,

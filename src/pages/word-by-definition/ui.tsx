@@ -1,5 +1,5 @@
 import { useGate, useUnit } from "effector-react";
-import { Button, Input } from "shared/ui";
+import { Button, FocusOnCtrlKey, Input, KeyboardShortcut } from "shared/ui";
 import { wordByDefinitionModel } from ".";
 import { WordLinkComponent } from "features/word-link";
 
@@ -25,7 +25,12 @@ export function GuessWordByDefinitionWidget() {
                 ))}
             </section>
             <form onSubmit={submit} className="flex items-center flex-col gap-2">
-                <Input required name="guess" placeholder="Your guess" />
+                <div className="flex gap-2 m-2">
+                    <FocusOnCtrlKey keyCode="ArrowRight">
+                        <Input required name="guess" placeholder="Your guess" />
+                    </FocusOnCtrlKey>
+                    <KeyboardShortcut keys={['ArrowRight']} />
+                </div>
                 <div className="flex gap-2">
                     <Button className="py-1 px-2" type="submit">Submit</Button>
                     <Button className="py-1 px-2" onClick={requestHint}>Hint</Button>

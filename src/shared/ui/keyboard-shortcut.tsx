@@ -5,6 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { motion } from 'motion/react';
 
 import {
   formatShortcutKey,
@@ -74,9 +75,20 @@ function KeyboardShortcut({
 
   const isMac = isMacPlatform();
 
+  if (!isVisible) return null;
+
   return (
-    <span
-      className={`inline-flex items-center transition-opacity duration-300 gap-1 ${className} ${isVisible ? "opacity-100" : "opacity-0"}`}
+    <motion.span
+      className={`inline-flex relative items-center gap-1 ${className}"}`}
+      initial={{
+        opacity: 0,
+        top: '-10px',
+      }}
+      animate={{
+        opacity: 1,
+        top: 0,
+      }}
+      transition={{duration: 0.4, type: "spring" }}
     >
       {keys.map((key, index) => (
         <Fragment key={`${key}-${index}`}>
@@ -88,7 +100,7 @@ function KeyboardShortcut({
           <Kbd>{formatShortcutKey(key, isMac)}</Kbd>
         </Fragment>
       ))}
-    </span>
+    </motion.span>
   );
 }
 

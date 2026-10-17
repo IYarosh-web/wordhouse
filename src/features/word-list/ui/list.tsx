@@ -7,7 +7,6 @@ import {
   FocusOnCtrlKey,
   Icons,
   Input,
-  KeyboardShortcut,
 } from "shared/ui";
 import { MODALS, modalSearch } from "shared/routing";
 import { SortSelector } from "./sort-selector";
@@ -27,9 +26,9 @@ export function WordList() {
       <h1 className="flex items-center gap-2">
         <span className="pr-1">Word List</span>
         <motion.div layoutId="add-word" className="flex">
-          <FocusOnCtrlKey keyCode="ArrowRight">
+          <FocusOnCtrlKey shortcutPosition="right-middle" dx={16} keyCode="ArrowRight">
             <Button
-              className="p-1"
+              className="flex p-1"
               as={Link}
               to={{ search: modalSearch(MODALS.addWord) }}
             >
@@ -37,7 +36,6 @@ export function WordList() {
             </Button>
           </FocusOnCtrlKey>
         </motion.div>
-        <KeyboardShortcut keys={["ArrowRight"]} />
         <SortSelector />
       </h1>
       <Input onChange={changeFilter} value={filter} placeholder="Search..." />

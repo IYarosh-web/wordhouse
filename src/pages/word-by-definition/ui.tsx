@@ -13,11 +13,10 @@ export function GuessWordByDefinitionWidget() {
         wordByDefinitionModel.gameRestartRequested,
     ]);
 
-    console.log({status});
     useGate(wordByDefinitionModel.Gate);
 
     return (
-        <div className="w-[500px] m-auto text-center">
+        <div className="w-125 m-auto text-center">
             <section>
                 {status === 'won' && <span>You've won! The answer is <WordLinkComponent autoFocus word={answer} /></span>}
                 {definitions.map(s => (

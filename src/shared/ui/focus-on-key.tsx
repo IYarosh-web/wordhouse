@@ -16,7 +16,6 @@ function FocusOnCtrlKey({
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      console.log('huh?', event);
       if (disabled) return;
 
       if (isCommandKeyEvent(event)) {
@@ -32,7 +31,6 @@ function FocusOnCtrlKey({
     };
 
     const handleKeyUp = (event: KeyboardEvent) => {
-      console.log('huh?', event);
       if (isCommandKeyEvent(event)) {
         setCommandKeyPressed(false);
       }

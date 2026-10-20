@@ -5,18 +5,8 @@ import { useEffect } from "react";
 import { Button, FocusOnCtrlKey, Icons, KeyboardShortcut } from "shared/ui";
 
 import {
-  $answer,
-  $error,
-  $gameStatus,
-  $guesses,
-  $hintsCount,
-  $userInput,
-  $visibleInput,
-  gameStarted,
-  guessSubmitted,
-  hintRequested,
-  wordleGate,
-} from "../model";
+  wordleModel
+} from "../";
 import { Results } from "./results";
 import { Keyboard } from "./keyboard";
 import { WordLinkComponent } from "features/word-link";
@@ -36,19 +26,19 @@ export function WidgetWordle() {
     requestHint,
     hintsCount] =
     useUnit([
-      $answer,
-      $visibleInput,
-      $userInput,
-      $guesses,
-      guessSubmitted,
-      $error,
-      $gameStatus,
-      gameStarted,
-      hintRequested,
-      $hintsCount,
+      wordleModel.$answer,
+      wordleModel.$visibleInput,
+      wordleModel.$userInput,
+      wordleModel.$guesses,
+      wordleModel.guessSubmitted,
+      wordleModel.$error,
+      wordleModel.$gameStatus,
+      wordleModel.gameStarted,
+      wordleModel.hintRequested,
+      wordleModel.$hintsCount,
     ]);
 
-  useGate(wordleGate);
+  useGate(wordleModel.Gate);
 
   useEffect(() => {
     const handleSubmit = (e: KeyboardEvent) => {

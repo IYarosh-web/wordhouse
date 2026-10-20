@@ -2,7 +2,7 @@ import { range } from "shared/lib";
 
 import { useUnit } from "effector-react";
 
-import { guessAnimationEnded } from "../model";
+import { wordleModel } from "../";
 import { checkGuess } from "../lib";
 
 import styles from "./guess.module.css";
@@ -13,7 +13,7 @@ type Props = {
 };
 
 export function Guess({ value = "", answer }: Props) {
-  const [handleAnimationEnded] = useUnit([guessAnimationEnded]);
+  const [handleAnimationEnded] = useUnit([wordleModel.guessAnimationEnded]);
 
   const result = checkGuess(value, answer);
 
@@ -29,7 +29,7 @@ export function Guess({ value = "", answer }: Props) {
   return (
     <div className="flex gap-2">
       {range(answer.length).map((_, i) => (
-        <div key={i} className={`w-6 h-6 border-1 relative ${styles.wrap}`}>
+        <div key={i} className={`w-6 h-6 border relative ${styles.wrap}`}>
           {result[i]?.char && (
             <div
               className={`absolute inset-0 flex items-center justify-center ${styles[result[i]?.status]} ${styles.letter}`}

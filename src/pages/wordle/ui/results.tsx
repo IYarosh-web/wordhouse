@@ -2,7 +2,7 @@ import { useUnit } from "effector-react";
 import { range } from "shared/lib";
 
 import { Guess as GuessType } from "../types";
-import { $guessCount } from "../model";
+import { wordleModel } from "../";
 import { Guess } from "./guess";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 };
 
 export function Results({ answer, guesses }: Props) {
-  const [count] = useUnit([$guessCount]);
+  const [count] = useUnit([wordleModel.$guessCount]);
 
   return (
     <div className="flex flex-col gap-2 items-center">

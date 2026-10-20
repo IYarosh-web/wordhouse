@@ -1,7 +1,7 @@
 import { useUnit } from "effector-react";
 import { useEffect } from "react";
 
-import { letterClicked, keyPressed, $letterStatuses } from "../model";
+import { wordleModel } from "../";
 
 import styles from "./guess.module.css";
 
@@ -13,9 +13,9 @@ const pattern = [
 
 export function Keyboard() {
   const [handleLetterClick, handleLetterPress, letterStatuses] = useUnit([
-    letterClicked,
-    keyPressed,
-    $letterStatuses,
+    wordleModel.letterClicked,
+    wordleModel.keyPressed,
+    wordleModel.$letterStatuses,
   ]);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export function Keyboard() {
             <button
               key={letter}
               data-letter={letter}
-              className={`w-6 h-6 border-1 ${styles[letterStatuses[letter]]}`}
+              className={`w-6 h-6 border ${styles[letterStatuses[letter]]}`}
               onClick={handleLetterClick}
             >
               {letter}

@@ -5,8 +5,8 @@ export function WidgetsList() {
   return (
     <div className="">
       <ul>
-        <li className="text-left flex flex-col gap-2">
-          <FocusOnCtrlKey keyCode="ArrowRight">
+        <li className="text-left flex flex-col gap-2 items-start">
+          <FocusOnCtrlKey shortcutPosition="right-middle" dx={20} keyCode="ArrowRight">
             <NavLink className="cursor-pointer" to="/widgets/wordle">
               Wordle
             </NavLink>

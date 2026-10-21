@@ -1,9 +1,11 @@
-import { describe, expect, test } from "vitest";
-import { createWordleFactory } from "./model";
+import { allSettled, fork } from "effector";
+
 import { createMockWordApi } from "entities/word/api/mock";
 import { mockWord } from "entities/word/model/mock";
 import { Word } from "entities/word";
-import { allSettled, fork } from "effector";
+
+import { describe, expect, test } from "vitest";
+import { createWordleFactory } from "./model";
 
 const MOCK_WORDS: Word[] = [
     mockWord({ word: 'Bash' }),
@@ -19,8 +21,8 @@ describe('Wordle factory', () => {
 
         const model = createWordleFactory({ wordsApi });
 
-        // allSettled(model.gameStarted, { scope });
+        allSettled(model.gameStarted, { scope });
 
-        // expect(scope.getState(model.$answer)).not.toBeFalsy();
+        expect(scope.getState(model.$answer)).not.toBeFalsy();
     });
 });

@@ -5,16 +5,15 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx",
     "allowJs": true,
-    /* Path mapping for FSD architecture */
-    "baseUrl": "./src",
     "paths": {
-      "app/*": ["app/*"],
-      "pages/*": ["pages/*"],
-      "widgets/*": ["widgets/*"],
-      "features/*": ["features/*"],
-      "entities/*": ["entities/*"],
-      "shared/*": ["shared/*"],
-      "shared/ui": ["shared/ui/index"]
+      "app/*": ["./src/app/*"],
+      "pages/*": ["./src/pages/*"],
+      "widgets/*": ["./src/widgets/*"],
+      "features/*": ["./src/features/*"],
+      "entities/*": ["./src/entities/*"],
+      "shared/*": ["./src/shared/*"],
+      "shared/ui": ["./src/shared/ui/index"],
+      "*": ["./src/*"]
     }
   },
   "include": ["src/**/*"]

@@ -2,13 +2,14 @@ import React from "react";
 import { createGate } from "effector-react";
 import { combine, createEffect, createEvent, createStore, sample } from "effector";
 
-import { EMPTY_WORD, Word, wordEntity } from "entities/word";
+import { EMPTY_WORD, Word } from "entities/word";
+import { WordApi } from "entities/word/api/types";
+
 import { randomFrom, uuid } from "shared/lib";
 
 import { checkGuess, checkWordExists, filterWord } from "./lib";
 import { GameStatus, Guess, Status } from "./types";
 import { MAX_GUESSES, WORD_EXIST_CHECK } from "./const";
-import { WordApi } from "entities/word/api/types";
 
 type Deps = {
   wordsApi: WordApi;

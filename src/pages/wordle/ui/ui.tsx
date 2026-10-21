@@ -92,7 +92,6 @@ export function WidgetWordle() {
             ))}
           </div>
           <div className="flex gap-2 items-center justify-center">
-            <KeyboardShortcut keys={["ArrowRight"]} />
             <FocusOnCtrlKey keyCode="ArrowRight">
               <Button className="w-min px-2 py-1" type="submit" ref={submitButtonRef}>
                 Submit

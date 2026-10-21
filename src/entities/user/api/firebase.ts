@@ -2,7 +2,7 @@ import { Auth, getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { UserApi } from "./types";
 import { User } from "../model/types";
 
-class FirebaseUserApi implements UserApi {
+export class FirebaseUserApi implements UserApi {
   private readonly auth: Auth;
   private user: User | null = null;
 
@@ -52,5 +52,3 @@ class FirebaseUserApi implements UserApi {
     return this.user;
   }
 }
-
-export const firebaseUserApi = new FirebaseUserApi();

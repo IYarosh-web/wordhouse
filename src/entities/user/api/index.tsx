@@ -1,4 +1,6 @@
-import { localUserApi } from "./localUser";
-import { firebaseUserApi } from "./firebase";
+import { LocalUserApi } from "./localUser";
+import { FirebaseUserApi } from "./firebase";
 
-export const userApi = firebaseUserApi;
+const isDevelopment = import.meta.env.VITE_ENVIRONMENT === 'development';
+
+export const userApi = isDevelopment ? new LocalUserApi() : new FirebaseUserApi();

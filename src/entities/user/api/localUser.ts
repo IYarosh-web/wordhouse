@@ -1,7 +1,6 @@
 import { User } from "../model/types";
 import { UserApi } from "./types";
-
-class LocalUserApi implements UserApi {
+export class LocalUserApi implements UserApi {
   user: User | null = null;
 
   getUser(): User {
@@ -35,5 +34,3 @@ class LocalUserApi implements UserApi {
     });
   }
 }
-
-export const localUserApi = new LocalUserApi();

@@ -29,6 +29,7 @@
   "devDependencies": {
     "@eslint/js": "^9.39.5",
     "@gravity-ui/icons": "^2.21.0",
+    "@types/node": "^26.6.5",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react": "^5.0.3",

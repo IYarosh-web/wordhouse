@@ -103,7 +103,7 @@ function FocusOnCtrlKey({
   }, [disabled, keyCode, commandKeyPressed]);
 
   return (
-    <div className="flex relative isolate" ref={wrapperRef}>
+    <div className="flex relative" ref={wrapperRef}>
       {children}
       {commandKeyPressed && (
         <div className="absolute z-10" style={{left: `calc(${position.left} + ${dx}px`, top: `calc(${position.top} + ${dy}px)`, transform: `translate(-50%, -50%)`}}>

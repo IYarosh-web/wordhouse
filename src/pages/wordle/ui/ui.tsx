@@ -2,7 +2,7 @@ import { useGate, useUnit } from "effector-react";
 import { useRef } from "react";
 import { useEffect } from "react";
 
-import { Button, FocusOnCtrlKey, Icons, KeyboardShortcut } from "shared/ui";
+import { Button, FocusOnCtrlKey, Icons } from "shared/ui";
 
 import {
   wordleModel

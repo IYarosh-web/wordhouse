@@ -25,9 +25,14 @@ $message.reset(gameRestarted);
 $gameStatus.reset(gameRestarted);
 
 const gamePrepared = sample({
-  clock: [gameGate.open, gameRestarted],
+  clock: gameRestarted,
   source: wordEntity.$wordStore,
   fn: getSentenceToFill,
+});
+
+sample({
+  clock: gameGate.open,
+  target: gameRestarted,
 });
 
 sample({

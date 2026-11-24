@@ -46,6 +46,7 @@ export function EditWordForm() {
             placeholder="Definition"
             name="definition"
             className="flex-1"
+            required
           />
           <Input type="hidden" name="wordId" value={activeWord.id} />
           <Button className="p-2" type="submit">
@@ -72,6 +73,7 @@ export function EditWordForm() {
             placeholder="Translation"
             name="translation"
             className="flex-1"
+            required
           />
           <Input type="hidden" name="wordId" value={activeWord.id} />
           <Button className="p-2" type="submit">
@@ -98,6 +100,7 @@ export function EditWordForm() {
             placeholder="Sentence"
             name="sentence"
             className="flex-1"
+            required
           />
           <Input type="hidden" name="wordId" value={activeWord.id} />
           <Button className="p-2" type="submit">

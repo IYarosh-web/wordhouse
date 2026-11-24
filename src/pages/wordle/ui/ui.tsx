@@ -40,15 +40,31 @@ export function WidgetWordle() {
 
   useGate(wordleModel.Gate);
 
+  const handleSubmitGuess: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(e.currentTarget);
+    const guess = formData.get('guess');
+
+    if (typeof guess !== 'string') {
+      return;
+    }
+
+    submitGuess(guess);
+  }
+
   useEffect(() => {
     const handleSubmit = (e: KeyboardEvent) => {
-      if (e.key === "Enter") {
+      console.log({e});
+      if (e.key === "Enter" && input.length === answer.word.length) {
+        console.log('prevent', input)
+        e.preventDefault();
         submitButtonRef.current?.click();
       }
     };
-    document.addEventListener("keydown", handleSubmit);
-    return () => document.removeEventListener("keydown", handleSubmit);
-  }, []);
+    document.addEventListener("keydown", handleSubmit, true);
+    return () => document.removeEventListener("keydown", handleSubmit, true);
+  }, [input, answer]);
 
   return (
     <>
@@ -77,7 +93,7 @@ export function WidgetWordle() {
         <form
           action="#"
           className="min-h-20 flex flex-col gap-2"
-          onSubmit={submitGuess}
+          onSubmit={handleSubmitGuess}
         >
           <span className="text-center">Your guess:</span>
           <input type="text" name="guess" value={visibleInput} className="hidden" />

@@ -1,4 +1,3 @@
-import React from "react";
 import { createGate } from "effector-react";
 import { combine, createEffect, createEvent, createStore, sample } from "effector";
 
@@ -17,10 +16,9 @@ type Deps = {
 
 export const createWordleFactory = (deps: Deps) => {
   const gameStarted = createEvent();
-  const keyPressed = createEvent<KeyboardEvent>();
-  const letterClicked =
-    createEvent<React.MouseEvent<HTMLButtonElement, MouseEvent>>();
-  const guessSubmitted = createEvent<React.FormEvent<HTMLFormElement>>();
+  const newInputCharAdded = createEvent<string>();
+  const inputLastCharRemoved = createEvent();
+  const guessSubmitted = createEvent<string>();
   const guessAnimationEnded = createEvent();
   const hintRequested = createEvent();
 
@@ -35,16 +33,7 @@ export const createWordleFactory = (deps: Deps) => {
   const $visibleInput = combine($hintsCount, $answer, $userInput, (hintsCount, answer, userInput) => (answer.word.slice(0, hintsCount) + userInput).slice(0, answer.word.length));
   
   const guessSubmittedFx = createEffect(
-    async (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-  
-      const formData = new FormData(event.currentTarget);
-      const guess = formData.get("guess") || "";
-  
-      if (typeof guess !== "string") {
-        return "";
-      }
-  
+    async (guess: string) => {
       const exists = WORD_EXIST_CHECK ? await checkWordExists(guess) : true;
       if (!exists) {
         throw new Error("Word not found");
@@ -121,40 +110,35 @@ export const createWordleFactory = (deps: Deps) => {
   
   // START: Handle user input
   sample({
-    clock: keyPressed,
+    clock: newInputCharAdded,
     source: {
       answer: $answer,
-      userInput: $userInput,
+      userInput: $userInput
     },
-    filter: (_, event) => !!(event.key.length === 1 && event.key.match(/[A-Z]/i)),
-    fn: ({ answer, userInput }, event) => {
-      const value = (userInput + event.key.toUpperCase()).slice(0, answer.word.length);
-      return value;
+    filter: ({userInput, answer}, char) => {
+      if (char.length !== 1 || !char.match(/[A-Z]/i)) {
+        return false;
+      }
+
+      if (userInput.length >= answer.word.length) {
+        return false;
+      }
+
+      return true;
+    },
+    fn: ({ userInput }, newChar) => {
+      return userInput + newChar;
     },
     target: $userInput,
   });
-  
+
   sample({
-    clock: keyPressed,
-    filter: (_, event) => event.key === "Backspace",
+    clock: inputLastCharRemoved,
     source: $userInput,
-    fn: (userInput) => userInput.slice(0, -1),
+    fn: input => input.slice(0, -1),
     target: $userInput,
   });
-  
-  sample({
-    clock: letterClicked,
-    source: {
-      input: $userInput,
-      answer: $answer,
-    },
-    fn: ({ input, answer }, event) => {
-      const letter = event.currentTarget.dataset.letter;
-      return (input + letter).slice(0, answer.word.length);
-    },
-    target: $userInput,
-  });
-  
+
   sample({
     clock: hintRequested,
     source: $hintsCount,
@@ -178,12 +162,7 @@ export const createWordleFactory = (deps: Deps) => {
       status: $gameStatus,
       answer: $answer,
     },
-    filter: ({ status, answer }, event) => {
-      event.preventDefault();
-  
-      const formData = new FormData(event.currentTarget);
-      const guess = formData.get("guess") || "";
-  
+    filter: ({ status, answer }, guess) => {
       return (
         status === "running" &&
         typeof guess === "string" &&
@@ -295,8 +274,8 @@ export const createWordleFactory = (deps: Deps) => {
 
   return {
     gameStarted,
-    keyPressed,
-    letterClicked,
+    newInputCharAdded,
+    inputLastCharRemoved,
     guessSubmitted,
     guessAnimationEnded,
     hintRequested,

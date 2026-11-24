@@ -12,15 +12,30 @@ const pattern = [
 ];
 
 export function Keyboard() {
-  const [handleLetterClick, handleLetterPress, letterStatuses] = useUnit([
-    wordleModel.letterClicked,
-    wordleModel.keyPressed,
+  const [letterStatuses, addNewChar, removeLastChar] = useUnit([
     wordleModel.$letterStatuses,
+    wordleModel.newInputCharAdded,
+    wordleModel.inputLastCharRemoved,
   ]);
+
+  const handleLetterClick: React.MouseEventHandler<HTMLButtonElement> = e => {
+    const letter = e.currentTarget.dataset.letter;
+    if (typeof letter !== 'string') {
+      return;
+    }
+
+    addNewChar(letter);
+  }
 
   useEffect(() => {
     const keyboardHandler = (e: KeyboardEvent) => {
-      handleLetterPress(e);
+      if (e.code.startsWith('Key')) {
+        addNewChar(e.code.slice(3));
+      }
+
+      if (e.code === 'Backspace') {
+        removeLastChar();
+      }
     };
 
     document.addEventListener("keydown", keyboardHandler);

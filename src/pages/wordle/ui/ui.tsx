@@ -55,9 +55,7 @@ export function WidgetWordle() {
 
   useEffect(() => {
     const handleSubmit = (e: KeyboardEvent) => {
-      console.log({e});
-      if (e.key === "Enter" && input.length === answer.word.length) {
-        console.log('prevent', input)
+      if (e.key === "Enter" && visibleInput.length === answer.word.length) {
         e.preventDefault();
         submitButtonRef.current?.click();
       }

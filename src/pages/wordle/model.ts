@@ -48,7 +48,7 @@ export const createWordleFactory = (deps: Deps) => {
       const words = await deps.wordsApi.getWords();
 
       const validWords = words.filter(filterWord);
-      
+
       return randomFrom(validWords);
     },
   );

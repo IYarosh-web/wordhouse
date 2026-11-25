@@ -18,7 +18,7 @@ export const createWordleFactory = (deps: Deps) => {
   const gameStarted = createEvent();
   const newInputCharAdded = createEvent<string>();
   const inputLastCharRemoved = createEvent();
-  const guessSubmitted = createEvent<string>();
+  const guessSubmitted = createEvent();
   const guessAnimationEnded = createEvent();
   const hintRequested = createEvent();
 
@@ -113,14 +113,15 @@ export const createWordleFactory = (deps: Deps) => {
     clock: newInputCharAdded,
     source: {
       answer: $answer,
-      userInput: $userInput
+      userInput: $userInput,
+      hintsCount: $hintsCount,
     },
-    filter: ({userInput, answer}, char) => {
+    filter: ({userInput, answer, hintsCount}, char) => {
       if (char.length !== 1 || !char.match(/[A-Z]/i)) {
         return false;
       }
 
-      if (userInput.length >= answer.word.length) {
+      if (hintsCount + userInput.length >= answer.word.length) {
         return false;
       }
 
@@ -159,10 +160,14 @@ export const createWordleFactory = (deps: Deps) => {
   sample({
     clock: guessSubmitted,
     source: {
+      userInput: $userInput,
+      hintsCount: $hintsCount,
       status: $gameStatus,
       answer: $answer,
     },
-    filter: ({ status, answer }, guess) => {
+    filter: ({ status, answer, hintsCount, userInput }) => {
+      const guess = (answer.word.slice(0, hintsCount) + userInput).slice(0, answer.word.length);
+      debugger;
       return (
         status === "running" &&
         typeof guess === "string" &&
@@ -170,7 +175,11 @@ export const createWordleFactory = (deps: Deps) => {
         guess.length === answer.word.length
       );
     },
-    fn: (_, event) => event,
+    fn: ({ answer, hintsCount, userInput }) => {
+      const guess = (answer.word.slice(0, hintsCount) + userInput).slice(0, answer.word.length);
+
+      return guess;
+    },
     target: guessSubmittedFx,
   });
   

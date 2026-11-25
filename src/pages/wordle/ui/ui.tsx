@@ -50,7 +50,7 @@ export function WidgetWordle() {
       return;
     }
 
-    submitGuess(guess);
+    submitGuess();
   }
 
   useEffect(() => {
